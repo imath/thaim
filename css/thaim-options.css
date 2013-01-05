@@ -1,0 +1,15 @@
+.list-github, .link-wp-org {
+	width:600px;
+}
+
+.list-github label, .link-wp-org label {
+	width:100%;
+}
+
+.list-github label span, .link-wp-org label span {
+	display:block;
+}
+
+.list-github input, .link-wp-org input {
+	width:98%;
+}

@@ -1,0 +1,116 @@
+
+.thaim-hero-slide-container {
+	margin: auto;
+	margin-top:10px;
+	position: relative;
+	
+	width: 100%;
+	height: 250px;
+	overflow: hidden;
+}
+
+.thaim-hero-slide {
+	margin: auto;
+	width: 100%;
+	font-size: 14px;
+	font-size: 1rem;
+	padding: 0 20px;
+}
+
+
+.thaim-hero-slide .fivecol img {
+	max-width:100%;
+	max-height:240px;
+	border-radius: 3px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+.thaim-hero-slide .fivecol, .thaim-hero-slide .sevencol, .thaim-hero-slide .twelvecol {
+	height:250px;
+}
+.thaim-hero-slide .fivecol {
+	text-align:center;
+}
+
+.thaim-hero-slide .sevencol, .thaim-hero-slide .twelvecol {
+	padding-top:20px;
+}
+
+.thaim-slide-article {
+	position:absolute;
+}
+
+.thaim-hero-slide .sevencol .thaim-slide-article h2, 
+.thaim-hero-slide .twelvecol .thaim-slide-article h2 {
+	margin-top:20px;
+	font-size: 14px;
+	font-size: 1rem;
+	line-height: 2;
+	word-wrap: break-word;
+}
+
+.thaim-hero-slide .sevencol .thaim-slide-article h2 a, 
+.thaim-hero-slide .twelvecol .thaim-slide-article h2 a{
+	text-decoration:none;
+}
+
+.thaim-hero-slide .sevencol .thaim-slide-article p.desc, 
+.thaim-hero-slide .twelvecol .thaim-slide-article p.desc,
+.thaim-hero-slide p.readmore {
+	padding-top:10px;
+	word-wrap: break-word;
+}
+
+.thaim-slide-nav a {
+	display: inline-block;
+	text-indent: -1000%;
+	
+	background: #dcdcdc;
+	border: 1px #bcbcbc solid;
+	
+	margin: 0 6px;
+	
+	width: 11px;
+	height: 11px;
+	
+	border-radius: 50%;
+}
+
+.thaim-slide-nav a:hover {
+	background: #bababa;
+}
+
+.thaim-slide-nav .activeSlide {
+	background: #acacac;
+	border-color: #5f5f5f;
+}
+
+.adapt .thaim-slide-article p.desc{
+	display:none;
+}
+
+.adapt {
+	position:absolute;
+	top:0px;
+	padding:0!important;
+	word-wrap: break-word;
+	width:100%;
+}
+
+.adapt h2 {
+	margin-top:0px!important;
+	font-size:12px;
+	font-size: 0.857142857rem;
+	background:rgba(255, 255, 255, 0.6 );
+}
+
+.adapt p.readmore {
+	background:rgba(255, 255, 255, 0.6 );
+}
+
+.adapt h2 a,
+.adapt p.readmore a{
+	display:inline-block;
+	text-decoration:none;
+	color:#444;
+	padding:5px;
+}
