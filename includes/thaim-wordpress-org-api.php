@@ -1,6 +1,6 @@
 <?php
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Thaim_WP_Org_Api_Template {
 	var $current_plugin = -1;
@@ -83,7 +83,7 @@ class Thaim_WP_Org_Api_Template {
 	function plugins() {
 		if ( $this->current_plugin + 1 < $this->plugin_count ) {
 			return true;
-		} elseif ( $this->current_plugin + 1 == $this->plugin_count ) {
+		} else if ( $this->current_plugin + 1 == $this->plugin_count ) {
 			$this->rewind_plugins();
 		}
 
@@ -111,8 +111,8 @@ function thaim_has_plugins( $args = '' ) {
 	$page         = 1;
 	$per_page     = 20;
 	
-	$per_page = !empty( $wporg['perpage'] ) ? $wporg['perpage'] : $per_page;
-	$author   = !empty( $wporg['username'] ) ? $wporg['username'] : $author;
+	$per_page = ! empty( $wporg['perpage'] ) ? $wporg['perpage'] : $per_page;
+	$author   = ! empty( $wporg['username'] ) ? $wporg['username'] : $author;
 	
 	$defaults = array( 'page' => $page, 
 					   'per_page' => $per_page, 
@@ -202,7 +202,7 @@ function thaim_plugin_rating() {
 		$output = sprintf( __('<div>Average of %s stars out of %s votes', 'thaim'), $ratings, $num_ratings);
 		$output .= '<ul class="thaim-rating">';
 		
-		for( $i = 1 ; $i <= 5; $i++ ){
+		for ( $i = 1 ; $i <= 5; $i++ ){
 			
 			if( $rating >= 1 )
 				$icon = '&#xe08f;';
@@ -227,7 +227,7 @@ function thaim_plugin_buddypress_tag() {
 	
 	$tags = $plugins_template->plugin->tags;
 	
-	if( in_array('buddypress', $tags ) )
+	if ( in_array('buddypress', $tags ) )
 		echo apply_filters('thaim_plugin_buddypress_tag', '<h4 class="buddypress"><span aria-hidden="true" data-icon="&#xe000;"></span></h4>');
 }
 

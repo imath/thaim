@@ -819,6 +819,7 @@ article.sticky .featured-post {
 	margin: 1.714285714rem 0;
 	line-height: 1.714285714;
 }
+
 .entry-content h1,
 .comment-content h1 {
 	font-size: 21px;
@@ -1458,6 +1459,87 @@ a.backtotop:hover {
 }
 
 /* =============================================================================
+   BuddyPress
+   ========================================================================== */
+
+#buddypress div.dir-search {
+	margin:0;
+}
+
+#buddypress .profile .bp-widget h4 {
+	font-style: italic;
+	float:right;
+	color:#21759B;
+}
+
+#buddypress table.profile-fields h5 {
+	margin: 0 0 13px 0;
+	margin: 0 0 0.928571429rem 0;
+}
+#buddypress table.profile-fields tr td.label {
+	border-right:none;
+}
+#buddypress div#item-header ul#user-badges {
+	border:none;
+	display:none;
+}
+
+#buddypress div#item-header ul#user-badges li {
+	border:none;
+	padding:0;
+}
+
+#buddypress div#item-header ul#user-badges li div.badge{
+	margin: 4px;
+	margin-bottom: 23px;
+	margin-right: 10px;
+	width: 55px;
+	height: 55px;
+	border: 2px solid white;
+	border-radius: 50%;
+	box-sizing: border-box;
+}
+
+#buddypress div#item-header .badge-speaker {
+	background: white;
+	box-shadow: 0 0 0 4px #F7AD43;
+}
+
+#buddypress div#item-header .badge-plugins {
+	background: white;
+	box-shadow: 0 0 0 4px #F06723;
+}
+
+#buddypress div#item-header .badge-documentation {
+	background: white;
+	box-shadow: 0 0 0 4px #be3631;
+}
+
+#buddypress div#item-header .badge-speaker:before {
+	color: #F7AD43;
+}
+
+#buddypress div#item-header .badge-plugins:before {
+	color: #F06723;
+}
+
+#buddypress div#item-header  .badge-documentation:before {
+	color: #be3631;
+}
+
+#buddypress div#item-header ul#user-badges li div.thaimicons:before,
+#buddypress div#item-header ul#user-badges li div.dashicons:before {
+	position: relative;
+	top: 7px;
+	left: 1px;
+	font-size: 40px;
+}
+
+#buddypress div#item-header ul#user-badges li div.thaimicons:before {
+	margin-left: 4px;
+}
+
+/* =============================================================================
    Media Queries
    ========================================================================== */
 
@@ -1548,6 +1630,7 @@ a.backtotop:hover {
 	.commentlist article {
 		border-bottom:dotted 1px #C9C9C9;
 	}
+
 }
 
 /* 1024px and greater */
@@ -1555,6 +1638,18 @@ a.backtotop:hover {
 	.thaim-post-desc {
 		margin: 24px 0;
 		margin: 1.714285714rem 0;
+	}
+
+	#buddypress div#item-header {
+		position:relative;
+	}
+	#buddypress div#item-header ul#user-badges {
+		position: absolute;
+		top:0;
+		right:0;
+		float:right;
+		overflow:auto;
+		display:block;
 	}
 }
 

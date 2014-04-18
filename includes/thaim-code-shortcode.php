@@ -1,8 +1,6 @@
 <?php
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
-
-add_shortcode('thaim_code', 'thaim_handle_shortcode_code');
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Shortcode Thaim code <h2> tag
 function thaim_handle_shortcode_code( $atts, $content = null)
@@ -58,6 +56,7 @@ function thaim_handle_shortcode_code( $atts, $content = null)
 	}
 		
 }
+add_shortcode('thaim_code', 'thaim_handle_shortcode_code');
 
 function thaim_add_quicktags() {
 	$url = get_template_directory_uri() . '/includes/thaim-shortcode-editor.php';

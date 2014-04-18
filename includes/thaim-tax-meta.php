@@ -1,6 +1,6 @@
 <?php
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 //include the main class file
 require_once( get_template_directory() . '/includes/Tax-meta-class/Tax-meta-class.php' );
@@ -55,7 +55,7 @@ function tax_meta_class_update_meta_filter( $meta ) {
 add_filter( 'tax_meta_class_show_field_text', 'thaim_tax_meta_class_show_field_text_filter', 10, 2);
 
 function thaim_tax_meta_class_show_field_text_filter( $meta, $field ) {
-	if( $field['id'] == 'thaim_tax_icon' )
+	if ( $field['id'] == 'thaim_tax_icon' )
 		$meta = htmlentities( $meta );
 		
 	return $meta;

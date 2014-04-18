@@ -21,15 +21,15 @@ if (!isset($content_width))
 function thaim_setup() {
 	
 	// Localisation Support
-	load_theme_textdomain('thaim', get_template_directory() . '/languages');
+	load_theme_textdomain( 'thaim', get_template_directory() . '/languages' );
 	
-	if (function_exists('add_theme_support'))
+	if ( function_exists('add_theme_support') )
 	{
 	    // Add Menu Support
-	    add_theme_support('menus');
+	    add_theme_support( 'menus' );
 
 	    // Enables post and comment RSS feed links to head
-	    add_theme_support('automatic-feed-links');
+	    add_theme_support( 'automatic-feed-links' );
 	    
 	}
 	
@@ -46,16 +46,18 @@ function thaim_setup() {
 	 *  Shortcodes
 	 * ========================================================================
 	 */
-	if( 1 == get_option('thaim_use_prettify') )
+	if( 1 == get_option( 'thaim_use_prettify' ) ) {
 		require_once( get_template_directory() . '/includes/thaim-code-shortcode.php' );
+	}
 
 	/*
 	 * ========================================================================
 	 *  WordPress.org API
 	 * ========================================================================
 	 */
-	if( thaim_wp_org_link() )
+	if( thaim_wp_org_link() ) {
 		require_once( get_template_directory() . '/includes/thaim-wordpress-org-api.php' );
+	}
 		
 	/*
 	 * ========================================================================
@@ -67,13 +69,22 @@ function thaim_setup() {
 		
 		$maintenance = new Thaim_Maintenance;
 	}
+
+	/*
+	 * ========================================================================
+	 *  Checking for BuddyPress
+	 * ========================================================================
+	 */
+	if ( function_exists( 'buddypress' ) ) {
+		require_once( get_template_directory() . '/includes/buddypress.php' );
+	}
 	
 	
 	// nav menus
 	register_nav_menus(array( // Using array to specify more menus if needed
-        'header-menu' => __('Header Menu', 'thaim'), // Main Navigation
+        'header-menu'  => __('Header Menu', 'thaim'), // Main Navigation
         'sidebar-menu' => __('Sidebar Menu', 'thaim'), // Sidebar Navigation
-        'extra-menu' => __('Extra Menu', 'thaim') // Extra Navigation if needed (duplicate as many as you need!)
+        'extra-menu'   => __('Extra Menu', 'thaim') // Extra Navigation if needed (duplicate as many as you need!)
     ));
 }
 
@@ -385,35 +396,45 @@ function thaim_headline() {
 		
 	} else {
 		
-		if( is_search() ):
-		global $wp_query;
+		if ( is_search() ):
+			global $wp_query;
 		?>
-		<h1><?php echo sprintf( __( '%s Search Results for ', 'thaim' ), $wp_query->found_posts ); echo get_search_query(); ?></h1>
+			<h1><?php echo sprintf( __( '%s Search Results for ', 'thaim' ), $wp_query->found_posts ); echo get_search_query(); ?></h1>
 		
-		<?php elseif( is_category() ):
+		<?php elseif ( is_category() ):
 		
-		thaim_headline_category();
+			thaim_headline_category();
 		
-		elseif( is_tag() ):
+		elseif ( is_tag() ):
 		
-		thaim_headline_tag();
+			thaim_headline_tag();
 		
-		elseif( is_single() ):
+		elseif ( is_single() ):
 		
-		thaim_headline_single();
-		
-		else:?>
+			thaim_headline_single();
 
-		<h1><?php echo wp_title( false, false ); ?></h1>
+		else : ?>
+
+			<h1><?php thaim_headline_h1(); ?></h1>
 
 		<?php
 		endif;
 		
-		do_action('thaim_headline');
+		do_action( 'thaim_headline' );
 
 	}
 	
 }
+
+function thaim_headline_h1() {
+	echo thaim_headline_get_h1();
+}
+	
+	function thaim_headline_get_h1() {
+		$headline = wp_title( false, false );
+
+		return apply_filters( 'thaim_headline_get_h1', $headline );
+	}
 
 function thaim_headline_tag() {
 	$tag = get_tags( array( 'slug' => wp_title( false, false ) ) );
@@ -651,6 +672,9 @@ add_action( 'init', 'thaim_scripts' ); // Add Custom Scripts
 function thaim_load_prettify() {
 	
 	global $post;
+
+	if ( empty( $post->ID ) )
+		return;
 	
 	if( get_post_meta( $post->ID, 'prettifyed', true ) == 1 ) {
 		

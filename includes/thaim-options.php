@@ -1,6 +1,6 @@
 <?php
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Properly enqueue styles and scripts for our thaim options page.
@@ -227,7 +227,7 @@ function thaim_link_wordpress_org_validate() {
 	$username = wp_kses( $input['username'], array() );
 	$perpage = intval( $input['perpage'] );
 	
-	if( empty( $perpage ) || $perpage > 20 )
+	if ( empty( $perpage ) || $perpage > 20 )
 		$perpage = 20;
 	
 	$output = array( 'username' => $username, 'perpage' => $perpage );
@@ -252,21 +252,20 @@ function thaim_maintenance_validate() {
 }
 
 
-add_action( 'thaim_options_displayed', 'thaim_sets_wp_cron' );
-
 function thaim_sets_wp_cron() {
 	
 	$github = get_option( 'thaim_list_github_repos' );
 	
-	if( empty( $github ) )
+	if ( empty( $github ) ) {
 		$cron_is_enable = false;
-	else
+	} else {
 		$cron_is_enable = true;
+	}
 		
 	$cron_is_enable = apply_filters('thaim_sets_wp_cron', $cron_is_enable );
 		
-	if( $cron_is_enable ) {
-		if ( !wp_next_scheduled( 'thaim_github_cron_job' ) ) { 
+	if ( $cron_is_enable ) {
+		if ( ! wp_next_scheduled( 'thaim_github_cron_job' ) ) { 
 				//schedule the event to run hourly 
 		        wp_schedule_event( time(), 'hourly', 'thaim_github_cron_job' ); 
 		} 
@@ -276,3 +275,4 @@ function thaim_sets_wp_cron() {
 		wp_unschedule_event( $timestamp, 'thaim_github_cron_job' );
 	}
 }
+add_action( 'thaim_options_displayed', 'thaim_sets_wp_cron' );
