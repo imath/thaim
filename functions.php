@@ -12,8 +12,7 @@
  * ========================================================================
  */
 
-if (!isset($content_width))
-{
+if ( ! isset( $content_width ) ) {
     $content_width = 600;
 }
 
@@ -82,15 +81,12 @@ function thaim_setup() {
 	
 	// nav menus
 	register_nav_menus(array( // Using array to specify more menus if needed
-        'header-menu'  => __('Header Menu', 'thaim'), // Main Navigation
-        'sidebar-menu' => __('Sidebar Menu', 'thaim'), // Sidebar Navigation
-        'extra-menu'   => __('Extra Menu', 'thaim') // Extra Navigation if needed (duplicate as many as you need!)
+        'header-menu'  => __( 'Header Menu', 'thaim' ), // Main Navigation
+        'sidebar-menu' => __( 'Sidebar Menu', 'thaim' ), // Sidebar Navigation
+        'extra-menu'   => __( 'Extra Menu', 'thaim' ) // Extra Navigation if needed (duplicate as many as you need!)
     ));
 }
-
 add_action( 'after_setup_theme', 'thaim_setup' );
-
-
 
 /*
  * ========================================================================
@@ -98,65 +94,61 @@ add_action( 'after_setup_theme', 'thaim_setup' );
  * ========================================================================
  */
 
-function thaim_widgets_init()
-{
+function thaim_widgets_init() {
     // Define Sidebar Widget Area 1
-    register_sidebar(array(
-        'name' => __('Widget Area 1', 'thaim'),
-        'description' => __('Top sidebar area', 'thaim'),
-        'id' => 'widget-area-1',
+    register_sidebar( array(
+        'name'          => __( 'Widget Area 1', 'thaim' ),
+        'description'   => __( 'Top sidebar area', 'thaim' ),
+        'id'            => 'widget-area-1',
         'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget' => '</div>',
-        'before_title' => '<h3 class="widget-title">',
-        'after_title' => '</h3>'
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget-title">',
+        'after_title'   => '</h3>'
     ));
 
     // Define Sidebar Widget Area 2
-    register_sidebar(array(
-        'name' => __('Widget Area 2', 'thaim'),
-        'description' => __('Bottom sidebar area', 'thaim'),
-        'id' => 'widget-area-2',
+    register_sidebar( array(
+        'name'          => __( 'Widget Area 2', 'thaim' ),
+        'description'   => __( 'Bottom sidebar area', 'thaim' ),
+        'id'            => 'widget-area-2',
         'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget' => '</div>',
-        'before_title' => '<h3 class="widget-title">',
-        'after_title' => '</h3>'
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget-title">',
+        'after_title'   => '</h3>'
     ));
 
 	// Define Footer Widget areas
-    register_sidebar(array(
-        'name' => __('Footer Area 1', 'thaim'),
-        'description' => __('Left footer area', 'thaim'),
-        'id' => 'footer-area-1',
+    register_sidebar( array(
+        'name'          => __( 'Footer Area 1', 'thaim' ),
+        'description'   => __( 'Left footer area', 'thaim' ),
+        'id'            => 'footer-area-1',
         'before_widget' => '<div id="%1$s" class="%2$s">',
-        'after_widget' => '</div>',
-        'before_title' => '<h3 class="widget-title">',
-        'after_title' => '</h3>'
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget-title">',
+        'after_title'   => '</h3>'
     ));
 
-	register_sidebar(array(
-        'name' => __('Footer Area 2', 'thaim'),
-        'description' => __('Middle footer area', 'thaim'),
-        'id' => 'footer-area-2',
+	register_sidebar( array(
+        'name'          => __( 'Footer Area 2', 'thaim' ),
+        'description'   => __( 'Middle footer area', 'thaim' ),
+        'id'            => 'footer-area-2',
         'before_widget' => '<div id="%1$s" class="%2$s">',
-        'after_widget' => '</div>',
-        'before_title' => '<h3 class="widget-title">',
-        'after_title' => '</h3>'
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget-title">',
+        'after_title'   => '</h3>'
     ));
 
-	register_sidebar(array(
-        'name' => __('Footer Area 3', 'thaim'),
-        'description' => __('Right footer area', 'thaim'),
-        'id' => 'footer-area-3',
+	register_sidebar( array(
+        'name'          => __( 'Footer Area 3', 'thaim' ),
+        'description'   => __( 'Right footer area', 'thaim' ),
+        'id'            => 'footer-area-3',
         'before_widget' => '<div id="%1$s" class="%2$s">',
-        'after_widget' => '</div>',
-        'before_title' => '<h3 class="widget-title">',
-        'after_title' => '</h3>'
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget-title">',
+        'after_title'   => '</h3>'
     ));
 }
-
 add_action( 'widgets_init', 'thaim_widgets_init' );
-
-
 
 /*
  * ========================================================================
@@ -205,10 +197,8 @@ function thaim_blogname() {
 }
 
 // Thaim navigation
-function thaim_nav()
-{
-	wp_nav_menu(
-	array(
+function thaim_nav() {
+	wp_nav_menu( array(
 		'theme_location'  => 'header-menu',
 		'menu'            => '', 
 		'container'       => 'div', 
@@ -225,8 +215,7 @@ function thaim_nav()
 		'items_wrap'      => '<ul>%3$s</ul>',
 		'depth'           => 0,
 		'walker'          => ''
-		)
-	);
+	) );
 }
 
 
@@ -352,35 +341,31 @@ endif;
 
 
 // Custom Excerpts
-function thaim_wp_index($length) // Create 20 Word Callback for Index page Excerpts, call using thaim_wp_excerpt('thaim_wp_index');
-{
+// Create 20 Word Callback for Index page Excerpts, call using thaim_wp_excerpt('thaim_wp_index');
+function thaim_wp_index( $length = 0 ) {
     return 20;
 }
 
 // Create 40 Word Callback for Custom Post Excerpts, call using thaim_wp_excerpt('thaim_wp_custom_post');
-function thaim_wp_custom_post($length)
-{
+function thaim_wp_custom_post( $length = 0 ) {
     return 40;
 }
 
 // Create the Custom Excerpts callback
-function thaim_wp_excerpt($length_callback = '', $more_callback = '')
-{
+function thaim_wp_excerpt( $length_callback = '', $more_callback = '' ) {
     global $post;
-    if (function_exists($length_callback)) {
-        add_filter('excerpt_length', $length_callback);
+    if ( function_exists( $length_callback ) ) {
+        add_filter( 'excerpt_length', $length_callback );
     }
-    if (function_exists($more_callback)) {
-        add_filter('excerpt_more', $more_callback);
+    if ( function_exists( $more_callback ) ) {
+        add_filter( 'excerpt_more', $more_callback );
     }
     $output = get_the_excerpt();
-    $output = apply_filters('wptexturize', $output);
-    $output = apply_filters('convert_chars', $output);
+    $output = apply_filters( 'wptexturize', $output );
+    $output = apply_filters( 'convert_chars', $output );
     $output = '<p>' . $output . '</p>';
     echo $output;
 }
-
-
 
 /*
  * ========================================================================
@@ -451,34 +436,34 @@ function thaim_headline_category(){
 
 function thaim_headline_html_for_cat_tags( $term_id, $term_name, $term_desc, $type = 'tag' ) {
 	
-	if( $type == 'tag' )
+	if ( $type == 'tag' )
 		$default_icon = '&#xe012;';
 	else
 		$default_icon = '&#xe03f;';
 	
 	$icon = get_tax_meta( $term_id, 'thaim_tax_icon' );
 	
-	$icon = !empty( $icon ) ? $icon : $default_icon ;
+	$icon = ! empty( $icon ) ? $icon : $default_icon ;
 	
 	$image_header = get_tax_meta( $term_id, 'thaim_tax_image' );
 	?>
 	<div class="row thaim-in-headline">
 		
-		<?php if( is_array( $image_header ) && !empty( $image_header['src'] ) ):?>
+		<?php if ( is_array( $image_header ) && ! empty( $image_header['src'] ) ): ?>
 			<div class="sevencol">
 				<img src="<?php echo $image_header['src'];?>" alt="Illustration" class="thaim-image">
 			</div>
 			<div class="fivecol last">
-		<?php else:?>
+		<?php else: ?>
 			<div class="twelvecol">
-		<?php endif;?>
+		<?php endif; ?>
 				<h1>
 					<span aria-hidden="true" data-icon="<?php echo $icon ;?>"></span>
 					<?php echo esc_html( $term_name );?>
 				</h1>
-				<?php if( !empty( $term_desc ) ):?>
+				<?php if ( ! empty( $term_desc ) ): ?>
 					<p><?php echo esc_html( $term_desc );?></p>
-				<?php endif;?>
+				<?php endif; ?>
 			</div>
 	</div>
 	<?php
@@ -487,7 +472,7 @@ function thaim_headline_html_for_cat_tags( $term_id, $term_name, $term_desc, $ty
 function thaim_headline_single() {
 	?>
 	<div class="row thaim-in-headline">
-	<?php if( get_post_meta(get_the_ID(), 'imageslider', true ) ):?>
+	<?php if ( get_post_meta( get_the_ID(), 'imageslider', true ) ): ?>
 		<div class="threecol">
 			<img src="<?php echo get_post_meta(get_the_ID(), 'imageslider', true );?>" alt="Illustration" class="thaim-image">
 		</div>
@@ -496,20 +481,20 @@ function thaim_headline_single() {
 			<p class="thaim-post-desc"><?php the_excerpt()?></p>
 			
 		</div>
-	<?php else:?>
+	<?php else: ?>
 		<div class="twelvecol">
 	
 			<p class="thaim-post-desc"><?php the_excerpt()?></p>
 				
 		</div>
-	<?php endif;?>
+	<?php endif; ?>
 	</div>
 	<?php
 }
 
 function thaim_cycle() {
 
-	if( is_front_page() ) {
+	if ( is_front_page() ) {
 		wp_enqueue_style('thaim-cycle-style', get_template_directory_uri() .'/css/slider.css' );
 		wp_enqueue_script('thaim-cycle-js', get_template_directory_uri() .'/js/jquery.cycle.all.js', array('jquery') );
 		
@@ -518,7 +503,7 @@ function thaim_cycle() {
 		
 }
 
-add_action('wp_enqueue_scripts', 'thaim_cycle' );
+add_action( 'wp_enqueue_scripts', 'thaim_cycle' );
 
 function thaim_cycle_settings() {
 	?>
@@ -537,7 +522,7 @@ function thaim_cycle_settings() {
 add_action( 'thaim_slider', 'thaim_slider_handle' );
 
 function thaim_slider_handle() {
-	query_posts('meta_key=inslider&meta_value=1');
+	query_posts( 'meta_key=inslider&meta_value=1' );
 	
 	if ( have_posts() ) :
 	?>
@@ -595,7 +580,7 @@ function thaim_github_display_repos() {
 	$git_repos = get_option('thaim_github_repos');
 	
 	//double check !
-	if( is_array( $git_repos ) && count( $git_repos ) >=1 ):?>
+	if ( is_array( $git_repos ) && count( $git_repos ) >=1 ): ?>
 	<table>
 		<thead>
 			<tr><th><?php _e('Name of the repo', 'thaim');?></th><th><?php _e('Infos about the repo', 'thaim');?></th><th><?php _e('Repo link', 'thaim');?></th></tr>
@@ -633,39 +618,29 @@ function thaim_github_display_repos() {
  */
 
 // Theme Stylesheets using Enqueue
-function thaim_styles()
-{
+function thaim_styles() {
     wp_register_style('normalize', get_template_directory_uri() . '/normalize.css', array(), '1.0', 'all');
     wp_enqueue_style('normalize'); // Enqueue it!
     
     wp_register_style('thaim', get_template_directory_uri() . '/style.css', array(), '1.0', 'all');
     wp_enqueue_style('thaim'); // Enqueue it!
 }
-
 add_action( 'wp_enqueue_scripts', 'thaim_styles' ); // Add Theme Stylesheet
 
 
-
 // Load Custom Theme Scripts using Enqueue
-function thaim_scripts()
-{
-    if (!is_admin()) {
-        /*
-		thaim will use WordPress jQuery..
-		wp_deregister_script('jquery'); // Deregister WordPress jQuery
-        wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', array(), '1.8.3'); // Load Google CDN jQuery*/
-        wp_enqueue_script('jquery'); // Enqueue it!
+function thaim_scripts() {
+    if ( ! is_admin() ) {
+		wp_enqueue_script( 'jquery' ); // Enqueue it!
 
-        wp_register_script('modernizr', get_template_directory_uri() . '/js/modernizr.min.js', array('jquery'), '2.6.2'); // Modernizr with version Number at the end
-        wp_enqueue_script('modernizr'); // Enqueue it!
+        wp_register_script( 'modernizr', get_template_directory_uri() . '/js/modernizr.min.js', array( 'jquery' ), '2.6.2' ); // Modernizr with version Number at the end
+        wp_enqueue_script( 'modernizr' ); // Enqueue it!
 
-        wp_register_script('thaimscripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0'); // Thaim Blank script with version number
-        wp_enqueue_script('thaimscripts'); // Enqueue it!
+        wp_register_script( 'thaimscripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ), '1.0.0' ); // Thaim Blank script with version number
+        wp_enqueue_script( 'thaimscripts'); // Enqueue it!
     }
 }
-
 add_action( 'init', 'thaim_scripts' ); // Add Custom Scripts
-
 
 
 // prettify the snippets if the post meta is set so.
@@ -676,7 +651,7 @@ function thaim_load_prettify() {
 	if ( empty( $post->ID ) )
 		return;
 	
-	if( get_post_meta( $post->ID, 'prettifyed', true ) == 1 ) {
+	if ( get_post_meta( $post->ID, 'prettifyed', true ) == 1 ) {
 		
 		wp_enqueue_style( 'prettify-css', get_template_directory_uri() . '/css/prettify.css');
 		
@@ -686,7 +661,6 @@ function thaim_load_prettify() {
 	}
 	
 }
-
 add_action( 'wp_print_styles', 'thaim_load_prettify' );
 
 function thaim_do_pretiffy() {
@@ -709,8 +683,7 @@ function thaim_do_pretiffy() {
 
 
 // Load Optimised Google Analytics in the footer
-function add_google_analytics()
-{
+function add_google_analytics() {
     $google = "<!-- Optimised Asynchronous Google Analytics -->";
     $google .= "<script>"; // Change the UA-XXXXXXXX-X to your Account ID
     $google .= "var _gaq=[['_setAccount','UA-XXXXXXXX-X'],['_trackPageview']];
@@ -723,58 +696,38 @@ function add_google_analytics()
 
 //add_action('wp_footer', 'add_google_analytics'); // Google Analytics optimised in footer
 
-
-// jQuery Fallbacks load in the footer
-function add_jquery_fallback()
-{
-    $jqueryfallback = "<!-- Protocol Relative jQuery fall back if Google CDN offline -->";
-    $jqueryfallback .= "<script>";
-    $jqueryfallback .= "window.jQuery || document.write('<script src=\"" . get_template_directory_uri() . "/js/jquery-1.8.3.min.js\"><\/script>')";
-    $jqueryfallback .= "</script>";
-    echo $jqueryfallback;
-}
-
-//add_action('wp_footer', 'add_jquery_fallback'); // jQuery fallbacks loaded through footer
-
-
 // Threaded Comments
-function enable_threaded_comments()
-{
-    if (!is_admin()) {
-        if (is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) {
-            wp_enqueue_script('comment-reply');
+function enable_threaded_comments() {
+    if ( ! is_admin() ) {
+        if ( is_singular() AND comments_open() AND ( get_option('thread_comments' ) == 1 ) ) {
+            wp_enqueue_script( 'comment-reply' );
         }
     }
 }
-
 add_action( 'get_header', 'enable_threaded_comments' ); // Enable Threaded Comments
 
 
 // Remove wp_head() injected Recent Comment styles
-function my_remove_recent_comments_style()
-{
+function my_remove_recent_comments_style() {
     global $wp_widget_factory;
-    remove_action('wp_head', array(
+    remove_action( 'wp_head', array(
         $wp_widget_factory->widgets['WP_Widget_Recent_Comments'],
         'recent_comments_style'
-    ));
+    ) );
 }
-
 add_action( 'widgets_init', 'my_remove_recent_comments_style' ); // Remove inline Recent Comment Styles from wp_head()
 
 // Pagination for paged posts, Page 1, Page 2, Page 3, with Next and Previous Links, No plugin
-function thaim_wp_pagination()
-{
+function thaim_wp_pagination() {
     global $wp_query;
     $big = 999999999;
-    echo paginate_links(array(
-        'base' => str_replace($big, '%#%', get_pagenum_link($big)),
-        'format' => '?paged=%#%',
+    echo paginate_links( array(
+        'base'    => str_replace($big, '%#%', get_pagenum_link($big)),
+        'format'  => '?paged=%#%',
         'current' => max(1, get_query_var('paged')),
-        'total' => $wp_query->max_num_pages
-    ));
+        'total'   => $wp_query->max_num_pages
+    ) );
 }
-
 add_action( 'init', 'thaim_wp_pagination' ); // Add our Thaim Pagination
 
 
@@ -796,7 +749,6 @@ function thaim_single_reader_add_actions() {
 	</span>
 	<?php
 }
-
 add_action( 'thaim_single_reader_actions', 'thaim_single_reader_add_actions' );
 
 
@@ -806,12 +758,12 @@ function thaim_add_feed_link() {
 	$feed_link = get_feed_link();
 	$title = __( 'blog', 'thaim' );
 	
-	if( is_category() || is_tag() ) {
+	if ( is_category() || is_tag() ) {
 		$term = get_queried_object();
 
 		$feed_link = is_tag() ? get_term_feed_link( $term->term_id, 'post_tag' ) : get_term_feed_link( $term->term_id, 'category' );
 		$title = esc_html( $term->name );
-	} elseif( is_single() ) {
+	} elseif ( is_single() ) {
 		$feed_link = get_post_comments_feed_link();
 		$title = __( 'comment', 'thaim' );
 	}
@@ -825,7 +777,6 @@ function thaim_add_feed_link() {
 	</div>
 	<?php
 }
-
 add_action( 'thaim_before_sidebar_widgets', 'thaim_add_feed_link');
 
 
@@ -845,7 +796,6 @@ function thaim_github_do_job() {
 	}
 	
 }
-
 add_action('thaim_github_cron_job', 'thaim_github_do_job');
 
 
@@ -867,23 +817,21 @@ remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );
 // Add Filters
 
 // Add page slug to body class, love this - Credit: Starkers Wordpress Theme
-function add_slug_to_body_class($classes)
-{
+function add_slug_to_body_class( $classes ) {
     global $post;
     if ( is_home() ) {
-        $key = array_search('blog', $classes);
-        if ($key > -1) {
+        $key = array_search( 'blog', $classes );
+        if ( $key > -1) {
             unset($classes[$key]);
         }
     } elseif ( is_page() ) {
-        $classes[] = sanitize_html_class($post->post_name);
+        $classes[] = sanitize_html_class( $post->post_name );
     } elseif ( is_singular() ) {
-        $classes[] = sanitize_html_class($post->post_name);
+        $classes[] = sanitize_html_class( $post->post_name );
     }
 
     return $classes;
 }
-
 add_filter( 'body_class', 'add_slug_to_body_class' ); // Add slug to body class (Starkers build)
 
 
@@ -892,49 +840,39 @@ add_filter( 'widget_text', 'shortcode_unautop' ); // Remove <p> tags in Dynamic 
 add_filter( 'the_excerpt', 'shortcode_unautop' ); // Remove auto <p> tags in Excerpt (Manual Excerpts only)
 
 // Remove the <div> surrounding the dynamic navigation to cleanup markup
-function thaim_wp_nav_menu_args($args = '')
-{
+function thaim_wp_nav_menu_args($args = '') {
     $args['container'] = false;
     return $args;
 }
-
 add_filter( 'wp_nav_menu_args', 'thaim_wp_nav_menu_args' ); // Remove surrounding <div> from WP Navigation
 
 
 // Remove invalid rel attribute values in the categorylist
-function remove_category_rel_from_category_list($thelist)
-{
-    return str_replace('rel="category tag"', 'rel="tag"', $thelist);
+function remove_category_rel_from_category_list( $thelist ) {
+    return str_replace( 'rel="category tag"', 'rel="tag"', $thelist );
 }
-
 add_filter( 'the_category', 'remove_category_rel_from_category_list' ); // Remove invalid rel attribute
 
 
 // thaim doesn't need a read more link as we only use excerpt !
-function thaim_wp_view_article($more)
-{
+function thaim_wp_view_article( $more ) {
     return '';
 }
-
 add_filter( 'excerpt_more', 'thaim_wp_view_article' ); // Well i dont need as i always use the excerpt field..
 
 
 // Remove 'text/css' from our enqueued stylesheet
-function thaim_style_remove($tag)
-{
+function thaim_style_remove($tag) {
     return preg_replace('~\s+type=["\'][^"\']++["\']~', '', $tag);
 }
-
 add_filter( 'style_loader_tag', 'thaim_style_remove' ); // Remove 'text/css' from enqueued stylesheet
 
 
 // Remove thumbnail width and height dimensions that prevent fluid images in the_thumbnail
-function remove_thumbnail_dimensions( $html )
-{
+function remove_thumbnail_dimensions( $html ) {
     $html = preg_replace( '/(width|height)=\"\d*\"\s/', "", $html );
     return $html;
 }
-
 add_filter( 'post_thumbnail_html', 'remove_thumbnail_dimensions', 10 ); // Remove width and height dynamic attributes to thumbnails
 add_filter( 'image_send_to_editor', 'remove_thumbnail_dimensions', 10 ); // Remove width and height dynamic attributes to post images
 
@@ -942,7 +880,6 @@ add_filter( 'image_send_to_editor', 'remove_thumbnail_dimensions', 10 ); // Remo
 function thaim_is_for_coder( $rich_edit ) {
 	return false;
 }
-
 add_filter( 'user_can_richedit', 'thaim_is_for_coder' ); // thaim is for coder, not wysiwyger !
 
 //limit the number of tags in tag cloud
@@ -951,7 +888,6 @@ function thaim_tag_cloud_args( $args ) {
 	
 	return $args;
 }
-
 add_filter( 'widget_tag_cloud_args', 'thaim_tag_cloud_args' );
 
 // Remove Filters

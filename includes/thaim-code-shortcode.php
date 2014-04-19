@@ -7,6 +7,7 @@ function thaim_handle_shortcode_code( $atts, $content = null)
 {
 	extract( shortcode_atts( array( 'linenums' => false, 'github_url'=> false, 'github_raw'=> false, 'github_from' => 'notset', 'github_to' => 'notset' ), $atts) );
 	
+	$class = false;
 	if( !empty( $linenums ) )
 		$class = 'linenums';
 	
