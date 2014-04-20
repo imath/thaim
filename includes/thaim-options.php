@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  */
 function thaim_admin_enqueue_style( $hook_suffix ) {
-	wp_enqueue_style( 'thaim-options', get_template_directory_uri() . '/css/thaim-options.css', false, '2012-12-29' );
+	wp_enqueue_style( 'thaim-options', get_template_directory_uri() . '/css/thaim-options.css', false, '2014-04-20' );
 }
 add_action( 'admin_print_styles-appearance_page_theme_options', 'thaim_admin_enqueue_style' );
 
@@ -41,34 +41,6 @@ function thaim_theme_options_init() {
 		'thaim_options',       // Options group
 		'thaim_use_prettify', // Database option
 		'thaim_use_prettify_validate' // The sanitization callback
-	);
-
-	add_settings_field( 
-		'link_wp_org', 
-		__( 'Link your WordPress.org plugins', 'thaim' ), 
-		'thaim_settings_field_link_wp_org', 
-		'theme_options', 
-		'general' 
-	);
-	
-	register_setting(
-		'thaim_options',
-		'thaim_link_wordpress_org',
-		'thaim_link_wordpress_org_validate'
-	);
-	
-	add_settings_field( 
-		'list_github',
-		__( 'List your github repos', 'thaim' ), 
-		'thaim_settings_field_list_github',
-		'theme_options',
-		'general' 
-	);
-	
-	register_setting(
-		'thaim_options',
-		'thaim_list_github_repos',
-		'thaim_list_github_repos_validate'
 	);
 	
 	add_settings_field( 
@@ -116,14 +88,12 @@ function thaim_options_help() {
 	$help = '<p>' . __( 'You can customize the behavior of thaim within this theme options page.', 'thaim' ) . '</p>' .
 			'<ol>' .
 				'<li>' . __( '<strong>Shortcode to prettify your snippets</strong>: You can choose to activate this option in order to add a quicktag to the WordPress editor. You will be able to paste your code in the window or reference a github gists or a file from one of your github repo.', 'thaim' ) . '</li>' .
-				'<li>' . __( '<strong>Link your WordPress.org plugins</strong>: by adding your WordPress.org user name, you will be able to create a page to list up to 20 of your WordPress plugins ordered by their latest activity. To finish the process, you will need to create a page and to choose the Plugins template in the available templates of this theme.', 'thaim' ) . '</li>' .
-				'<li>' . __( '<strong>List your github repos</strong>: By adding your github user name, you will be able to list your github repos thanks to the same template. This list is refreshed each hour using the WordPress cron of this blog. Make sure your host provides the curl method to take benefit of this feature', 'thaim' ) . '</li>' .
 				'<li>' . __( '<strong>Put the blog in maintenance mode</strong>: use this option if you want to work on your blog and hide its content to regular users', 'thaim' ) . '</li>' .
 			'</ol>' .
 			'<p>' . __( 'Remember to click "Save Changes" to save any changes you have made to the theme options.', 'thaim' ) . '</p>';
 
 	$sidebar = '<p><strong>' . __( 'For more information:', 'thaim' ) . '</strong></p>' .
-		'<p>' . __( '<a href="http://imathi.eu/tag/thaim" target="_blank">Blog post about Thaim</a>', 'thaim' ) . '</p>';
+		'<p>' . __( '<a href="http://imathi.eu/tag/thaim" target="_blank">Blog posts about Thaim</a>', 'thaim' ) . '</p>';
 
 	$screen = get_current_screen();
 
@@ -154,34 +124,6 @@ function thaim_settings_field_prettify_shortcode() {
 	<?php
 }
 
-function thaim_settings_field_link_wp_org() {
-	$option = get_option( 'thaim_link_wordpress_org', array( 'username' => '', 'perpage' => 20 ) );
-	?>
-	<div class="link-wp-org">
-		<label class="description">
-			<span><?php _e('Fill with your WordPress.org user name', 'thaim');?></span>
-			<input type="text" name="thaim_theme_options[link_wp_org][username]" value="<?php echo $option['username'];?>" />
-		</label>
-		<label class="description">
-			<span><?php _e('Number of plugins to display (up to 20)', 'thaim');?></span>
-			<input type="text" name="thaim_theme_options[link_wp_org][perpage]" value="<?php echo $option['perpage'];?>" />
-		</label>
-	</div>
-	<?php
-}
-
-function thaim_settings_field_list_github() {
-	$option = get_option( 'thaim_list_github_repos', '' );
-	?>
-	<div class="list-github">
-		<label class="description">
-			<span><?php _e('Fill with your github user name', 'thaim');?></span>
-			<input type="text" name="thaim_theme_options[list_github]" value="<?php echo $option;?>" />
-		</label>
-	</div>
-	<?php
-}
-
 function thaim_settings_field_maintenance() {
 	$option = get_option( 'thaim_maintenance_mode', 0 );
 	
@@ -194,7 +136,6 @@ function thaim_settings_field_maintenance() {
 }
 
 function thaim_options_render_page() {
-	do_action( 'thaim_options_displayed' );
 	?>
 	<div class="wrap">
 		<?php screen_icon();?>
@@ -221,26 +162,12 @@ function thaim_use_prettify_validate() {
 	return apply_filters( 'thaim_use_prettify_validate', $output, $input );
 }
 
-function thaim_link_wordpress_org_validate() {
-	$input = $_POST['thaim_theme_options']['link_wp_org'];
+function thaim_twitter_username_validate() {
+	$input = $_POST['thaim_theme_options']['twitter_username'];
 	
-	$username = wp_kses( $input['username'], array() );
-	$perpage = intval( $input['perpage'] );
+	$output = sanitize_key( $input, array() );
 	
-	if ( empty( $perpage ) || $perpage > 20 )
-		$perpage = 20;
-	
-	$output = array( 'username' => $username, 'perpage' => $perpage );
-	
-	return apply_filters( 'thaim_link_wordpress_org_validate', $output, $input );
-}
-
-function thaim_list_github_repos_validate() {
-	$input = $_POST['thaim_theme_options']['list_github'];
-	
-	$output = wp_kses( $input, array() );
-	
-	return apply_filters( 'thaim_list_github_repos_validate', $output, $input );
+	return apply_filters( 'thaim_twitter_username_validate', $output, $input );
 }
 
 function thaim_maintenance_validate() {
@@ -250,29 +177,3 @@ function thaim_maintenance_validate() {
 	
 	return apply_filters( 'thaim_maintenance_validate', $output, $input );
 }
-
-
-function thaim_sets_wp_cron() {
-	
-	$github = get_option( 'thaim_list_github_repos' );
-	
-	if ( empty( $github ) ) {
-		$cron_is_enable = false;
-	} else {
-		$cron_is_enable = true;
-	}
-		
-	$cron_is_enable = apply_filters('thaim_sets_wp_cron', $cron_is_enable );
-		
-	if ( $cron_is_enable ) {
-		if ( ! wp_next_scheduled( 'thaim_github_cron_job' ) ) { 
-				//schedule the event to run hourly 
-		        wp_schedule_event( time(), 'hourly', 'thaim_github_cron_job' ); 
-		} 
-	} else {
-		$timestamp = wp_next_scheduled( 'thaim_github_cron_job' );
-		//unschedule custom action hook 
-		wp_unschedule_event( $timestamp, 'thaim_github_cron_job' );
-	}
-}
-add_action( 'thaim_options_displayed', 'thaim_sets_wp_cron' );

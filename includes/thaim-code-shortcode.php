@@ -3,17 +3,16 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Shortcode Thaim code <h2> tag
-function thaim_handle_shortcode_code( $atts, $content = null)
-{
+function thaim_handle_shortcode_code( $atts, $content = null) {
 	extract( shortcode_atts( array( 'linenums' => false, 'github_url'=> false, 'github_raw'=> false, 'github_from' => 'notset', 'github_to' => 'notset' ), $atts) );
 	
 	$class = false;
-	if( !empty( $linenums ) )
+	if ( ! empty( $linenums ) )
 		$class = 'linenums';
 	
 	$output = '<pre class="prettyprint '. $class .'">';
 	
-    if( !empty( $content) ) {
+    if ( ! empty( $content) ) {
 		$content = str_replace('<pre>', '', $content );
 		$content = str_replace('</pre>', '', $content );
 		$code = $content ;
@@ -22,17 +21,17 @@ function thaim_handle_shortcode_code( $atts, $content = null)
 		$github_request = new WP_Http;
 		$github_result = $github_request->request( $github_raw, array('sslverify' => false) );
 		
-		if( !$github_result || $github_result->errors ) {
+		if( ! $github_result || $github_result->errors ) {
 			$code = __('OOpsy! Github is unreachable :(', 'thaim');
 		} else {
 			
 			$code = $github_result['body'];
 			$code = htmlentities( $code );
 			
-			if( $github_from != 'notset' && $github_to != 'notset' ) {
+			if ( $github_from != 'notset' && $github_to != 'notset' ) {
 				$lines = explode( "\n", $code );
 				
-				if( count( $lines ) > 1 ) {
+				if ( count( $lines ) > 1 ) {
 					$code = "";
 					
 					for( $i = $github_from - 1 ; $i < $github_to ; $i++ ) {
@@ -48,9 +47,9 @@ function thaim_handle_shortcode_code( $atts, $content = null)
 		
 	$output .= $code . '</pre>';
 	
-	if( !empty( $code ) ) {
+	if( ! empty( $code ) ) {
 		
-		if( !empty( $github_url ) )
+		if( ! empty( $github_url ) )
 			$output .= '<p class="wp-caption-text"><a href="'.$github_url.'" title="github file" target="_blank">'.__('View this code on github', 'thaim').'</a></p>';
 		
 		return $output;
@@ -75,6 +74,4 @@ function thaim_add_quicktags() {
     </script>
 <?php
 }
-
-
 add_action( 'admin_print_footer_scripts', 'thaim_add_quicktags' );

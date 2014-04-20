@@ -22,7 +22,9 @@ class Thaim_BuddyPress {
 	} 
 
 	private function setup_globals() {
+		// customize with your wordpress login.
 		$this->owner_id = bp_core_get_userid( 'imath' );
+
 		define( 'BP_DEFAULT_COMPONENT', 'profile' );
 		$this->badges_field_id = '';
 	}
@@ -59,6 +61,9 @@ class Thaim_BuddyPress {
 
 		// Thaim headline
 		add_filter( 'thaim_headline_get_h1', array( $this, 'headline' ), 10 , 1 );
+
+		// Author link now goes to my BuddyPress profile !
+		add_filter( 'author_link', array( $this, 'filter_author_link' ), 10, 3 );
 	}
 
 	public function default_component( $default = array() ) {
@@ -177,6 +182,13 @@ class Thaim_BuddyPress {
 	public function header_badges() {
 		$badges = xprofile_get_field_data( $this->badges_field_id, $this->owner_id );
 		echo $this->build_bagdes_output( $badges );
+	}
+
+	public function filter_author_link( $link = '', $author_id = 0, $author_nicename = '' ) {
+		if( ! empty( $author_id ) &&  $this->owner_id == $author_id )
+			$link = bp_core_get_userlink( $author_id, false, true );
+
+		return $link;
 	}
 }
 

@@ -48,15 +48,6 @@ function thaim_setup() {
 	if( 1 == get_option( 'thaim_use_prettify' ) ) {
 		require_once( get_template_directory() . '/includes/thaim-code-shortcode.php' );
 	}
-
-	/*
-	 * ========================================================================
-	 *  WordPress.org API
-	 * ========================================================================
-	 */
-	if( thaim_wp_org_link() ) {
-		require_once( get_template_directory() . '/includes/thaim-wordpress-org-api.php' );
-	}
 		
 	/*
 	 * ========================================================================
@@ -155,23 +146,6 @@ add_action( 'widgets_init', 'thaim_widgets_init' );
  * Functions
  * ========================================================================
  */
-
-function thaim_wp_org_link() {
-	if ( is_array( $wporg = get_option('thaim_link_wordpress_org') ) && !empty( $wporg['username'] ) )
-		return true;
-	else
-		return false;
-}
-
-function thaim_github_has_repos() {
-	$git_option = get_option('thaim_list_github_repos');
-	
-	if( !empty( $git_option ) && is_array( $git_repos = get_option('thaim_github_repos') ) && count( $git_repos ) >= 1 )
-		return true;
-		
-	else
-		return false;
-}
 
 function thaim_is_maintenance_mode() {
 	$option = get_option( 'thaim_maintenance_mode', 0 );
@@ -502,7 +476,6 @@ function thaim_cycle() {
 	}
 		
 }
-
 add_action( 'wp_enqueue_scripts', 'thaim_cycle' );
 
 function thaim_cycle_settings() {
@@ -518,7 +491,6 @@ function thaim_cycle_settings() {
 	</script>
 	<?php
 }
-
 add_action( 'thaim_slider', 'thaim_slider_handle' );
 
 function thaim_slider_handle() {
@@ -574,42 +546,6 @@ function thaim_slider_handle() {
 	
 	wp_reset_query();
 }
-
-function thaim_github_display_repos() {
-	
-	$git_repos = get_option('thaim_github_repos');
-	
-	//double check !
-	if ( is_array( $git_repos ) && count( $git_repos ) >=1 ): ?>
-	<table>
-		<thead>
-			<tr><th><?php _e('Name of the repo', 'thaim');?></th><th><?php _e('Infos about the repo', 'thaim');?></th><th><?php _e('Repo link', 'thaim');?></th></tr>
-		</thead>
-		<tbody>
-	
-		<?php foreach ( $git_repos as $repo ): ?>
-			<tr>
-				<td><?php echo $repo['name'];?></td>
-				<td>
-					<p class="thaim-short-desc"><?php echo $repo['description'];?></p>
-				</td>
-				<td>
-					<p class="info-wp">
-						<a href="<?php echo $repo['url'];?>" title="<?php _e('View on github', 'thaim');?>"><?php _e('View on github', 'thaim');?></a>
-					</p>
-				</td>
-			</tr>
-
-		<?php endforeach; ?>
-		
-		</tbody>
-	</table>
-		
-	<?php else:?>
-		<p><?php _e( 'Oops, seems no github repos were synced...', 'thaim' );?></p>
-	<?php endif;
-}
-
 
 /*
  * ========================================================================
@@ -738,7 +674,7 @@ add_action( 'init', 'thaim_wp_pagination' ); // Add our Thaim Pagination
 function thaim_single_reader_add_actions() {
 	?>
 	&nbsp;&nbsp;
-	<span aria-hidden="true" data-icon="&#xe0e6;"></span>
+	<span aria-hidden="true" data-icon="&#xe0e6;" class="twitter-share"></span>
 	<span class="twitter-share">
 		<a href="https://twitter.com/intent/tweet?original_referer=<?php echo urlencode( get_permalink());?>&amp;source=tweetbutton&amp;text=<?php echo urlencode( get_the_title());?>&amp;url=<?php echo urlencode( get_permalink());?>&amp;via=imath" class="share-on-twitter single" title="<?php _e('Share', 'thaim')?>" target="_blank"><?php _e('Share', 'thaim')?></a>
 	</span>
@@ -778,26 +714,6 @@ function thaim_add_feed_link() {
 	<?php
 }
 add_action( 'thaim_before_sidebar_widgets', 'thaim_add_feed_link');
-
-
-/**
-* As we can only do a few requests per hour while not oauthed
-* let's do only one and cache the results
-*/
-function thaim_github_do_job() {
-	$git_user = get_option('thaim_list_github_repos');
-	
-	if ( !empty( $git_user ) ) {
-		
-		require( get_template_directory() . '/includes/thaim-github-api.php' );
-
-		$github_repos = new Thaim_Github_API( $git_user );
-		
-	}
-	
-}
-add_action('thaim_github_cron_job', 'thaim_github_do_job');
-
 
 // Remove Actions
 remove_action( 'wp_head', 'feed_links_extra', 3 ); // Display the links to the extra feeds such as category feeds

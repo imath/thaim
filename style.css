@@ -793,6 +793,7 @@ img.wp-smiley,
 .entry-meta a:hover {
 	color: #21759b;
 }
+
 article.sticky .featured-post {
 	border-top: 4px double #ededed;
 	border-bottom: 4px double #ededed;
@@ -1464,6 +1465,12 @@ a.backtotop:hover {
 	border-bottom:dashed 1px #444;
 }
 
+.twitter-share,
+.twitter-share a,
+.twitter-share a:hover {
+	color:#21759b;
+}
+
 /* =============================================================================
    BuddyPress
    ========================================================================== */
@@ -1552,6 +1559,83 @@ a.backtotop:hover {
 
 #buddypress table.profile-fields ul#td-user-badges li div.thaimicons:before {
 	font-size:25px;
+}
+
+#buddypress ul#plugins-list.item-list .item-avatar div.plugin-type {
+	float:left;
+	width:50px;
+	height:50px;
+	margin: 0 10px 15px 0;
+}
+
+#buddypress ul#plugins-list.item-list .item-avatar div.plugin-type:before {
+	font-size: 40px;
+}
+
+#buddypress ul#plugins-list.item-list .item-avatar a {
+	color:inherit;
+}
+
+#buddypress ul#plugins-list.item-list .item-avatar div.plugin-type.buddypress {
+	color:#d54e21;
+}
+
+#buddypress ul#plugins-list.item-list .item-avatar div.plugin-type.wordpress {
+	color:#21759b;
+}
+
+#buddypress ul#plugins-list.item-list ul.thaim-rating li {
+	border:none;
+}
+
+#buddypress ul#plugins-list.item-list div.meta p.downloaded,
+#buddypress ul#plugins-list.item-list div.meta p.latest_version {
+	margin:0;
+}
+
+#buddypress ul#plugins-list.item-list div.meta span.git-icons:before {
+	font-size: 15px;
+	vertical-align: -15%;
+}
+
+#buddypress ul#plugins-list.item-list div.meta p span {
+	font-weight: bold;
+}
+
+#buddypress .twitter-tweet-rendered {
+	margin:0 auto!important;
+}
+
+.sidebar-widget .thaim-utilities-widget a.permactivity {
+	display:block;
+	float:right;
+	text-decoration: none;
+	color: #757575;
+}
+
+.sidebar-widget .thaim-utilities-widget a.permactivity:before {
+ 	font-family: 'thaimicons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+ 	content:'\e024';
+ 	margin-right:5px;
+ }
+
+.sidebar-widget .thaim-utilities-widget a.permactivity:after {
+	content:'';
+    display:block;
+    clear: both;
+}
+
+.sidebar-widget .thaim-utilities-widget ul.widget-thaim-activities li {
+	overflow: hidden;
+	border-bottom: 1px dotted #eaeaea;
+	padding: 13px 0;
+	padding: 0.928571429rem 0;
 }
 
 /* =============================================================================
