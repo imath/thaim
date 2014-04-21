@@ -17,24 +17,23 @@ It's a shortcode to prettify your snippets. As thaim is disabling the WYSIWIG ed
 You'll then be able to paste your code in your post or to add the raw an regular url of one of your gist or github file.
 
 
-Link WordPress.org and/or Github API
-------------------------------------
-
-As i like to build BuddyPress or WordPress plugins, i thought that a good portfolio in my case was to list them or list my github repos on my personal blog without having to think about it thanks to an automated process. To use it, you need to save your user names in the thaim options and to create a page that will rely on the `Plugins template`.
-You can see a demo of it by reading my [portfolio](http://imathi.eu/mes-creas/)
-
-
 thaim maintenance page
 ----------------------
 
 Sometimes we need to finish some work on our blog, that's why i've added this feature. Blog admin will be able to browse his website, other users will see a simple maintenance message.
 
 
+BuddyPress solo!
+----------------
+
+Use the member's page to replace the author page.
+
+
 Configuration needed
 --------------------
 
-+ WordPress 3.5
-+ curl enabled in order to talk with the github API
++ WordPress 3.6
++ BuddyPress 2.0
 
 
 Credits

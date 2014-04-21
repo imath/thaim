@@ -3,9 +3,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: thaim 1.0-beta1\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/theme/thaim\n"
-"POT-Creation-Date: 2014-04-20 21:59:35+00:00\n"
-"PO-Revision-Date: 2014-04-21 00:02+0100\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tags/thaim\n"
+"POT-Creation-Date: 2014-04-20 23:46:32+00:00\n"
+"PO-Revision-Date: 2014-04-21 01:48+0100\n"
 "Last-Translator: imath <mathchristo@yahoo.fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -80,7 +80,7 @@ msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
 "Afficher tous les articles de %s <span class=\"meta-nav\">&rarr;</span>"
 
-#: entry.php:44 functions.php:518 functions.php:528
+#: entry.php:44 functions.php:511 functions.php:521
 msgid "View Article"
 msgstr "Lire l&rsquo;article"
 
@@ -183,7 +183,6 @@ msgstr "Votre commentaire est en attente de modération"
 msgid "Reply"
 msgstr "Répondre"
 
-#. Translators: used between list items, there is a space after the comma.
 #: functions.php:279 functions.php:282
 msgid ", "
 msgstr ", "
@@ -192,8 +191,6 @@ msgstr ", "
 msgid "View all posts by %s"
 msgstr "Voir tous les articles de %s"
 
-#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is the author's
-#. name.
 #: functions.php:299
 msgid ""
 "This entry was posted in %1$s and tagged %2$s on %3$s<span class=\"by-author"
@@ -219,27 +216,27 @@ msgstr ""
 msgid "%s Search Results for "
 msgstr "%s résultats pour la recherche"
 
-#: functions.php:543
+#: functions.php:536
 msgid "Home"
 msgstr "Accueil"
 
-#: functions.php:679
+#: functions.php:672
 msgid "Share"
 msgstr "Partager"
 
-#: functions.php:684
+#: functions.php:677
 msgid "Support"
 msgstr "Supporter"
 
-#: functions.php:695
+#: functions.php:688
 msgid "blog"
 msgstr "blog"
 
-#: functions.php:704
+#: functions.php:697
 msgid "comment"
 msgstr "commentaire"
 
-#: functions.php:707
+#: functions.php:700
 msgid "Subscribe to %s feed"
 msgstr "S&rsquo;abonner au flux %s"
 
@@ -524,6 +521,10 @@ msgstr "imath"
 msgid "http://imathi.eu"
 msgstr "http://imathi.eu"
 
+#. Tags of the plugin/theme
+msgid "HTML5, CSS3, light, gray, white, slider, responsive"
+msgstr "HTML5, CSS3, light, gray, white, slider, responsive"
+
 #. Template Name of the plugin/theme
 msgid "No Sidebar page"
 msgstr "Page sans sidebar"
@@ -634,9 +635,6 @@ msgstr "Page sans sidebar"
 
 #~ msgid "My github repositories"
 #~ msgstr "Mes repos Github"
-
-#~ msgid "HTML5, CSS3, light, gray, white, slider, responsive"
-#~ msgstr "HTML5, CSS3, light, gray, white, slider, responsive"
 
 #~ msgid ""
 #~ "<a href=\"http://wordpress.org/support/\" target=\"_blank\">Support "

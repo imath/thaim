@@ -360,9 +360,9 @@ function thaim_headline() {
 		?>
 			<h1><?php echo sprintf( __( '%s Search Results for ', 'thaim' ), $wp_query->found_posts ); echo get_search_query(); ?></h1>
 		
-		<?php elseif ( is_category() ):
+		<?php elseif( is_category() || is_tag() ):
 		
-			thaim_headline_category();
+			thaim_headline_term();
 		
 		elseif ( is_tag() ):
 		
@@ -395,17 +395,10 @@ function thaim_headline_h1() {
 		return apply_filters( 'thaim_headline_get_h1', $headline );
 	}
 
-function thaim_headline_tag() {
-	$tag = get_tags( array( 'slug' => wp_title( false, false ) ) );
+function thaim_headline_term() {
+	$term = get_queried_object();
 	
-	thaim_headline_html_for_cat_tags( $tag[0]->term_id, $tag[0]->name, $tag[0]->description );
-}
-
-function thaim_headline_category(){
-	
-	$category = get_the_category();
-	
-	thaim_headline_html_for_cat_tags( $category[0]->term_id, $category[0]->name, $category[0]->description, 'cat' );
+	thaim_headline_html_for_cat_tags( $term->term_id, $term->name, $term->description );
 }
 
 function thaim_headline_html_for_cat_tags( $term_id, $term_name, $term_desc, $type = 'tag' ) {
@@ -423,21 +416,21 @@ function thaim_headline_html_for_cat_tags( $term_id, $term_name, $term_desc, $ty
 	?>
 	<div class="row thaim-in-headline">
 		
-		<?php if ( is_array( $image_header ) && ! empty( $image_header['src'] ) ): ?>
+		<?php if ( is_array( $image_header ) && ! empty( $image_header['src'] ) ):?>
 			<div class="sevencol">
 				<img src="<?php echo $image_header['src'];?>" alt="Illustration" class="thaim-image">
 			</div>
 			<div class="fivecol last">
-		<?php else: ?>
+		<?php else:?>
 			<div class="twelvecol">
-		<?php endif; ?>
+		<?php endif;?>
 				<h1>
 					<span aria-hidden="true" data-icon="<?php echo $icon ;?>"></span>
 					<?php echo esc_html( $term_name );?>
 				</h1>
-				<?php if ( ! empty( $term_desc ) ): ?>
+				<?php if( !empty( $term_desc ) ):?>
 					<p><?php echo esc_html( $term_desc );?></p>
-				<?php endif; ?>
+				<?php endif;?>
 			</div>
 	</div>
 	<?php
@@ -792,6 +785,28 @@ function remove_thumbnail_dimensions( $html ) {
 add_filter( 'post_thumbnail_html', 'remove_thumbnail_dimensions', 10 ); // Remove width and height dynamic attributes to thumbnails
 add_filter( 'image_send_to_editor', 'remove_thumbnail_dimensions', 10 ); // Remove width and height dynamic attributes to post images
 
+function thaim_add_caption( $html, $id, $caption, $title, $align, $url, $size, $alt = '' ) {
+
+	if ( empty($caption) || apply_filters( 'disable_captions', '' ) )
+		return $html;
+
+	$id = ( 0 < (int) $id ) ? 'attachment_' . $id : '';
+
+	$caption = str_replace( array("\r\n", "\r"), "\n", $caption);
+	$caption = preg_replace_callback( '/<[a-zA-Z0-9]+(?: [^<>]+>)*/', '_cleanup_image_add_caption', $caption );
+	// convert any remaining line breaks to <br>
+	$caption = preg_replace( '/[ \n\t]*\n[ \t]*/', '<br />', $caption );
+
+	$html = preg_replace( '/(class=["\'][^\'"]*)align(none|left|right|center)\s?/', '$1', $html );
+	if ( empty($align) )
+		$align = 'none';
+
+	$shcode = '[caption id="' . $id . '" align="align' . $align	. '" width="590px"]' . $html . ' ' . $caption . '[/caption]';
+
+	return apply_filters( 'thaim_add_caption', $shcode, $html );
+}
+add_filter( 'image_send_to_editor', 'thaim_add_caption', 21, 8 );
+
 // Disable WYSIWYG editor
 function thaim_is_for_coder( $rich_edit ) {
 	return false;
@@ -808,7 +823,7 @@ add_filter( 'widget_tag_cloud_args', 'thaim_tag_cloud_args' );
 
 // Remove Filters
 remove_filter( 'the_excerpt', 'wpautop' ); // Remove <p> tags from Excerpt altogether
-
+remove_filter( 'image_send_to_editor', 'image_add_caption' );
 
 /*
  * ========================================================================
