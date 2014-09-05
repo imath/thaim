@@ -26,7 +26,7 @@ Domain Path: /languages/
 /* =============================================================================
    General Styles
    ========================================================================== */
-   
+
 /* Font Face Setup, add fonts to /fonts/ folder and sync filenames */
 @font-face {
 	font-family: 'ArchitectsDaughterRegular';
@@ -51,7 +51,7 @@ Domain Path: /languages/
 	font-style: normal;
 }
 
-/* Global Box Sizing and Font-Smoothing */	 
+/* Global Box Sizing and Font-Smoothing */
 *, *:after, *:before {
 	box-sizing:border-box;
 	-webkit-box-sizing:border-box;
@@ -78,8 +78,8 @@ body {
 	color:#555; /* Lighter on the eyes than #000 Black */
 	background:#F7F7F7;
 }
-   
-/* Fluid First approach - http://www.toddmotto.com/fluid-first-creating-a-future-proof-fluid-and-responsive-website 
+
+/* Fluid First approach - http://www.toddmotto.com/fluid-first-creating-a-future-proof-fluid-and-responsive-website
   Responsive, fluid, 1280px width - perfect start.
 */
 
@@ -182,8 +182,8 @@ header#thaim-site{
 	text-decoration:none;
 }
 
-#thaim-site nav.main-navigation ul li.current_page_item a, 
-#thaim-site nav.main-navigation ul li.current-menu-item a, 
+#thaim-site nav.main-navigation ul li.current_page_item a,
+#thaim-site nav.main-navigation ul li.current-menu-item a,
 #thaim-site nav.main-navigation ul li.current-menu-parent a,
 #thaim-site nav.main-navigation ul li.current_page_parent a {
 	color: #555;
@@ -242,7 +242,7 @@ body.home blockquote{
 	margin-bottom:0;
 }
 
-h2.buddypress, 
+h2.buddypress,
 h4.buddypress,
 h2.buddypress a
 {
@@ -310,8 +310,13 @@ h2.wordpress a {
 	text-rendering: optimizeLegibility;
 }
 
-#sidebar ul {
+#sidebar ul,
+.entry-content .home-widget ul {
 	list-style: none;
+}
+
+.entry-content .home-widget ul li {
+	margin-left:0;
 }
 
 .sidebar-widget .widget {
@@ -384,7 +389,7 @@ table.thaim-plugin-desc {
 	margin:0!important;
 }
 
-#wp-org-plugins p.download-wp, 
+#wp-org-plugins p.download-wp,
 #wp-org-plugins p.info-wp, #github-repos p.info-wp,
 #wp-org-plugins p.thaim-plugin-tag {
 	display: block;
@@ -430,7 +435,7 @@ table.thaim-plugin-desc {
 	white-space: pre;
 	white-space: pre-wrap;
 }
-.entry-content code, 
+.entry-content code,
 .comment-content code,
 .comment-content pre,
 .entry-content pre {
@@ -456,7 +461,8 @@ h3.rss-feed a {
 .page-title,
 .widget-title,
 .entry-content th,
-.comment-content th {
+.comment-content th,
+.entry-content .home-widget h3.widget-title {
 	font-size: 11px;
 	font-size: 0.785714286rem;
 	line-height: 2.181818182;
@@ -513,7 +519,7 @@ input[type="button"],
 input[type="reset"],
 article.post-password-required input[type=submit],
 #thaim-site nav.main-small-navigation.toggled-on ul li a,
-li.bypostauthor cite span, 
+li.bypostauthor cite span,
 #pagination .page-numbers,
 h3.dld a, .racc a{
 	padding: 6px 10px;
@@ -1372,17 +1378,17 @@ a.comment-edit-link:hover {
 	color: red;
 }
 
-#thaim-content .wrapper .row .onecol, 
-#thaim-content .wrapper .row .twocol, 
-#thaim-content .wrapper .row .threecol, 
-#thaim-content .wrapper .row .fourcol, 
-#thaim-content .wrapper .row .fivecol, 
-#thaim-content .wrapper .row .sixcol, 
-#thaim-content .wrapper .row .sevencol, 
-#thaim-content .wrapper .row .eightcol, 
-#thaim-content .wrapper .row .ninecol, 
-#thaim-content .wrapper .row .tencol, 
-#thaim-content .wrapper .row .elevencol, 
+#thaim-content .wrapper .row .onecol,
+#thaim-content .wrapper .row .twocol,
+#thaim-content .wrapper .row .threecol,
+#thaim-content .wrapper .row .fourcol,
+#thaim-content .wrapper .row .fivecol,
+#thaim-content .wrapper .row .sixcol,
+#thaim-content .wrapper .row .sevencol,
+#thaim-content .wrapper .row .eightcol,
+#thaim-content .wrapper .row .ninecol,
+#thaim-content .wrapper .row .tencol,
+#thaim-content .wrapper .row .elevencol,
 #thaim-content .wrapper .row .twelvecol
 {
 	padding-left: 0px!important;
@@ -1512,19 +1518,19 @@ a.backtotop:hover {
 
 /* 480px and greater */
 @media only screen and (min-width: 480px) {
-	
+
 }
 
 /* 768px and greater */
 @media only screen and (min-width: 768px) {
-	
+
 	#pagination {
 		border:none;
 		margin-bottom: 24px;
 		margin-bottom: 1.714285714rem;
 		padding:0;
 	}
-	
+
 	.author-avatar {
 		float: left;
 		margin-top: 8px;
@@ -1539,7 +1545,7 @@ a.backtotop:hover {
 	body.full-width .site-content {
 		width: 100%;
 	}
-	
+
 	.site-header h1,
 	.site-header h2 {
 		text-align: left;
@@ -1550,7 +1556,7 @@ a.backtotop:hover {
 		line-height: 1.846153846;
 		margin-bottom: 0;
 	}
-	
+
 	.menu-toggle {
 		display: none;
 	}
@@ -1577,12 +1583,12 @@ a.backtotop:hover {
 		margin-bottom: 0;
 		width: 47.916666667%;
 	}
-	
+
 	.commentlist .children {
 		margin-left: 48px;
 		margin-left: 3.428571429rem;
 	}
-	
+
 	.commentlist article {
 		border-bottom:dotted 1px #C9C9C9;
 	}
@@ -1605,7 +1611,7 @@ a.backtotop:hover {
 /* =============================================================================
    Non-Semantic Classes
    ========================================================================== */
-   
+
 /* Custom Selection Styles */
 ::selection {background:#d54e21;color:#FFF;text-shadow:none;}
 ::-webkit-selection {background:#d54e21;color:#FFF;text-shadow:none;}

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Template Name: No Sidebar page
  *
@@ -9,38 +9,42 @@
  */
 
 get_header(); ?>
-	
+
 	<!-- Section -->
 	<section id="thaim-section" class="twelvecol">
-	
+
 	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
-	
+
 		<!-- Article -->
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		
+
 			<div class="entry-content">
-			
+
+				<?php do_action( 'thaim_no_sidebar_before_content' ) ;?>
+
 				<?php the_content(); ?>
-				
+
+				<?php do_action( 'thaim_no_sidebar_after_content' ) ;?>
+
 			</div>
-			
+
 			<br class="clear">
-			
+
 			<?php edit_post_link(); ?>
-			
+
 		</article>
 		<!-- /Article -->
-		
+
 		<?php comments_template( '', true ); // Remove if you don't want comments ?>
-		
+
 	<?php endwhile; ?>
-	
+
 	<?php else: ?>
-	
+
 		<?php get_template_part( 'entry', 'none' );?>
-	
+
 	<?php endif; ?>
-	
+
 	</section>
 	<!-- /Section -->
 

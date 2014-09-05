@@ -69,6 +69,15 @@ function thaim_setup() {
 		require_once( get_template_directory() . '/includes/buddypress.php' );
 	}
 
+	/*
+	 * ========================================================================
+	 *  Checking for WP Idea Stream
+	 * ========================================================================
+	 */
+	if ( function_exists( 'wp_idea_stream' ) ) {
+		require_once( get_template_directory() . '/includes/wp-idea-stream.php' );
+	}
+
 
 	// nav menus
 	register_nav_menus(array( // Using array to specify more menus if needed
@@ -351,7 +360,7 @@ function thaim_headline() {
 	//if home slider....
 	if( is_front_page() ) {
 
-		thaim_slider_handle();
+		do_action( 'thaim_headline_slider' );
 
 	} else {
 
@@ -539,6 +548,7 @@ function thaim_slider_handle() {
 
 	wp_reset_query();
 }
+add_action( 'thaim_headline_slider', 'thaim_slider_handle' );
 
 /*
  * ========================================================================
@@ -824,60 +834,6 @@ add_filter( 'widget_tag_cloud_args', 'thaim_tag_cloud_args' );
 // Remove Filters
 remove_filter( 'the_excerpt', 'wpautop' ); // Remove <p> tags from Excerpt altogether
 remove_filter( 'image_send_to_editor', 'image_add_caption' );
-
-/*
- * ========================================================================
- *  Thaim specific functions for WP Idea Stream
- *  Demo of possible ways to customize the plugin
- * ========================================================================
- */
-
-/**
- * Can be used by any theme.
- * Just create a sidebar template named sidebar-ideastream.php
- * Use dynamic_sidebar( 'widget-area-ideastream' ) in it
- * call it in your main ideastream.php template
- * Then use the Widgets Administration to add IdeaStream Widgets in it
- */
-function thaim_ideastream_widgets_sidebar() {
-	register_sidebar( array(
-        'name'          => __( 'IdeaStream Sidebar', 'thaim' ),
-        'description'   => __( 'Show widgets only in IdeaStream pages', 'thaim' ),
-        'id'            => 'widget-area-ideastream',
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>'
-    ) );
-}
-add_action( 'widgets_init', 'thaim_ideastream_widgets_sidebar', 11 );
-
-// Specific to Thaim
-function thaim_allow_ideastream_editor() {
-	remove_filter( 'user_can_richedit', 'thaim_is_for_coder' );
-
-	if ( wp_idea_stream_is_ideastream() ) {
-		remove_filter( 'excerpt_more', 'thaim_wp_view_article' );
-	}
-}
-add_action( 'wp_idea_stream_template_redirect', 'thaim_allow_ideastream_editor' );
-
-// Specific to Thaim
-function thaim_ideastream_headline() {
-	if ( ! function_exists( 'wp_idea_stream' ) ) {
-		return;
-	}
-
-	if ( wp_idea_stream_is_single_idea() ) {
-		?>
-		<h1><a href="<?php echo esc_url( wp_idea_stream_get_root_url() );?>"><?php echo esc_html( wp_idea_stream_archive_title() ) ;?></a></h1>
-		<?php
-	} else {
-		?>
-		<h1><?php the_title(); ?></h1>
-		<?php
-	}
-}
 
 /*
  * ========================================================================
