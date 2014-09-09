@@ -70,7 +70,7 @@ function thaim_ideastream_slider() {
 		'include' => wp_idea_stream_ideas_get_stickies(),
 	);
 
-	if ( wp_idea_stream_ideas_has_ideas( $args ) ) :
+	if ( ! empty( $args['include'] ) && wp_idea_stream_ideas_has_ideas( $args ) ) :
 	?>
 	<div class="thaim-hero-slide-container">
 
@@ -195,13 +195,13 @@ add_action( 'thaim_no_sidebar_after_content', 'thaim_ideastream_home_widgets' );
  * @uses   wp_idea_stream_set_idea_var() to catch the widget ids added in the home sidebar
  * @return array list of sidebars unchanged
  */
-function thaim_ideasstream_catch_home_sidebar( $sidebars_widgets = array() ) {
+function thaim_ideastream_catch_home_sidebar( $sidebars_widgets = array() ) {
 	if ( ! empty( $sidebars_widgets['widget-home-ideastream'] ) ) {
 		wp_idea_stream_set_idea_var( 'home_widgets', $sidebars_widgets['widget-home-ideastream'] );
 	}
 	return $sidebars_widgets;
 }
-add_filter( 'sidebars_widgets', 'thaim_ideasstream_catch_home_sidebar', 10 );
+add_filter( 'sidebars_widgets', 'thaim_ideastream_catch_home_sidebar', 10 );
 
 /**
  * Adds specific classes to home widgets
