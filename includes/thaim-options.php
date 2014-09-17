@@ -28,35 +28,36 @@ function thaim_theme_options_init() {
 		'theme_options' // Menu slug, used to uniquely identify the page;
 	);
 
-	// Register our individual settings fields
-	add_settings_field(
-		'prettify_shortcode',  // Unique identifier for the field for this section
-		__( 'Shortocode to prettify your snippets', 'thaim' ), // Setting field label
-		'thaim_settings_field_prettify_shortcode', // Function that renders the settings field
-		'theme_options', // Menu slug, used to uniquely identify the page;
-		'general' // Settings section. Same as the first argument in the add_settings_section() above
-	);
-	
-	register_setting(
-		'thaim_options',       // Options group
-		'thaim_use_prettify', // Database option
-		'thaim_use_prettify_validate' // The sanitization callback
-	);
-	
-	add_settings_field( 
-		'thaim_maintenance',
-		__( 'Put the blog in maintenance mode', 'thaim' ), 
-		'thaim_settings_field_maintenance',
-		'theme_options',
-		'general' 
-	);
-	
-	register_setting(
-		'thaim_options',
-		'thaim_maintenance_mode',
-		'thaim_maintenance_validate'
-	);
-	
+	$setting_fields = apply_filters( 'thaim_setting_fields', array(
+		'prettify_shortcode' => array( 
+			'label'    => __( 'Shortocode to prettify your snippets', 'thaim' ),
+			'callback' => 'thaim_settings_field_prettify_shortcode',
+			'sanitize' => 'absint',
+			'option'   => 'thaim_use_prettify',
+		),
+		'thaim_maintenance' => array( 
+			'label'    => __( 'Put the blog in maintenance mode', 'thaim' ),
+			'callback' => 'thaim_settings_field_maintenance',
+			'sanitize' => 'absint',
+			'option'   => 'thaim_maintenance_mode',
+		),
+	) );
+
+	foreach ( $setting_fields as $key_field => $args_field ) {
+		add_settings_field(
+			$key_field,              // Unique identifier for the field for this section
+			$args_field['label'],    // Setting field label
+			$args_field['callback'], // Function that renders the settings field
+			'theme_options',         // Menu slug, used to uniquely identify the page;
+			'general'                // Settings section. Same as the first argument in the add_settings_section() above
+		);
+		
+		register_setting(
+			'thaim_options',         // Options group
+			$args_field['option'],   // Database option
+			$args_field['sanitize'] // The sanitization callback
+		);
+	}
 }
 add_action( 'admin_init', 'thaim_theme_options_init' );
 
@@ -118,8 +119,8 @@ function thaim_settings_field_prettify_shortcode() {
 	
 	?>
 	<label class="description">
-		<input type="radio" name="thaim_theme_options[prettify_shortcode]" value="1" <?php checked( $option, 1 );?> /> <?php _e('Yes', 'thaim');?>
-		<input type="radio" name="thaim_theme_options[prettify_shortcode]" value="0" <?php checked( $option, 0 );?> /> <?php _e('No', 'thaim');?>
+		<input type="radio" name="thaim_use_prettify" value="1" <?php checked( $option, 1 );?> /> <?php _e('Yes', 'thaim');?>
+		<input type="radio" name="thaim_use_prettify" value="0" <?php checked( $option, 0 );?> /> <?php _e('No', 'thaim');?>
 	</label>
 	<?php
 }
@@ -129,8 +130,8 @@ function thaim_settings_field_maintenance() {
 	
 	?>
 	<label class="description">
-		<input type="radio" name="thaim_theme_options[thaim_maintenance]" value="1" <?php checked( $option, 1 );?> /> <?php _e('Yes', 'thaim');?>
-		<input type="radio" name="thaim_theme_options[thaim_maintenance]" value="0" <?php checked( $option, 0 );?> /> <?php _e('No', 'thaim');?>
+		<input type="radio" name="thaim_maintenance_mode" value="1" <?php checked( $option, 1 );?> /> <?php _e('Yes', 'thaim');?>
+		<input type="radio" name="thaim_maintenance_mode" value="0" <?php checked( $option, 0 );?> /> <?php _e('No', 'thaim');?>
 	</label>
 	<?php
 }
@@ -152,28 +153,4 @@ function thaim_options_render_page() {
 		
 	</div>
 	<?php
-}
-
-function thaim_use_prettify_validate() {
-	$input = $_POST['thaim_theme_options']['prettify_shortcode'];
-	
-	$output = intval( $input );
-	
-	return apply_filters( 'thaim_use_prettify_validate', $output, $input );
-}
-
-function thaim_twitter_username_validate() {
-	$input = $_POST['thaim_theme_options']['twitter_username'];
-	
-	$output = sanitize_key( $input, array() );
-	
-	return apply_filters( 'thaim_twitter_username_validate', $output, $input );
-}
-
-function thaim_maintenance_validate() {
-	$input = $_POST['thaim_theme_options']['thaim_maintenance'];
-	
-	$output = intval( $input );
-	
-	return apply_filters( 'thaim_maintenance_validate', $output, $input );
 }

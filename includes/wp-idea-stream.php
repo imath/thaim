@@ -10,6 +10,48 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 
 /**
+ * Register a setting to use stickies in slider
+ * 
+ * @param  array  $setting_fields list of thaim settings fields
+ * @return array                  the new list
+ */
+function thaim_ideastream_settings( $setting_fields =array() ) {
+	return array_merge( $setting_fields, array( 
+		'ideastream_in_home' => array(
+			'label'    => __( 'Use IdeaStream content in home slider', 'thaim' ),
+			'callback' => 'thaim_ideastream_settings_field_in_home',
+			'sanitize' => 'absint',
+			'option'   => 'thaim_use_ideastream_in_home',
+		)
+	) );
+}
+add_filter( 'thaim_setting_fields', 'thaim_ideastream_settings', 10, 1 );
+
+/**
+ * Gets the IdeaStream Option
+ * 
+ * @param  integer $default Defaults to activated
+ * @return bool             true if enabled, false otherwise
+ */
+function thaim_ideastream_option( $default = 1 ) {
+	return (bool) get_option( 'thaim_use_ideastream_in_home', $default );
+}
+
+/**
+ * Callback function for the ideastream setting
+ * 
+ * @return string HTML Output
+ */
+function thaim_ideastream_settings_field_in_home() {
+	$ideastream_in_home = thaim_ideastream_option();
+	?>
+	<label class="description">
+		<input type="radio" name="thaim_use_ideastream_in_home" value="1" <?php checked( true, $ideastream_in_home );?> /> <?php _e('Yes', 'thaim');?>
+		<input type="radio" name="thaim_use_ideastream_in_home" value="0" <?php checked( false, $ideastream_in_home );?> /> <?php _e('No', 'thaim');?>
+	</label>
+	<?php
+}
+/**
  * Can be used by any theme.
  * Just create a sidebar template named sidebar-ideastream.php
  * Use dynamic_sidebar( 'widget-area-ideastream' ) in it
@@ -138,11 +180,15 @@ function thaim_allow_ideastream_editor() {
 	// remove this filter to allow the WP Editor to load
 	remove_filter( 'user_can_richedit', 'thaim_is_for_coder' );
 
-	// Slider will be used for ideas
-	remove_action( 'thaim_headline_slider', 'thaim_slider_handle' );
-	add_action( 'thaim_headline_slider', 'thaim_ideastream_slider' );
+	$ideastream_in_home = thaim_ideastream_option();
 
-	if ( is_front_page() || wp_idea_stream_is_ideastream() ) {
+	if ( ! empty( $ideastream_in_home ) ) {
+		// Slider will be used for ideas
+		remove_action( 'thaim_headline_slider', 'thaim_slider_handle' );
+		add_action( 'thaim_headline_slider', 'thaim_ideastream_slider' );
+	}
+
+	if ( ( ! empty( $ideastream_in_home ) && is_front_page() ) || wp_idea_stream_is_ideastream() ) {
 		remove_filter( 'excerpt_more', 'thaim_wp_view_article' );
 	}
 }
