@@ -623,6 +623,10 @@ video {
 	max-width: 100% !important; /* Override the Twitter embed fixed width */
 }
 
+iframe.twitter-tweet {
+	width:100%!important;
+}
+
 /* Images */
 .alignleft {
 	float: left;
