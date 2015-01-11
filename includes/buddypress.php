@@ -19,7 +19,7 @@ class Thaim_BuddyPress {
 		}
 
 		return $bp->theme_compat->theme->thaim;
-	} 
+	}
 
 	private function setup_globals() {
 		// customize with your wordpress login.
@@ -64,6 +64,9 @@ class Thaim_BuddyPress {
 
 		// Author link now goes to my BuddyPress profile !
 		add_filter( 'author_link', array( $this, 'filter_author_link' ), 10, 3 );
+
+		// Menu items highligthing
+		add_filter( 'page_css_class', array( $this, 'maybe_unhighlight_page' ), 20, 2 );
 	}
 
 	public function default_component( $default = array() ) {
@@ -88,7 +91,7 @@ class Thaim_BuddyPress {
 
 		/**
 		 * Create a xprofile field named "Badges"
-		 * 
+		 *
 		 * 1- Choose checkbox type
 		 * 2- define these options
 		 *   * wordpress-codex
@@ -106,7 +109,7 @@ class Thaim_BuddyPress {
 				'h5' => array(
 					'align' => true,
 				),
-		
+
 				'hr' => array(
 					'align' => true,
 					'noshade' => true,
@@ -134,7 +137,7 @@ class Thaim_BuddyPress {
 		}
 
 		if ( ! empty( $redirect ) ) {
-			bp_core_redirect( $redirect ); 
+			bp_core_redirect( $redirect );
 		}
 	}
 
@@ -161,7 +164,7 @@ class Thaim_BuddyPress {
 		$output = '<ul id="' . $css_id . '" class="item-list" role="main">';
 
 		foreach ( $badges as $badge ) {
-			$badge = trim( $badge ); 
+			$badge = trim( $badge );
 			$output .= '<li><div class="badge badge-' . sanitize_html_class( $badge ) . ' thaimicons" title="' . esc_attr( $data_badges[ $badge ]['title'] ) . '" data-icon="' . esc_attr( $data_badges[ $badge ]['data-icon'] ) . '"></div></li>';
 		}
 
@@ -189,6 +192,44 @@ class Thaim_BuddyPress {
 			$link = bp_core_get_userlink( $author_id, false, true );
 
 		return $link;
+	}
+
+	/**
+	 * Since BuddyPress 2.2, we need to do this
+	 */
+	public function maybe_unhighlight_page( $retval, $page ) {
+		if ( ! is_buddypress() ) {
+			return $retval;
+		}
+
+		// loop against all BP component pages
+		foreach ( (array) buddypress()->pages as $component => $bp_page ) {
+			// handles the majority of components
+			if ( bp_is_current_component( $component ) ) {
+				$page_id = (int) $bp_page->id;
+			}
+
+			// stop if not on a user page
+			if ( ! bp_is_user() && ! empty( $page_id ) ) {
+				break;
+			}
+
+			// members component requires an explicit check due to overlapping components
+			if ( bp_is_user() && 'members' === $component ) {
+				$page_id = (int) $bp_page->id;
+				break;
+			}
+		}
+
+		if ( empty( $page_id ) || empty( $page->ID ) || $page_id == $page->ID ) {
+			return $retval;
+		}
+
+		// If we are here, we need to make sure no other pages are highlighted
+		return array_diff( $retval, array(
+			'current_page_parent',
+			'current_page_item',
+		) );
 	}
 }
 
