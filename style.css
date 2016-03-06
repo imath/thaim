@@ -2,7 +2,7 @@
 Theme Name: thaim
 Theme URI: http://imathi.eu/tag/thaim
 Description: thaim is imath's theme !
-Version: 1.1-beta1
+Version: 2.0.0
 Author: imath
 Author URI: http://imathi.eu
 Tags: HTML5, CSS3, light, gray, white, slider, responsive
@@ -15,43 +15,13 @@ Domain Path: /languages/
 
 /* =====================================================================================
    Credits & many thanks to : twentytwelve (i love this theme), html5blank and _s themes
-   							  & Ohad Raz for his tax meta class
    ===================================================================================== */
-
-/* =============================================================================
-   Fluid grid
-   ========================================================================== */
-@import url( 'css/1140.css' );
 
 /* =============================================================================
    General Styles
    ========================================================================== */
-   
-/* Font Face Setup, add fonts to /fonts/ folder and sync filenames */
-@font-face {
-	font-family: 'ArchitectsDaughterRegular';
-    src: url('fonts/architects/ArchitectsDaughter-webfont.eot');
-    src: url('fonts/architects/ArchitectsDaughter-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/architects/ArchitectsDaughter-webfont.woff') format('woff'),
-         url('fonts/architects/ArchitectsDaughter-webfont.ttf') format('truetype'),
-         url('fonts/architects/ArchitectsDaughter-webfont.svg#ArchitectsDaughterRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 
-/* icons */
-@font-face {
-	font-family: 'thaimicons';
-	src:url('fonts/thaimicons/thaimicons.eot?-duyt0a');
-	src:url('fonts/thaimicons/thaimicons.eot?#iefix-duyt0a') format('embedded-opentype'),
-		url('fonts/thaimicons/thaimicons.svg?-duyt0a#thaimicons') format('svg'),
-		url('fonts/thaimicons/thaimicons.woff?-duyt0a') format('woff'),
-		url('fonts/thaimicons/thaimicons.ttf?-duyt0a') format('truetype');
-	font-weight: normal;
-	font-style: normal;
-}
-
-/* Global Box Sizing and Font-Smoothing */	 
+/* Global Box Sizing and Font-Smoothing */
 *, *:after, *:before {
 	box-sizing:border-box;
 	-webkit-box-sizing:border-box;
@@ -78,8 +48,8 @@ body {
 	color:#555; /* Lighter on the eyes than #000 Black */
 	background:#F7F7F7;
 }
-   
-/* Fluid First approach - http://www.toddmotto.com/fluid-first-creating-a-future-proof-fluid-and-responsive-website 
+
+/* Fluid First approach - http://www.toddmotto.com/fluid-first-creating-a-future-proof-fluid-and-responsive-website
   Responsive, fluid, 1280px width - perfect start.
 */
 
@@ -89,21 +59,6 @@ body {
 /* =============================================================================
    Thaim specific
    ========================================================================== */
-
-[data-icon]:before {
-	font-family: 'thaimicons';
-	content: attr(data-icon);
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-
-	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
 
 .clear {
 	clear:both;
@@ -182,8 +137,8 @@ header#thaim-site{
 	text-decoration:none;
 }
 
-#thaim-site nav.main-navigation ul li.current_page_item a, 
-#thaim-site nav.main-navigation ul li.current-menu-item a, 
+#thaim-site nav.main-navigation ul li.current_page_item a,
+#thaim-site nav.main-navigation ul li.current-menu-item a,
 #thaim-site nav.main-navigation ul li.current-menu-parent a,
 #thaim-site nav.main-navigation ul li.current_page_parent a {
 	color: #555;
@@ -234,15 +189,16 @@ body.thaim-maintenance #thaim-site #thaim-info-maintenance {
 }
 
 blockquote {
-	font-family:ArchitectsDaughterRegular;
+	font-family: 'Shadows Into Light', cursive;
 }
 
 body.home blockquote{
 	text-align:center;
 	margin-bottom:0;
+	font-size: 24px;
 }
 
-h2.buddypress, 
+h2.buddypress,
 h4.buddypress,
 h2.buddypress a
 {
@@ -384,7 +340,7 @@ table.thaim-plugin-desc {
 	margin:0!important;
 }
 
-#wp-org-plugins p.download-wp, 
+#wp-org-plugins p.download-wp,
 #wp-org-plugins p.info-wp, #github-repos p.info-wp,
 #wp-org-plugins p.thaim-plugin-tag {
 	display: block;
@@ -430,7 +386,7 @@ table.thaim-plugin-desc {
 	white-space: pre;
 	white-space: pre-wrap;
 }
-.entry-content code, 
+.entry-content code,
 .comment-content code,
 .comment-content pre,
 .entry-content pre {
@@ -513,7 +469,7 @@ input[type="button"],
 input[type="reset"],
 article.post-password-required input[type=submit],
 #thaim-site nav.main-small-navigation.toggled-on ul li a,
-li.bypostauthor cite span, 
+li.bypostauthor cite span,
 #pagination .page-numbers,
 h3.dld a, .racc a{
 	padding: 6px 10px;
@@ -651,6 +607,15 @@ img.thaim-image {
 	/* Add fancy borders to all WordPress-added images but not things like badges and icons and the like */
 	border-radius: 3px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+.dashicons, .dashicons-before:before {
+	vertical-align: baseline;
+}
+.dashicons-buddypress:before {
+	content: "\f448";
 }
 .wp-caption {
 	max-width: 100%; /* Keep wide captions from overflowing their container. */
@@ -1372,17 +1337,17 @@ a.comment-edit-link:hover {
 	color: red;
 }
 
-#thaim-content .wrapper .row .onecol, 
-#thaim-content .wrapper .row .twocol, 
-#thaim-content .wrapper .row .threecol, 
-#thaim-content .wrapper .row .fourcol, 
-#thaim-content .wrapper .row .fivecol, 
-#thaim-content .wrapper .row .sixcol, 
-#thaim-content .wrapper .row .sevencol, 
-#thaim-content .wrapper .row .eightcol, 
-#thaim-content .wrapper .row .ninecol, 
-#thaim-content .wrapper .row .tencol, 
-#thaim-content .wrapper .row .elevencol, 
+#thaim-content .wrapper .row .onecol,
+#thaim-content .wrapper .row .twocol,
+#thaim-content .wrapper .row .threecol,
+#thaim-content .wrapper .row .fourcol,
+#thaim-content .wrapper .row .fivecol,
+#thaim-content .wrapper .row .sixcol,
+#thaim-content .wrapper .row .sevencol,
+#thaim-content .wrapper .row .eightcol,
+#thaim-content .wrapper .row .ninecol,
+#thaim-content .wrapper .row .tencol,
+#thaim-content .wrapper .row .elevencol,
 #thaim-content .wrapper .row .twelvecol
 {
 	padding-left: 0px!important;
@@ -1512,19 +1477,19 @@ a.backtotop:hover {
 
 /* 480px and greater */
 @media only screen and (min-width: 480px) {
-	
+
 }
 
 /* 768px and greater */
 @media only screen and (min-width: 768px) {
-	
+
 	#pagination {
 		border:none;
 		margin-bottom: 24px;
 		margin-bottom: 1.714285714rem;
 		padding:0;
 	}
-	
+
 	.author-avatar {
 		float: left;
 		margin-top: 8px;
@@ -1539,7 +1504,7 @@ a.backtotop:hover {
 	body.full-width .site-content {
 		width: 100%;
 	}
-	
+
 	.site-header h1,
 	.site-header h2 {
 		text-align: left;
@@ -1550,7 +1515,7 @@ a.backtotop:hover {
 		line-height: 1.846153846;
 		margin-bottom: 0;
 	}
-	
+
 	.menu-toggle {
 		display: none;
 	}
@@ -1577,12 +1542,12 @@ a.backtotop:hover {
 		margin-bottom: 0;
 		width: 47.916666667%;
 	}
-	
+
 	.commentlist .children {
 		margin-left: 48px;
 		margin-left: 3.428571429rem;
 	}
-	
+
 	.commentlist article {
 		border-bottom:dotted 1px #C9C9C9;
 	}
@@ -1605,7 +1570,7 @@ a.backtotop:hover {
 /* =============================================================================
    Non-Semantic Classes
    ========================================================================== */
-   
+
 /* Custom Selection Styles */
 ::selection {background:#d54e21;color:#FFF;text-shadow:none;}
 ::-webkit-selection {background:#d54e21;color:#FFF;text-shadow:none;}

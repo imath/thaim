@@ -1,62 +1,95 @@
 <?php
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+/**
+ * Term Meta
+ */
 
-//include the main class file
-require_once( get_template_directory() . '/includes/Tax-meta-class/Tax-meta-class.php' );
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
-if ( is_admin() ){
-  /* 
-   * prefix of meta keys, optional
-   */
-  $prefix = 'thaim_';
-  /* 
-   * configure your meta box
-   */
-  $config = array(
-    'id'             => 'thaim_meta_box',
-    'title'          => 'Thaim Meta Box',
-    'pages'          => array('category', 'post_tag'),
-    'context'        => 'normal',
-    'fields'         => array(),
-    'local_images'   => false,
-    'use_with_theme' => get_template_directory_uri() . '/includes/Tax-meta-class/'
-  );
-  
-  
-  /*
-   * Initiate your meta box
-   */
-  $thaim_meta =  new Tax_Meta_Class( $config );
-  
-  /*
-   * Add fields to your meta box
-   */
-  
-  //text field
-  $thaim_meta->addText( $prefix.'tax_icon', array( 'name'=> __( 'Icon', 'thaim' ), 'desc' => sprintf( __('You can choose an icon in this <a href="%s?TB_iframe=true" class="thickbox" title="Copy &amp; Paste the desired icon">list</a>', 'thaim'), get_template_directory_uri() .'/fonts/thaimicons/index.html' ) ) );
-  
-  $thaim_meta->addImage($prefix.'tax_image', array( 'name'=> __( 'Image header','thaim' ) ) );
-
-  //Finish Meta Box Decleration
-  $thaim_meta->Finish();
+function thaim_post_terms_get_meta() {
+	return array(
+		'term_icon' => array(
+			'id'          => 'term-icon',
+			'label'       => __( 'Icon', 'thaim' ),
+			'description' => sprintf( __( 'Choose the css code from available %s.', 'thaim' ), '<a href="https://developer.wordpress.org/resource/dashicons/" target="_blank">dashicons</a>' ),
+		),
+		'term_image' => array(
+			'id'          => 'term-image',
+			'label'       => __( 'Image', 'thaim' ),
+			'description' => __( 'Insert the url to the image for the term.', 'thaim' ),
+		),
+	);
 }
 
-// custom filters added to the class.
-
-// 1 no html tags in fields !
-add_filter( 'tax_meta_class_update_meta', 'tax_meta_class_update_meta_filter');
-
-function tax_meta_class_update_meta_filter( $meta ) {
-	return wp_kses( $meta, array() );
+function thaim_post_terms_form_fields() {
+	foreach ( thaim_post_terms_get_meta() as $key => $meta ) {
+		printf(
+			'<div class="form-field %1$s-wrap">
+				<label for="%1$s">%2$s</label>
+				<input name="_thaim[%3$s]" id="%1$s" type="text" value="" size="40" />
+				<p>%4$s</p>
+			</div>',
+			esc_attr( $meta['id'] ),
+			esc_html( $meta['label'] ),
+			sanitize_key( $key ),
+			wp_kses( $meta['description'], array( 'a' => array( 'target' => true, 'href' => true ) ) )
+		);
+	}
 }
+add_action( 'category_add_form_fields', 'thaim_post_terms_form_fields' );
+add_action( 'post_tag_add_form_fields', 'thaim_post_terms_form_fields' );
 
-// 2 well i need to htmlentities some values !
-add_filter( 'tax_meta_class_show_field_text', 'thaim_tax_meta_class_show_field_text_filter', 10, 2);
+function thaim_post_term_form_fields( $tag = null ) {
+	if ( empty( $tag->term_id ) ) {
+		return;
+	}
 
-function thaim_tax_meta_class_show_field_text_filter( $meta, $field ) {
-	if ( $field['id'] == 'thaim_tax_icon' )
-		$meta = htmlentities( $meta );
-		
-	return $meta;
+	foreach ( thaim_post_terms_get_meta() as $key => $meta ) {
+		$meta_value = get_term_meta( $tag->term_id, '_thaim_' . $key, true );
+
+		if ( ! empty( $meta_value ) ) {
+			if ( 'term_image' === $key ) {
+				$meta_value = esc_url( $meta_value );
+			} else {
+				$meta_value = esc_attr( $meta_value );
+			}
+		}
+
+		printf(
+			'<tr class="form-field %1$s-wrap">
+				<th scope="row"><label for="%1$s">%2$s</label></th>
+				<td><input name="_thaim[%3$s]" id="%1$s" type="text" value="%5$s" size="40" />
+				<p class="description">%4$s</p></td>
+			</tr>',
+			esc_attr( $meta['id'] ),
+			esc_html( $meta['label'] ),
+			sanitize_key( $key ),
+			wp_kses( $meta['description'], array( 'a' => array( 'target' => true, 'href' => true ) ) ),
+			$meta_value
+		);
+	}
 }
+add_action( 'edit_category_form_fields', 'thaim_post_term_form_fields', 10, 1 );
+add_action( 'edit_tag_form_fields',      'thaim_post_term_form_fields', 10, 1 );
+
+function thaim_post_terms_save_meta( $term_id, $tt_id, $taxonomy = '' ) {
+	if ( empty( $taxonomy ) || ( 'post_tag' !== $taxonomy && 'category' !== $taxonomy ) || empty( $_POST['_thaim'] ) ) {
+		return;
+	}
+
+	foreach ( array( 'term_icon', 'term_image' ) as $meta ) {
+		if ( ! empty( $_POST['_thaim'][ $meta ] ) ) {
+			if ( 'term_image' === $meta ) {
+				$value = esc_url_raw( $_POST['_thaim'][ $meta ] );
+			} else {
+				$value = esc_html( $_POST['_thaim'][ $meta ] );
+			}
+
+			update_term_meta( $term_id, '_thaim_' . $meta, $value );
+		} else {
+			delete_term_meta( $term_id, '_thaim_' . $meta );
+		}
+	}
+}
+add_action( 'create_term', 'thaim_post_terms_save_meta', 10, 3 );
+add_action( 'edit_term',   'thaim_post_terms_save_meta', 10, 3 );
