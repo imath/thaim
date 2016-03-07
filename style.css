@@ -122,9 +122,11 @@ header#thaim-site #thaim-info-maintenance h1 span {
 	color:#464646;
 }
 
-#thaim-logo {
-	margin:2em 1em 1em 0;
-	float:right;
+header#thaim-site #thaim-logo {
+	max-width: 260px;
+	text-align: center;
+	margin: 5px auto;
+	float: none;
 }
 
 header#thaim-site nav.main-navigation ul {
@@ -1488,8 +1490,15 @@ a.backtotop:hover {
 }
 
 /* 480px and greater */
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 480px) {}
 
+/* 600px and greater */
+@media only screen and (min-width: 600px) {
+	header#thaim-site #thaim-logo {
+		text-align: right;
+		margin:2em 1em 1em 0;
+		float:right;
+	}
 }
 
 /* 768px and greater */
@@ -1563,7 +1572,6 @@ a.backtotop:hover {
 	.commentlist article {
 		border-bottom:dotted 1px #C9C9C9;
 	}
-
 }
 
 /* 1024px and greater */
