@@ -33,12 +33,14 @@
 		<!-- Wrapper -->
 		<div class="wrapper">
 
-			<!-- Logo -->
+			<?php thaim_the_custom_logo(); ?>
+
+			<!-- Info -->
 			<div id="thaim-info">
 				<h1><a href="<?php echo site_url();?>"><?php thaim_blogname();?></a></h1>
 				<div class="description"><?php bloginfo('description');?></div>
 			</div>
-			<!-- /Logo -->
+			<!-- /Info -->
 
 			<!-- Nav -->
 			<nav role="navigation" class="site-navigation main-navigation">

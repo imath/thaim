@@ -86,47 +86,60 @@ header#thaim-site{
 	background: white url(img/header-bg.png) top left repeat-x;
 }
 
-#thaim-site .wrapper{
+body.custom-logo header#thaim-site {
+	background: white url(img/header-bg-custom-logo.png) top left repeat-x;
+}
+
+header#thaim-site .wrapper{
 	height:88px;
 }
 
-#thaim-site #thaim-info{
+body.custom-logo header#thaim-site .wrapper{
+	height: 120px;
+}
+
+header#thaim-site #thaim-info{
 	height:100%;
 	width:50%;
 	padding-top:2em;
 }
 
-#thaim-site #thaim-info h1,
-#thaim-site #thaim-info-maintenance h1{
+header#thaim-site #thaim-info h1,
+header#thaim-site #thaim-info-maintenance h1{
 	font-size:3em;
 	line-height:1em;
 }
 
-#thaim-site #thaim-info h1 a,
-#thaim-site #thaim-info-maintenance h1 {
+header#thaim-site #thaim-info h1 a,
+header#thaim-site #thaim-info-maintenance h1 {
 	text-decoration:none;
 	color:#C6C6C6;
 	text-shadow: rgba(0, 0, 0, 0.1) 0 1px 1px;
 }
 
-#thaim-site #thaim-info h1 a span,
-#thaim-site #thaim-info-maintenance h1 span {
+header#thaim-site #thaim-info h1 a span,
+header#thaim-site #thaim-info-maintenance h1 span {
 	color:#464646;
 }
 
-#thaim-site nav.main-navigation ul {
+#thaim-logo {
+	margin:2em 1em 1em 0;
+	float:right;
+}
+
+header#thaim-site nav.main-navigation ul {
 	margin-right: 1em;
 	float: right;
 	list-style: none;
 	min-width: 50%;
 }
 
-#thaim-site nav.main-navigation ul li {
+header#thaim-site nav.main-navigation ul li {
 	float: left;
 	position: relative;
 }
 
-#thaim-site nav.main-navigation ul li a {
+header#thaim-site nav.main-navigation ul li a {
 	font-weight: normal;
 	display: block;
 	line-height: 2.5em;
@@ -137,10 +150,10 @@ header#thaim-site{
 	text-decoration:none;
 }
 
-#thaim-site nav.main-navigation ul li.current_page_item a,
-#thaim-site nav.main-navigation ul li.current-menu-item a,
-#thaim-site nav.main-navigation ul li.current-menu-parent a,
-#thaim-site nav.main-navigation ul li.current_page_parent a {
+header#thaim-site nav.main-navigation ul li.current_page_item a,
+header#thaim-site nav.main-navigation ul li.current-menu-item a,
+header#thaim-site nav.main-navigation ul li.current-menu-parent a,
+header#thaim-site nav.main-navigation ul li.current_page_parent a {
 	color: #555;
 	background: #F7F7F7;
 	border: 1px solid #C6C6C6;
@@ -157,19 +170,18 @@ header#thaim-site{
 	text-shadow: rgba(0, 0, 0, 0.1) 0 1px 1px;
 }
 
-#thaim-site nav.main-navigation{
+header#thaim-site nav.main-navigation{
 	position:absolute;
 	bottom:0px;
 	width:100%;
 }
 
-#thaim-site nav.main-small-navigation {
+header#thaim-site nav.main-small-navigation {
 	top:88px;
 	margin:0 auto;
 }
 
-#thaim-site h1.assistive-text {
-	/*display:none;*/
+header#thaim-site h1.assistive-text {
 	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
 	clip: rect(1px, 1px, 1px, 1px);
 	position: absolute !important;

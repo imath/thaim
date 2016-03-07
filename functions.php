@@ -38,6 +38,10 @@ function thaim_setup() {
 	// Title tag
 	add_theme_support( 'title-tag' );
 
+	// Custom Logo
+	add_image_size( 'thaim-logo', 220, 60 );
+	add_theme_support( 'custom-logo', array( 'size' => 'thaim-logo' ) );
+
 	/*
 	 * =====================================================================
 	 * Thaim options
@@ -192,6 +196,15 @@ function thaim_nav() {
 		'walker'          => ''
 	) );
 }
+
+function thaim_page_menu_args( $args ) {
+	if ( ! isset( $args['theme_location'] ) || 'header-menu' !== $args['theme_location'] || isset( $args['show_home'] ) ) {
+		return $args;
+	}
+
+	return array_merge( $args, array( 'show_home' => true ) );
+}
+add_filter( 'wp_page_menu_args', 'thaim_page_menu_args' );
 
 
 /* adds a navigation to adjacent post and a scroll top! */
@@ -744,7 +757,7 @@ remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );
 // Add Filters
 
 // Add page slug to body class, love this - Credit: Starkers Wordpress Theme
-function add_slug_to_body_class( $classes ) {
+function thaim_body_class( $classes ) {
     global $post;
     if ( is_home() ) {
         $key = array_search( 'blog', $classes );
@@ -757,9 +770,13 @@ function add_slug_to_body_class( $classes ) {
         $classes[] = sanitize_html_class( $post->post_name );
     }
 
+    if ( has_custom_logo() ) {
+    	$classes[] = 'custom-logo';
+    }
+
     return $classes;
 }
-add_filter( 'body_class', 'add_slug_to_body_class' ); // Add slug to body class (Starkers build)
+add_filter( 'body_class', 'thaim_body_class' ); // Add slug to body class (Starkers build)
 
 
 add_filter( 'widget_text', 'do_shortcode' ); // Allow shortcodes in Dynamic Sidebar
@@ -895,4 +912,15 @@ function thaim_ideastream_headline() {
 		<h1><?php the_title(); ?></h1>
 		<?php
 	}
+}
+
+function thaim_the_custom_logo() {
+	if ( ! has_custom_logo() ) {
+		return;
+	}
+	?>
+	<div id="thaim-logo">
+		<?php the_custom_logo(); ?>
+	</div>
+	<?php
 }
