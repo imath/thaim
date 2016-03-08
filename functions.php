@@ -35,6 +35,9 @@ function thaim_setup() {
 	// Enables post and comment RSS feed links to head
 	add_theme_support( 'automatic-feed-links' );
 
+	add_theme_support( 'post-thumbnails' );
+	set_post_thumbnail_size( 800, 400, true );
+
 	// Title tag
 	add_theme_support( 'title-tag' );
 
@@ -196,6 +199,34 @@ function thaim_nav() {
 		'walker'          => ''
 	) );
 }
+
+if ( ! function_exists( 'thaim_post_thumbnail' ) ) :
+/**
+ * Displays an optional post thumbnail.
+ *
+ * @since Thaim 2.0
+ */
+function thaim_post_thumbnail() {
+	if ( post_password_required() || is_attachment() || ! has_post_thumbnail() ) {
+		return;
+	}
+
+	if ( is_singular() ) :
+	?>
+
+	<div class="post-thumbnail">
+		<?php the_post_thumbnail(); ?>
+	</div><!-- .post-thumbnail -->
+
+	<?php else : ?>
+
+	<a class="post-thumbnail" href="<?php the_permalink(); ?>" aria-hidden="true">
+		<?php the_post_thumbnail( 'post-thumbnail', array( 'alt' => the_title_attribute( 'echo=0' ) ) ); ?>
+	</a>
+
+	<?php endif; // End is_singular()
+}
+endif;
 
 function thaim_page_menu_args( $args ) {
 	if ( ! isset( $args['theme_location'] ) || 'header-menu' !== $args['theme_location'] || isset( $args['show_home'] ) ) {
@@ -372,7 +403,7 @@ function thaim_headline() {
 		if ( is_search() ):
 			global $wp_query;
 		?>
-			<h1><?php echo sprintf( __( '%s Search Results for ', 'thaim' ), $wp_query->found_posts ); echo get_search_query(); ?></h1>
+			<h2><?php echo sprintf( __( '%s Search Results for ', 'thaim' ), $wp_query->found_posts ); echo get_search_query(); ?></h2>
 
 		<?php elseif( is_category() || is_tag() ):
 
@@ -388,7 +419,7 @@ function thaim_headline() {
 
 		else : ?>
 
-			<h1><?php thaim_headline_h1(); ?></h1>
+			<h2><?php thaim_headline_h2(); ?></h2>
 
 		<?php
 		endif;
@@ -399,22 +430,22 @@ function thaim_headline() {
 
 }
 
-function thaim_headline_h1() {
-	echo thaim_headline_get_h1();
+function thaim_headline_h2() {
+	echo thaim_headline_get_h2();
 }
 
 	function thaim_title_parts( $parts = array() ) {
 		return array_intersect_key( $parts, array( 'title' => true ) );
 	}
 
-	function thaim_headline_get_h1() {
+	function thaim_headline_get_h2() {
 		add_filter( 'document_title_parts', 'thaim_title_parts', 10, 1 );
 
 		$headline = wp_get_document_title();
 
 		remove_filter( 'document_title_parts', 'thaim_title_parts', 10, 1 );
 
-		return apply_filters( 'thaim_headline_get_h1', $headline );
+		return apply_filters( 'thaim_headline_get_h2', $headline );
 	}
 
 function thaim_headline_term() {
@@ -438,12 +469,12 @@ function thaim_headline_html_for_cat_tags( $term_id, $term_name, $term_desc, $ty
 				<img src="<?php echo esc_url( $image_header );?>" alt="Illustration" class="thaim-image">
 			<?php endif;?>
 
-			<h1>
+			<h2>
 				<?php if ( empty( $image_header ) ): ?>
 					<span class="dashicons dashicons-<?php echo esc_attr( $icon ) ;?>"></span>
 				<?php endif;?>
 				<?php echo esc_html( $term_name );?>
-			</h1>
+			</h2>
 
 			<?php if ( ! empty( $term_desc ) ): ?>
 				<p><?php echo esc_html( $term_desc );?></p>
@@ -456,26 +487,13 @@ function thaim_headline_html_for_cat_tags( $term_id, $term_name, $term_desc, $ty
 }
 
 function thaim_headline_single() {
-	?>
-	<div class="row thaim-in-headline">
-	<?php if ( get_post_meta( get_the_ID(), 'imageslider', true ) ): ?>
-		<div class="threecol">
-			<img src="<?php echo get_post_meta(get_the_ID(), 'imageslider', true );?>" alt="Illustration" class="thaim-image">
-		</div>
-		<div class="ninecol last">
+	$post_title = get_the_title();
 
-			<p class="thaim-post-desc"><?php the_excerpt()?></p>
+	if ( empty( $post_title ) ) {
+		$post_title = thaim_headline_get_h2();
+	}
 
-		</div>
-	<?php else: ?>
-		<div class="twelvecol">
-
-			<p class="thaim-post-desc"><?php the_excerpt()?></p>
-
-		</div>
-	<?php endif; ?>
-	</div>
-	<?php
+	printf( '<h2>%s</h2>', $post_title );
 }
 
 function thaim_cycle() {
@@ -588,7 +606,7 @@ function thaim_styles() {
 	}
 
 	wp_enqueue_style( 'thaim-1140', get_template_directory_uri() . '/css/1140.css', array(), 'all' );
-	wp_enqueue_style( 'thaim', get_stylesheet_uri(), array(), '2.0.0', 'all' );
+	wp_enqueue_style( 'thaim', get_stylesheet_uri(), array( 'dashicons' ), '2.0.0', 'all' );
 }
 add_action( 'wp_enqueue_scripts', 'thaim_styles' ); // Add Theme Stylesheet
 
@@ -690,7 +708,6 @@ function thaim_wp_pagination() {
 }
 add_action( 'init', 'thaim_wp_pagination' ); // Add our Thaim Pagination
 
-
 /**
 * this is specific to me you can comment or customize with your twitter account
 * and your paypal link
@@ -698,20 +715,18 @@ add_action( 'init', 'thaim_wp_pagination' ); // Add our Thaim Pagination
 function thaim_single_reader_add_actions() {
 	?>
 	&nbsp;&nbsp;
-	<span aria-hidden="true" data-icon="&#xe0e6;" class="twitter-share"></span>
 	<span class="twitter-share">
+		<span class="dashicons dashicons-twitter"></span>
 		<a href="https://twitter.com/intent/tweet?original_referer=<?php echo urlencode( get_permalink());?>&amp;source=tweetbutton&amp;text=<?php echo urlencode( get_the_title());?>&amp;url=<?php echo urlencode( get_permalink());?>&amp;via=imath" class="share-on-twitter single" title="<?php _e('Share', 'thaim')?>" target="_blank"><?php _e('Share', 'thaim')?></a>
 	</span>
 	&nbsp;&nbsp;
-	<span aria-hidden="true" data-icon="&#xe127;"></span>
 	<span class="paypal-support">
+		<span class="dashicons dashicons-tickets-alt"></span>
 		<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=2QSLY676C6HKE" title="buy me a coffee ;)" target="_blank"><?php _e('Support', 'thaim');?></a>
 	</span>
 	<?php
 }
 add_action( 'thaim_single_reader_actions', 'thaim_single_reader_add_actions' );
-
-
 
 function thaim_add_feed_link() {
 
@@ -804,22 +819,6 @@ function thaim_wp_view_article( $more ) {
 }
 add_filter( 'excerpt_more', 'thaim_wp_view_article' ); // Well i dont need as i always use the excerpt field..
 
-
-// Remove 'text/css' from our enqueued stylesheet
-function thaim_style_remove($tag) {
-    return preg_replace('~\s+type=["\'][^"\']++["\']~', '', $tag);
-}
-add_filter( 'style_loader_tag', 'thaim_style_remove' ); // Remove 'text/css' from enqueued stylesheet
-
-
-// Remove thumbnail width and height dimensions that prevent fluid images in the_thumbnail
-function remove_thumbnail_dimensions( $html ) {
-    $html = preg_replace( '/(width|height)=\"\d*\"\s/', "", $html );
-    return $html;
-}
-add_filter( 'post_thumbnail_html', 'remove_thumbnail_dimensions', 10 ); // Remove width and height dynamic attributes to thumbnails
-add_filter( 'image_send_to_editor', 'remove_thumbnail_dimensions', 10 ); // Remove width and height dynamic attributes to post images
-
 function thaim_add_caption( $html, $id, $caption, $title, $align, $url, $size, $alt = '' ) {
 
 	if ( empty($caption) || apply_filters( 'disable_captions', '' ) )
@@ -841,12 +840,6 @@ function thaim_add_caption( $html, $id, $caption, $title, $align, $url, $size, $
 	return apply_filters( 'thaim_add_caption', $shcode, $html );
 }
 add_filter( 'image_send_to_editor', 'thaim_add_caption', 21, 8 );
-
-// Disable WYSIWYG editor
-function thaim_is_for_coder( $rich_edit ) {
-	return false;
-}
-add_filter( 'user_can_richedit', 'thaim_is_for_coder' ); // thaim is for coder, not wysiwyger !
 
 //limit the number of tags in tag cloud
 function thaim_tag_cloud_args( $args ) {
@@ -905,11 +898,11 @@ function thaim_ideastream_headline() {
 
 	if ( wp_idea_stream_is_single_idea() ) {
 		?>
-		<h1><a href="<?php echo esc_url( wp_idea_stream_get_root_url() );?>"><?php echo esc_html( wp_idea_stream_archive_title() ) ;?></a></h1>
+		<h2><a href="<?php echo esc_url( wp_idea_stream_get_root_url() );?>"><?php echo esc_html( wp_idea_stream_archive_title() ) ;?></a></h2>
 		<?php
 	} else {
 		?>
-		<h1><?php the_title(); ?></h1>
+		<h2><?php the_title(); ?></h2>
 		<?php
 	}
 }

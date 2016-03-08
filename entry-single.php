@@ -10,16 +10,16 @@
 	<!-- Article -->
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
+		<?php thaim_post_thumbnail(); ?>
+
 		<!-- Post Title -->
 		<header class="entry-header">
 
-			<h1 class="entry-title"><?php the_title(); ?></h1>
-
 			<?php if ( comments_open() ) : ?>
 				<div class="comments-link">
-					<span aria-hidden="true" data-icon="&#xe039;"></span> 
+					<span class="dashicons dashicons-admin-comments"></span>
 					<?php comments_popup_link( '<span class="leave-reply">' . __( 'Leave a reply', 'thaim' ) . '</span>', __( '1 Reply', 'thaim' ), __( '% Replies', 'thaim' ) ); ?>
-					
+
 					<?php do_action( 'thaim_single_reader_actions' );?>
 				</div><!-- .comments-link -->
 			<?php endif; // comments_open() ?>
@@ -56,7 +56,7 @@
 
 	</article>
 	<!-- /Article -->
-	
+
 	<?php thaim_single_post_nav(); ?>
 
 	<?php comments_template( '', true ); ?>

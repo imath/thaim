@@ -245,7 +245,7 @@ h2.wordpress a {
 	border-bottom: 1px solid #DFDFDF;
 }
 
-#thaim-headline h1 a {
+#thaim-headline .wrapper > h2 a {
 	text-decoration:none;
 	color:#555;
 }
@@ -261,7 +261,7 @@ h2.wordpress a {
 	text-rendering: optimizeLegibility;
 }
 
-#thaim-headline h1 {
+#thaim-headline .wrapper > h2 {
 	font-size:2.1em;
 	line-height:2.2em;
 }
@@ -603,14 +603,17 @@ video {
 .alignleft {
 	float: left;
 }
+
 .alignright {
 	float: right;
 }
+
 .aligncenter {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 }
+
 .entry-content img,
 .comment-content img,
 .widget img,
@@ -621,20 +624,33 @@ img.thaim-image {
 	/* Add fancy borders to all WordPress-added images but not things like badges and icons and the like */
 	border-radius: 3px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.thaim-in-headline .thaim-image {
 	float: left;
+	margin-bottom: 5px;
 	margin-right: 10px;
-	margin-bottom: 10px;
 }
+
+a.post-thumbnail {
+	display: block;
+	margin-bottom: 24px;
+    margin-bottom: 1.714285714rem;
+}
+
 .dashicons, .dashicons-before:before {
-	vertical-align: baseline;
+	vertical-align: text-bottom;
 }
+
 .dashicons-buddypress:before {
 	content: "\f448";
 }
+
 .wp-caption {
 	max-width: 100%; /* Keep wide captions from overflowing their container. */
 	padding: 4px;
 }
+
 .wp-caption .wp-caption-text,
 .gallery-caption,
 .entry-caption, .wp-caption-text a {
@@ -644,6 +660,7 @@ img.thaim-image {
 	line-height: 2;
 	color: #757575;
 }
+
 img.wp-smiley,
 .rsswidget img {
 	border: 0;
@@ -653,28 +670,35 @@ img.wp-smiley,
 	margin-top: 0;
 	padding: 0;
 }
+
 .entry-content dl.gallery-item {
 	margin: 0;
 }
+
 .gallery-item a,
 .gallery-caption {
 	width: 90%;
 }
+
 .gallery-item a {
 	display: block;
 }
+
 .gallery-caption a {
 	display: inline;
 }
+
 .gallery-columns-1 .gallery-item a {
 	max-width: 100%;
 	width: auto;
 }
+
 .gallery .gallery-icon img {
 	height: auto;
 	max-width: 90%;
 	padding: 5%;
 }
+
 .gallery-columns-1 .gallery-icon img {
 	padding: 3%;
 }
@@ -1457,24 +1481,6 @@ a.backtotop:hover {
 }
 
 /* =============================================================================
-   BuddyPress
-   ========================================================================== */
-
-#buddypress div.dir-search {
-	margin:0;
-}
-
-#buddypress .profile .bp-widget h4 {
-	font-style: italic;
-	float:right;
-	color:#21759B;
-}
-
-#buddypress table.profile-fields tr td.label {
-	border-right:none;
-}
-
-/* =============================================================================
    Media Queries
    ========================================================================== */
 
@@ -1579,6 +1585,11 @@ a.backtotop:hover {
 	.thaim-post-desc {
 		margin: 24px 0;
 		margin: 1.714285714rem 0;
+	}
+
+	iframe.twitter-tweet {
+		width: 520px!important;
+		margin: 0 auto!important;
 	}
 }
 
