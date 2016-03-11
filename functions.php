@@ -499,10 +499,19 @@ function thaim_headline_single() {
 function thaim_cycle() {
 
 	if ( is_front_page() ) {
-		wp_enqueue_style('thaim-cycle-style', get_template_directory_uri() .'/css/slider.css' );
-		wp_enqueue_script('thaim-cycle-js', get_template_directory_uri() .'/js/jquery.cycle.all.js', array('jquery') );
+		wp_enqueue_style( 'thaim-cycle-style', get_template_directory_uri() .'/css/slider.css' );
+		wp_enqueue_script( 'thaim-cycle-js', get_template_directory_uri() .'/js/jquery.cycle2.min.js', array( 'jquery' ), '2.1.6', true );
 
-		add_action( 'wp_footer', 'thaim_cycle_settings');
+		wp_add_inline_script( 'thaim-cycle-js', '
+			jQuery( document ).ready( function( $ ) {
+				$( ".thaim-hero-slide-container" ).cycle( {
+					fx:		"scrollHorz",
+				    pager:  ".thaim-slide-nav",
+				    timeout: 8000,
+				    slides : ".thaim-hero-slide"
+				} );
+			} );
+		' );
 	}
 
 }
@@ -512,11 +521,11 @@ function thaim_cycle_settings() {
 	?>
 	<script>
 		jQuery(document).ready(function($) {
-			$(".thaim-hero-slide-container").cycle({
+			$( ".thaim-hero-slide-container" ).cycle( {
 				fx:		'scrollHorz',
 			    pager:  '.thaim-slide-nav',
 			    timeout: 8000
-			});
+			} );
 		});
 	</script>
 	<?php
@@ -525,7 +534,7 @@ add_action( 'thaim_slider', 'thaim_slider_handle' );
 
 function thaim_slider_handle() {
 	query_posts( 'meta_key=inslider&meta_value=1' );
-
+	//thaim-hero-slide-container
 	if ( have_posts() ) :
 	?>
 	<div class="thaim-hero-slide-container">
@@ -534,9 +543,12 @@ function thaim_slider_handle() {
 
 		<div class="thaim-hero-slide">
 
-			<?php if( get_post_meta(get_the_ID(), 'imageslider', true ) ):?>
-				<div class="fivecol">
-					<img src="<?php echo get_post_meta(get_the_ID(), 'imageslider', true );?>" alt="Image slider">
+			<?php if ( has_post_thumbnail() ):?>
+				<div class="post-thumbnail fivecol">
+					<?php the_post_thumbnail( 'medium' ); ?>
+					<div class="cycle-overlay">
+						<h2><a href="<?php the_permalink();?>" title="<?php the_title();?>"><?php the_title()?></a></h2>
+					</div>
 				</div>
 				<div class="sevencol last">
 					<div class="thaim-slide-article">
@@ -548,7 +560,7 @@ function thaim_slider_handle() {
 						<p class="readmore"><a class="view-article" href="<?php the_permalink()?>" title="<?php the_title();?>"> <?php _e('View Article', 'thaim');?> &rarr;</a></p>
 					</div>
 				</div>
-			<?php else:?>
+			<?php else: ?>
 				<div class="twelvecol">
 					<div class="thaim-slide-article">
 						<h2><a href="<?php the_permalink();?>" title="<?php the_title();?>"><?php the_title()?></a></h2>
@@ -558,19 +570,18 @@ function thaim_slider_handle() {
 						<p class="readmore"><a class="view-article" href="<?php the_permalink()?>" title="<?php the_title();?>"> <?php _e('View Article', 'thaim');?> &rarr;</a></p>
 					</div>
 				</div>
-			<?php endif;?>
+			<?php endif; ?>
 		</div>
 
 		<?php endwhile; ?>
 
 	</div>
-	<div class="thaim-slide-nav">
 
-	</div>
+	<div class="thaim-slide-nav"></div>
 
 	<?php else: ?>
 
-		<h1><?php _e('Home', 'thaim');?></h1>
+		<h2><?php esc_html_e( 'Home', 'thaim' );?></h2>
 
 	<?php endif;
 

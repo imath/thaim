@@ -12,7 +12,6 @@ Text Domain: thaim
 Domain Path: /languages/
 */
 
-
 /* =====================================================================================
    Credits & many thanks to : twentytwelve (i love this theme), html5blank and _s themes
    ===================================================================================== */
@@ -23,14 +22,14 @@ Domain Path: /languages/
 
 /* Global Box Sizing and Font-Smoothing */
 *, *:after, *:before {
-	box-sizing:border-box;
-	-webkit-box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	-webkit-font-smoothing:antialiased;
-	-moz-font-smoothing:antialiased;
-	-o-font-smoothing:antialiased;
-	font-smoothing:antialiased;
-	text-rendering:optimizeLegibility;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-o-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
 }
 
 html {
@@ -41,20 +40,20 @@ html {
 }
 
 body {
-	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; /* Serve Helvetica Neue, with Helvetica fallbacks to Arial */
-	font-size:0.75em;
-	font-weight:thin; /* Better supported than 'lighter' attribute */
-	line-height:1.8em;
-	color:#555; /* Lighter on the eyes than #000 Black */
-	background:#F7F7F7;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Serve Helvetica Neue, with Helvetica fallbacks to Arial */
+	font-size: 0.75em;
+	font-weight: thin; /* Better supported than 'lighter' attribute */
+	line-height: 1.8em;
+	color: #555; /* Lighter on the eyes than #000 Black */
+	background: #F7F7F7;
 }
 
-/* Fluid First approach - http://www.toddmotto.com/fluid-first-creating-a-future-proof-fluid-and-responsive-website
-  Responsive, fluid, 1280px width - perfect start.
-*/
-
-.wrapper {max-width:1140px;width:95%;margin:0 auto;position:relative;}
-
+.wrapper {
+	max-width: 1140px;
+	width: 95%;
+	margin: 0 auto;
+	position: relative;
+}
 
 /* =============================================================================
    Thaim specific
@@ -65,61 +64,56 @@ body {
 }
 a {
 	outline: none;
-	color: #21759B;
+	color: #23282d;
 }
 a:hover {
 	color: #d54e21;
 }
 
 a.dark, #thaim-footer .fourcol a {
-	color:#555;
-	text-decoration:none;
+	color: #555;
+	text-decoration: none;
 }
 
-a.view-article{
-	text-decoration:none;
-	font-weight:bold;
+a.view-article {
+	text-decoration: none;
+	font-weight: bold;
 }
 
-header#thaim-site{
-	position:relative;
-	background: white url(img/header-bg.png) top left repeat-x;
+header#thaim-site {
+	position: relative;
 }
 
-body.custom-logo header#thaim-site {
-	background: white url(img/header-bg-custom-logo.png) top left repeat-x;
+header#thaim-site .wrapper {
+	height: 88px;
 }
 
-header#thaim-site .wrapper{
-	height:88px;
-}
-
-body.custom-logo header#thaim-site .wrapper{
+body.custom-logo header#thaim-site .wrapper {
 	height: 120px;
 }
 
-header#thaim-site #thaim-info{
-	height:100%;
-	width:50%;
-	padding-top:2em;
+header#thaim-site #thaim-info {
+	height: 100%;
+	width: 50%;
+	padding-top: 2em;
 }
 
 header#thaim-site #thaim-info h1,
-header#thaim-site #thaim-info-maintenance h1{
-	font-size:3em;
-	line-height:1em;
+header#thaim-site #thaim-info-maintenance h1 {
+	font-size: 3em;
+	line-height: 1em;
 }
 
 header#thaim-site #thaim-info h1 a,
 header#thaim-site #thaim-info-maintenance h1 {
 	text-decoration:none;
-	color:#C6C6C6;
+	color: #C6C6C6;
 	text-shadow: rgba(0, 0, 0, 0.1) 0 1px 1px;
 }
 
 header#thaim-site #thaim-info h1 a span,
 header#thaim-site #thaim-info-maintenance h1 span {
-	color:#464646;
+	color: #23282d;
 }
 
 header#thaim-site #thaim-logo {
@@ -141,46 +135,48 @@ header#thaim-site nav.main-navigation ul li {
 	position: relative;
 }
 
+header#thaim-site nav.main-navigation ul li .arrow {
+	width: 0;
+	height: 0;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+	border-bottom: 9px solid #23282d;
+	margin: -8px auto 0 auto;
+	display: none;
+}
+
 header#thaim-site nav.main-navigation ul li a {
-	font-weight: normal;
 	display: block;
 	line-height: 2.5em;
-	padding: 0 6px;
+	padding: 0 6px 6px;
 	font-size: 1em;
-	color: #444;
-	text-shadow: #EEE 0px 1px 0px;
-	text-decoration:none;
+	color: #23282d;
+	text-decoration: none;
+}
+
+header#thaim-site nav.main-navigation ul li.current_page_item .arrow,
+header#thaim-site nav.main-navigation ul li.current-menu-item .arrow,
+header#thaim-site nav.main-navigation ul li.current-menu-parent .arrow,
+header#thaim-site nav.main-navigation ul li.current_page_parent .arrow {
+	display: block;
 }
 
 header#thaim-site nav.main-navigation ul li.current_page_item a,
 header#thaim-site nav.main-navigation ul li.current-menu-item a,
 header#thaim-site nav.main-navigation ul li.current-menu-parent a,
 header#thaim-site nav.main-navigation ul li.current_page_parent a {
-	color: #555;
-	background: #F7F7F7;
-	border: 1px solid #C6C6C6;
-	border-bottom: none;
-	margin-top: -1px;
-	-moz-border-radius-topleft: 3px;
-	-khtml-border-top-left-radius: 3px;
-	-webkit-border-top-left-radius: 3px;
-	border-top-left-radius: 3px;
-	-moz-border-radius-topright: 3px;
-	-khtml-border-top-right-radius: 3px;
-	-webkit-border-top-right-radius: 3px;
-	border-top-right-radius: 3px;
-	text-shadow: rgba(0, 0, 0, 0.1) 0 1px 1px;
+	font-weight: bolder;
 }
 
-header#thaim-site nav.main-navigation{
-	position:absolute;
-	bottom:0px;
-	width:100%;
+header#thaim-site nav.main-navigation {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
 }
 
 header#thaim-site nav.main-small-navigation {
-	top:88px;
-	margin:0 auto;
+	top: 88px;
+	margin: 0 auto;
 }
 
 header#thaim-site h1.assistive-text {
@@ -190,64 +186,63 @@ header#thaim-site h1.assistive-text {
 }
 
 body.thaim-maintenance #thaim-site .wrapper {
-	height:100%;
+	height: 100%;
 }
 
 body.thaim-maintenance #thaim-site #thaim-info-maintenance {
-	text-align:center;
-	margin:1em auto;
-	background:#FFF;
+	text-align: center;
+	margin: 1em auto;
+	background: #FFF;
 	border-radius: 3px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-	padding:2em 0;
+	padding: 2em 0;
 }
 
 blockquote {
 	font-family: 'Shadows Into Light', cursive;
 }
 
-body.home blockquote{
-	text-align:center;
-	margin-bottom:0;
+body.home blockquote {
+	text-align: center;
+	margin-bottom: 0;
 	font-size: 24px;
 }
 
 h2.buddypress,
 h4.buddypress,
-h2.buddypress a
-{
-	color:#d54e21;
+h2.buddypress a {
+	color: #d54e21;
 	text-decoration:none;
 }
 
 h2.wordpress,
 h2.wordpress a {
-	color:#21759b;
-	text-decoration:none;
+	color: #21759b;
+	text-decoration: none;
 }
 
 /* Small menu */
 #thaim-site h1.menu-toggle {
 	cursor: pointer;
-	margin-top:20px;
+	margin-top: 20px;
 }
 #thaim-site nav.main-small-navigation ul {
 	display: none;
 }
 
-#thaim-site nav.main-small-navigation.toggled-on ul{
+#thaim-site nav.main-small-navigation.toggled-on ul {
 	display: block;
 }
 
 #thaim-headline {
-	color: #555;
-	background: #F7F7F7;
-	border-bottom: 1px solid #DFDFDF;
+	color: #FFF;
+	background: #23282d;
+	border-bottom: 1px solid #23282d;
 }
 
 #thaim-headline .wrapper > h2 a {
-	text-decoration:none;
-	color:#555;
+	text-decoration: none;
+	color: #FFF;
 }
 
 #thaim-headline .thaim-in-headline {
@@ -262,8 +257,8 @@ h2.wordpress a {
 }
 
 #thaim-headline .wrapper > h2 {
-	font-size:2.1em;
-	line-height:2.2em;
+	font-size: 2.1em;
+	line-height: 2.2em;
 }
 
 #thaim-content {
