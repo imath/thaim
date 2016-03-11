@@ -245,6 +245,10 @@ h2.wordpress a {
 	color: #FFF;
 }
 
+#thaim-headline .wrapper h2:empty {
+	display:none;
+}
+
 #thaim-headline .thaim-in-headline {
 	margin: 20px 0;
 	margin: 1.428571429rem 0;

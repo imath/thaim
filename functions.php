@@ -386,6 +386,27 @@ function thaim_wp_excerpt( $length_callback = '', $more_callback = '' ) {
     echo $output;
 }
 
+function thaim_has_stickies() {
+	$stickies = get_option( 'sticky_posts' );
+
+	return ! empty( $stickies ) && is_array( $stickies );
+}
+
+/**
+ * By default, ignore stickies in WP_Query
+ *
+ * @param  WP_Query $qv The current WP_Query object.
+ * @return WP_Query     The current WP_Query object.
+ */
+function thaim_parse_query( WP_Query $qv ) {
+	if ( empty( $qv->query_vars['ignore_sticky_posts'] ) ) {
+		$qv->query_vars['ignore_sticky_posts'] = true;
+	}
+
+	return $qv;
+}
+add_action( 'parse_query', 'thaim_parse_query', 10, 1 );
+
 /*
  * ========================================================================
  * Headline and slider
@@ -393,8 +414,8 @@ function thaim_wp_excerpt( $length_callback = '', $more_callback = '' ) {
  */
 
 function thaim_headline() {
-	//if home slider....
-	if( is_front_page() ) {
+	// if On home and
+	if ( is_front_page() && thaim_has_stickies() ) {
 
 		thaim_slider_handle();
 
@@ -423,11 +444,9 @@ function thaim_headline() {
 
 		<?php
 		endif;
-
-		do_action( 'thaim_headline' );
-
 	}
 
+	do_action( 'thaim_headline' );
 }
 
 function thaim_headline_h2() {
@@ -442,6 +461,10 @@ function thaim_headline_h2() {
 		add_filter( 'document_title_parts', 'thaim_title_parts', 10, 1 );
 
 		$headline = wp_get_document_title();
+
+		if ( $headline === get_bloginfo( 'sitename' ) ) {
+			$headline = '';
+		}
 
 		remove_filter( 'document_title_parts', 'thaim_title_parts', 10, 1 );
 
@@ -497,23 +520,23 @@ function thaim_headline_single() {
 }
 
 function thaim_cycle() {
-
-	if ( is_front_page() ) {
-		wp_enqueue_style( 'thaim-cycle-style', get_template_directory_uri() .'/css/slider.css' );
-		wp_enqueue_script( 'thaim-cycle-js', get_template_directory_uri() .'/js/jquery.cycle2.min.js', array( 'jquery' ), '2.1.6', true );
-
-		wp_add_inline_script( 'thaim-cycle-js', '
-			jQuery( document ).ready( function( $ ) {
-				$( ".thaim-hero-slide-container" ).cycle( {
-					fx:		"scrollHorz",
-				    pager:  ".thaim-slide-nav",
-				    timeout: 8000,
-				    slides : ".thaim-hero-slide"
-				} );
-			} );
-		' );
+	if ( ! is_front_page() || ! thaim_has_stickies() ) {
+		return;
 	}
 
+	wp_enqueue_style( 'thaim-cycle-style', get_template_directory_uri() .'/css/slider.css' );
+	wp_enqueue_script( 'thaim-cycle-js', get_template_directory_uri() .'/js/jquery.cycle2.min.js', array( 'jquery' ), '2.1.6', true );
+
+	wp_add_inline_script( 'thaim-cycle-js', '
+		jQuery( document ).ready( function( $ ) {
+			$( ".thaim-hero-slide-container" ).cycle( {
+				fx:		"scrollHorz",
+			    pager:  ".thaim-slide-nav",
+			    timeout: 8000,
+			    slides : ".thaim-hero-slide"
+			} );
+		} );
+	' );
 }
 add_action( 'wp_enqueue_scripts', 'thaim_cycle' );
 
@@ -533,8 +556,14 @@ function thaim_cycle_settings() {
 add_action( 'thaim_slider', 'thaim_slider_handle' );
 
 function thaim_slider_handle() {
-	query_posts( 'meta_key=inslider&meta_value=1' );
-	//thaim-hero-slide-container
+	if ( ! thaim_has_stickies() ) {
+		return;
+	}
+
+	query_posts( array(
+		'post__in' => get_option( 'sticky_posts' )
+	) );
+
 	if ( have_posts() ) :
 	?>
 	<div class="thaim-hero-slide-container">
