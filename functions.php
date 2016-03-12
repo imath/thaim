@@ -53,6 +53,7 @@ function thaim_setup() {
 	require_once( get_template_directory() . '/includes/thaim-options.php' );
 
 	require_once( get_template_directory() . '/includes/thaim-tax-meta.php' );
+	require_once( get_template_directory() . '/includes/thaim-widgets.php' );
 
 	/*
 	 * ========================================================================
@@ -101,58 +102,69 @@ add_action( 'after_setup_theme', 'thaim_setup' );
  */
 
 function thaim_widgets_init() {
-    // Define Sidebar Widget Area 1
-    register_sidebar( array(
-        'name'          => __( 'Widget Area 1', 'thaim' ),
-        'description'   => __( 'Top sidebar area', 'thaim' ),
-        'id'            => 'widget-area-1',
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>'
-    ));
+	// Define Sidebar Widget Area 1
+	register_sidebar( array(
+		'name'          => __( 'Widget Area 1', 'thaim' ),
+		'description'   => __( 'Top sidebar area', 'thaim' ),
+		'id'            => 'widget-area-1',
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>'
+	) );
 
-    // Define Sidebar Widget Area 2
-    register_sidebar( array(
-        'name'          => __( 'Widget Area 2', 'thaim' ),
-        'description'   => __( 'Bottom sidebar area', 'thaim' ),
-        'id'            => 'widget-area-2',
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>'
-    ));
+	// Define Sidebar Widget Area 2
+	register_sidebar( array(
+		'name'          => __( 'Widget Area 2', 'thaim' ),
+		'description'   => __( 'Bottom sidebar area', 'thaim' ),
+		'id'            => 'widget-area-2',
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>'
+	) );
+
+	// Define Custom Home page widget
+	register_sidebar( array(
+		'name'          => __( 'Home Page Widget', 'thaim' ),
+		'description'   => __( 'Widgetable area of the custom-home-page template.', 'thaim' ),
+		'id'            => 'home-widgets',
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h3 class="widget-title %s">',
+		'after_title'   => '</h3>'
+	) );
 
 	// Define Footer Widget areas
-    register_sidebar( array(
-        'name'          => __( 'Footer Area 1', 'thaim' ),
-        'description'   => __( 'Left footer area', 'thaim' ),
-        'id'            => 'footer-area-1',
-        'before_widget' => '<div id="%1$s" class="%2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>'
-    ));
+	register_sidebar( array(
+		'name'          => __( 'Footer Area 1', 'thaim' ),
+		'description'   => __( 'Left footer area', 'thaim' ),
+		'id'            => 'footer-area-1',
+		'before_widget' => '<div id="%1$s" class="%2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>'
+	) );
 
 	register_sidebar( array(
-        'name'          => __( 'Footer Area 2', 'thaim' ),
-        'description'   => __( 'Middle footer area', 'thaim' ),
-        'id'            => 'footer-area-2',
-        'before_widget' => '<div id="%1$s" class="%2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>'
-    ));
+		'name'          => __( 'Footer Area 2', 'thaim' ),
+		'description'   => __( 'Middle footer area', 'thaim' ),
+		'id'            => 'footer-area-2',
+		'before_widget' => '<div id="%1$s" class="%2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>'
+	) );
 
 	register_sidebar( array(
-        'name'          => __( 'Footer Area 3', 'thaim' ),
-        'description'   => __( 'Right footer area', 'thaim' ),
-        'id'            => 'footer-area-3',
-        'before_widget' => '<div id="%1$s" class="%2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>'
-    ));
+		'name'          => __( 'Footer Area 3', 'thaim' ),
+		'description'   => __( 'Right footer area', 'thaim' ),
+		'id'            => 'footer-area-3',
+		'before_widget' => '<div id="%1$s" class="%2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>'
+	) );
 }
 add_action( 'widgets_init', 'thaim_widgets_init' );
 
@@ -474,7 +486,11 @@ function thaim_headline_term() {
 	thaim_headline_html_for_cat_tags( $term->term_id, $term->name, $term->description );
 }
 
-function thaim_headline_html_for_cat_tags( $term_id, $term_name, $term_desc, $type = 'tag' ) {
+function thaim_get_term_dashicon( $term_id = 0 ) {
+	if ( empty( $term_id ) ) {
+		return false;
+	}
+
 	$icon = get_term_meta( $term_id, '_thaim_term_icon', true );
 
 	$classes = array( 'dashicons-tag' );
@@ -489,9 +505,12 @@ function thaim_headline_html_for_cat_tags( $term_id, $term_name, $term_desc, $ty
 		$classes[] = 'dashicons';
 	}
 
-	$output = join( ' ', array_map( 'sanitize_html_class', array_reverse( $classes ) ) );
+	return sprintf( '<span class="%s"></span>',  join( ' ', array_map( 'sanitize_html_class', array_reverse( $classes ) ) ) );
+}
+
+function thaim_headline_html_for_cat_tags( $term_id, $term_name, $term_desc, $type = 'tag' ) {
 	?>
-	<h2><span class="<?php echo $output ;?>"></span> <?php echo esc_html( $term_name );?></h2>
+	<h2><?php echo thaim_get_term_dashicon( $term_id ); ?> <?php echo esc_html( $term_name );?></h2>
 	<?php
 }
 
@@ -931,60 +950,11 @@ add_filter( 'widget_tag_cloud_args', 'thaim_tag_cloud_args' );
 remove_filter( 'the_excerpt', 'wpautop' ); // Remove <p> tags from Excerpt altogether
 remove_filter( 'image_send_to_editor', 'image_add_caption' );
 
-/*
- * ========================================================================
- *  Thaim specific functions for WP Idea Stream
- *  Demo of possible ways to customize the plugin
- * ========================================================================
- */
-
 /**
- * Can be used by any theme.
- * Just create a sidebar template named sidebar-ideastream.php
- * Use dynamic_sidebar( 'widget-area-ideastream' ) in it
- * call it in your main ideastream.php template
- * Then use the Widgets Administration to add IdeaStream Widgets in it
+ * Custom logo
+ *
+ * @since 2.0.0
  */
-function thaim_ideastream_widgets_sidebar() {
-	register_sidebar( array(
-        'name'          => __( 'IdeaStream Sidebar', 'thaim' ),
-        'description'   => __( 'Show widgets only in IdeaStream pages', 'thaim' ),
-        'id'            => 'widget-area-ideastream',
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>'
-    ) );
-}
-add_action( 'widgets_init', 'thaim_ideastream_widgets_sidebar', 11 );
-
-// Specific to Thaim
-function thaim_allow_ideastream_editor() {
-	remove_filter( 'user_can_richedit', 'thaim_is_for_coder' );
-
-	if ( wp_idea_stream_is_ideastream() ) {
-		remove_filter( 'excerpt_more', 'thaim_wp_view_article' );
-	}
-}
-add_action( 'wp_idea_stream_template_redirect', 'thaim_allow_ideastream_editor' );
-
-// Specific to Thaim
-function thaim_ideastream_headline() {
-	if ( ! function_exists( 'wp_idea_stream' ) ) {
-		return;
-	}
-
-	if ( wp_idea_stream_is_single_idea() ) {
-		?>
-		<h2><a href="<?php echo esc_url( wp_idea_stream_get_root_url() );?>"><?php echo esc_html( wp_idea_stream_archive_title() ) ;?></a></h2>
-		<?php
-	} else {
-		?>
-		<h2><?php the_title(); ?></h2>
-		<?php
-	}
-}
-
 function thaim_the_custom_logo() {
 	if ( ! has_custom_logo() ) {
 		return;

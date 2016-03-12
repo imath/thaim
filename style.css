@@ -204,6 +204,10 @@ header#thaim-site nav.main-navigation ul li a {
 	text-decoration: none;
 }
 
+header#thaim-site nav.main-navigation ul li a:hover {
+	color: #d54e21;
+}
+
 header#thaim-site nav.main-navigation ul li.current_page_item .arrow,
 header#thaim-site nav.main-navigation ul li.current-menu-item .arrow,
 header#thaim-site nav.main-navigation ul li.current-menu-parent .arrow,
@@ -263,15 +267,14 @@ body.home blockquote {
 	border:none;
 }
 
-h2.buddypress,
+h3.buddypress,
 h4.buddypress,
-h2.buddypress a {
+h3.buddypress a {
 	color: #d54e21;
-	text-decoration:none;
 }
 
-h2.wordpress,
-h2.wordpress a {
+h3.wordpress,
+h3.wordpress a {
 	color: #21759b;
 	text-decoration: none;
 }
@@ -492,6 +495,14 @@ h3.rss-feed a {
 	font-weight: bold;
 	text-transform: uppercase;
 	color: #636363;
+}
+
+.page-template-custom-home-page .widget-title {
+	text-transform: none;
+}
+
+.page-template-custom-home-page .widget-title a {
+	text-decoration: none;
 }
 
 /* Shared Post Format styling */
@@ -859,7 +870,7 @@ img.wp-smiley,
 }
 .comments-link a:hover,
 .entry-meta a:hover {
-	color: #21759b;
+	color: #d54e21;
 }
 
 article.sticky .featured-post {
@@ -1164,7 +1175,7 @@ article.format-aside h1 a {
 	color: #4d525a;
 }
 article.format-aside h1 a:hover {
-	color: #2e3542;
+	color: #d54e21;
 }
 article.format-aside .aside {
 	padding: 24px 24px 0;
@@ -1273,7 +1284,7 @@ article.format-quote .entry-content blockquote {
 	color: #757575;
 }
 .format-status .entry-header header a:hover {
-	color: #21759b;
+	color: #d54e21;
 }
 .format-status .entry-header img {
 	float: left;
@@ -1332,7 +1343,7 @@ article.format-quote .entry-content blockquote {
 	color: #5e5e5e;
 }
 .comments-area article header a:hover {
-	color: #21759b;
+	color: #d54e21;
 }
 .comments-area article header cite a {
 	color: #444;
@@ -1378,7 +1389,7 @@ a.comment-edit-link {
 }
 a.comment-reply-link:hover,
 a.comment-edit-link:hover {
-	color: #21759b;
+	color: #d54e21;
 }
 .commentlist .pingback {
 	line-height: 1.714285714;
@@ -1503,7 +1514,7 @@ a.backtotop{
 	border-bottom:dotted 1px #C9C9C9;
 }
 a.backtotop:hover {
-	color:#757575;
+	color: #d54e21;
 	border-bottom:dotted 1px #444;
 }
 
@@ -1543,7 +1554,7 @@ a.backtotop:hover {
 .twitter-share,
 .twitter-share a,
 .twitter-share a:hover {
-	color:#21759b;
+	color: #21759b;
 }
 
 /* =============================================================================
