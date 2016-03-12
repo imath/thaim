@@ -676,7 +676,7 @@ function thaim_get_font_url() {
 
 // Theme Stylesheets using Enqueue
 function thaim_styles() {
-	wp_enqueue_style( 'normalize', get_template_directory_uri() . '/normalize.css', array(), '2.6.2', 'all' );
+	wp_enqueue_style( 'normalize', get_template_directory_uri() . '/css/normalize.css', array(), '2.6.2', 'all' );
 
 	$font_url = thaim_get_font_url();
 	if ( ! empty( $font_url ) ) {

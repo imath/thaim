@@ -33,7 +33,7 @@ class Thaim_Maintenance {
 	}
 
 	public function enqueue_scripts() {
-		wp_enqueue_style( 'normalize', get_template_directory_uri() . '/normalize.css', array(), '1.0', 'all' );
+		wp_enqueue_style( 'normalize', get_template_directory_uri() . '/css/normalize.css', array(), '1.0', 'all' );
 		wp_enqueue_style( 'thaim-1140', get_template_directory_uri() . '/css/1140.css', array(), 'all' );
 		wp_enqueue_style( 'thaim', get_stylesheet_uri(), array( 'dashicons' ), '2.0.0', 'all' );
 		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/js/modernizr.min.js', array( 'jquery' ), '2.6.2' );
