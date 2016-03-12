@@ -83,13 +83,14 @@ function thaim_setup() {
 		require_once( get_template_directory() . '/includes/buddypress.php' );
 	}
 
-
 	// nav menus
 	register_nav_menus( array( // Using array to specify more menus if needed
         'header-menu'  => __( 'Header Menu', 'thaim' ), // Main Navigation
         'sidebar-menu' => __( 'Sidebar Menu', 'thaim' ), // Sidebar Navigation
         'extra-menu'   => __( 'Extra Menu', 'thaim' ) // Extra Navigation if needed (duplicate as many as you need!)
     ) );
+
+    add_editor_style( array( 'css/editor-style.css', thaim_get_font_url() ) );
 }
 add_action( 'after_setup_theme', 'thaim_setup' );
 

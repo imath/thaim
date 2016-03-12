@@ -200,12 +200,17 @@ body.thaim-maintenance #thaim-site #thaim-info-maintenance {
 
 blockquote {
 	font-family: 'Shadows Into Light', cursive;
+	font-size: 18px;
+	font-size: 1.285714286rem;
+	border-left: solid 3px #23282d;
 }
 
 body.home blockquote {
 	text-align: center;
 	margin-bottom: 0;
 	font-size: 24px;
+	font-size: 1.714285714rem;
+	border:none;
 }
 
 h2.buddypress,
