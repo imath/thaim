@@ -431,10 +431,6 @@ function thaim_headline() {
 
 			thaim_headline_term();
 
-		elseif ( is_tag() ):
-
-			thaim_headline_tag();
-
 		elseif ( is_single() ):
 
 			thaim_headline_single();
@@ -479,33 +475,60 @@ function thaim_headline_term() {
 }
 
 function thaim_headline_html_for_cat_tags( $term_id, $term_name, $term_desc, $type = 'tag' ) {
-	$default_icon = 'tag';
-
 	$icon = get_term_meta( $term_id, '_thaim_term_icon', true );
 
-	$icon = ! empty( $icon ) ? $icon : $default_icon ;
+	$classes = array( 'dashicons-tag' );
+	if ( ! empty( $icon ) ) {
+		$classes = array( $icon );
+	}
 
-	$image_header = get_term_meta( $term_id, '_thaim_term_image', true );
+	$class = reset( $classes );
+	if ( false !== strpos( $class, 'custom-dashicons' ) ) {
+		$classes[] = 'custom-dashicons';
+	} else {
+		$classes[] = 'dashicons';
+	}
+
+	$output = join( ' ', array_map( 'sanitize_html_class', array_reverse( $classes ) ) );
 	?>
-	<div class="row thaim-in-headline">
-		<div class="twelvecol">
-			<?php if ( ! empty( $image_header ) ): ?>
-				<img src="<?php echo esc_url( $image_header );?>" alt="Illustration" class="thaim-image">
-			<?php endif;?>
+	<h2><span class="<?php echo $output ;?>"></span> <?php echo esc_html( $term_name );?></h2>
+	<?php
+}
 
-			<h2>
-				<?php if ( empty( $image_header ) ): ?>
-					<span class="dashicons dashicons-<?php echo esc_attr( $icon ) ;?>"></span>
-				<?php endif;?>
-				<?php echo esc_html( $term_name );?>
-			</h2>
+function thaim_get_term_thumbnail() {
+	$term = get_queried_object();
 
-			<?php if ( ! empty( $term_desc ) ): ?>
-				<p><?php echo esc_html( $term_desc );?></p>
-			<?php endif;?>
+	if ( empty( $term->term_id ) ) {
+		return false;
+	}
 
-			<div class="clear"></div>
-		</div>
+	$thumbnail = get_term_meta( $term->term_id, '_thaim_term_image', true );
+
+	if ( ! empty( $thumbnail ) ) {
+		return $thumbnail;
+	}
+
+	return false;
+}
+
+function thaim_post_term_description() {
+	$term = get_queried_object();
+
+	if ( empty( $term->term_id ) || empty( $term->description ) ) {
+		return;
+	}
+
+	$term_thumbnail = thaim_get_term_thumbnail();
+	?>
+	<div class="term-description">
+
+		<?php if ( $term_thumbnail ) : ?>
+			<img class="header-image thaim-image" src="<?php echo esc_url( $term_thumbnail ); ?>">
+		<?php endif ; ?>
+
+		<blockquote>
+			<?php echo esc_html( $term->description ) ;?>
+		</blockquote>
 	</div>
 	<?php
 }
@@ -625,16 +648,30 @@ function thaim_slider_handle() {
  */
 
 function thaim_get_font_url() {
-	$font_url = '';
+	$fonts     = array();
+	$fonts_url = '';
+
+	/* translators: If there are characters in your language that are not supported
+	 * by Open Sans, translate this to 'off'. Do not translate into your own language.
+	 */
+	if ( 'off' !== _x( 'on', 'Open Sans font: on or off', 'thaim' ) ) {
+		$fonts[] = 'Open Sans';
+	}
 
 	/* translators: If there are characters in your language that are not supported
 	 * by Shadows, translate this to 'off'. Do not translate into your own language.
 	 */
-	if ( 'off' !== _x( 'on', 'Open Sans font: on or off', 'thaim' ) ) {
-		$font_url = add_query_arg( 'family', 'Shadows+Into+Light', 'https://fonts.googleapis.com/css' );
+	if ( 'off' !== _x( 'on', 'Shadows Into Light: on or off', 'thaim' ) ) {
+		$fonts[] = 'Shadows Into Light';
 	}
 
-	return $font_url;
+	if ( $fonts ) {
+		$fonts_url = add_query_arg( array(
+			'family' => urlencode( implode( '|', $fonts ) ),
+		), 'https://fonts.googleapis.com/css' );
+	}
+
+	return $fonts_url;
 }
 
 // Theme Stylesheets using Enqueue
@@ -758,12 +795,12 @@ function thaim_single_reader_add_actions() {
 	&nbsp;&nbsp;
 	<span class="twitter-share">
 		<span class="dashicons dashicons-twitter"></span>
-		<a href="https://twitter.com/intent/tweet?original_referer=<?php echo urlencode( get_permalink());?>&amp;source=tweetbutton&amp;text=<?php echo urlencode( get_the_title());?>&amp;url=<?php echo urlencode( get_permalink());?>&amp;via=imath" class="share-on-twitter single" title="<?php _e('Share', 'thaim')?>" target="_blank"><?php _e('Share', 'thaim')?></a>
+		<a href="https://twitter.com/intent/tweet?original_referer=<?php echo urlencode( get_permalink());?>&amp;source=tweetbutton&amp;text=<?php echo urlencode( get_the_title());?>&amp;url=<?php echo urlencode( get_permalink());?>&amp;via=imath" class="share-on-twitter single" title="<?php esc_attr_e( 'Share', 'thaim' )?>" target="_blank"><?php esc_html_e( 'Share', 'thaim' )?></a>
 	</span>
 	&nbsp;&nbsp;
 	<span class="paypal-support">
-		<span class="dashicons dashicons-tickets-alt"></span>
-		<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=2QSLY676C6HKE" title="buy me a coffee ;)" target="_blank"><?php _e('Support', 'thaim');?></a>
+		<span class="custom-dashicons custom-dashicons-paypal"></span>
+		<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=2QSLY676C6HKE" title="<?php esc_attr_e( 'buy me a coffee ;)', 'thaim' );?>" target="_blank"><?php esc_html_e( 'Support', 'thaim' );?></a>
 	</span>
 	<?php
 }

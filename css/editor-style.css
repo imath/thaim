@@ -1,5 +1,5 @@
 body {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Serve Helvetica Neue, with Helvetica fallbacks to Arial */
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Serve Helvetica Neue, with Helvetica fallbacks to Arial */
 	font-size: 0.75em;
 	font-weight: thin; /* Better supported than 'lighter' attribute */
 	color: #555; /* Lighter on the eyes than #000 Black */
@@ -320,8 +320,9 @@ video {
 	max-width: 100%;
 }
 
-.twitter-tweet-rendered {
-	max-width: 100% !important; /* Override the Twitter embed fixed width */
+iframe.twitter-tweet {
+	width: 520px!important;
+	margin: 0 auto!important;
 }
 
 /* Images */

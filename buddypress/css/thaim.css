@@ -203,10 +203,10 @@
 	transition: color .1s ease-in 0;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
- 	content: "\f469";
- 	margin-right: 5px;
- 	vertical-align: text-bottom;
- }
+	content: "\f469";
+	margin-right: 5px;
+	vertical-align: text-bottom;
+}
 
 .sidebar-widget .thaim-utilities-widget a.permactivity:after {
 	content: '';
