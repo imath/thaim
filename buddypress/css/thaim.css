@@ -7,6 +7,14 @@
 	margin: 0;
 }
 
+#buddypress #public-personal-li {
+	display: none;
+}
+
+body.logged-in #buddypress #public-personal-li {
+	display: block;
+}
+
 #buddypress .profile .bp-widget h4 {
 	font-style: italic;
 	float: right;

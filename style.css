@@ -5,7 +5,7 @@ Description: thaim is imath's theme !
 Version: 2.0.0
 Author: imath
 Author URI: http://imathi.eu
-Tags: HTML5, CSS3, light, gray, white, slider, responsive
+Tags: HTML5, CSS3, light, black, white, slider, responsive
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: thaim
@@ -131,6 +131,7 @@ a.view-article {
 }
 
 header#thaim-site {
+	background-color: #FFF;
 	position: relative;
 }
 
