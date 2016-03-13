@@ -222,6 +222,21 @@ header#thaim-site nav.main-navigation ul li.current_page_parent a {
 	font-weight: bolder;
 }
 
+header#thaim-site nav.main-small-navigation ul li.current_page_item a,
+header#thaim-site nav.main-small-navigation ul li.current-menu-item a,
+header#thaim-site nav.main-small-navigation ul li.current-menu-parent a,
+header#thaim-site nav.main-small-navigation ul li.current_page_parent a {
+	background-color: #d54e21;
+	color: #FFF;
+}
+
+header#thaim-site nav.main-small-navigation ul li.current_page_item a:hover,
+header#thaim-site nav.main-small-navigation ul li.current-menu-item a:hover,
+header#thaim-site nav.main-small-navigation ul li.current-menu-parent a:hover,
+header#thaim-site nav.main-small-navigation ul li.current_page_parent a:hover {
+	color: #FFF;
+}
+
 header#thaim-site nav.main-navigation {
 	position: absolute;
 	bottom: 0px;
@@ -247,7 +262,6 @@ body.thaim-maintenance #thaim-site #thaim-info-maintenance {
 	text-align: center;
 	margin: 1em auto;
 	background: #FFF;
-	border-radius: 3px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 	padding: 2em 0;
 }
@@ -423,10 +437,8 @@ table.thaim-plugin-desc {
 	text-align: center;
 	line-height: 1.4em;
 	padding: 0;
-	background:#d54e21;
+	background: #23282d;
 	color: #fff;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
 	border: none;
 }
 
@@ -475,6 +487,27 @@ h3.rss-feed a {
 	text-decoration:none;
 }
 
+h3.rss-feed:before {
+	font-family: 'dashicons';
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	font-size: 20px;
+	line-height: 1;
+	text-decoration: inherit;
+	font-weight: normal;
+	font-style: normal;
+	text-align: center;
+	-webkit-transition: color .1s ease-in 0;
+	transition: color .1s ease-in 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	content: "\f303";
+	margin-right: 5px;
+	vertical-align: text-bottom;
+	color: #d54e21;
+}
+
 /* =============================================================================
    Twentytwelve copied CSS Styles
    ========================================================================== */
@@ -494,7 +527,7 @@ h3.rss-feed a {
 	line-height: 2.181818182;
 	font-weight: bold;
 	text-transform: uppercase;
-	color: #636363;
+	color: #23282d;
 }
 
 .page-template-custom-home-page .widget-title {
@@ -518,8 +551,7 @@ article.format-status footer.entry-meta {
 button,
 input,
 textarea {
-	border: 1px solid #ccc;
-	border-radius: 3px;
+	border: 1px solid #23282d;
 	font-family: inherit;
 	padding: 6px;
 	padding: 0.428571429rem;
@@ -555,25 +587,33 @@ article.post-password-required input[type=submit],
 #thaim-site nav.main-small-navigation.toggled-on ul li a,
 li.bypostauthor cite span,
 #pagination .page-numbers,
-h3.dld a, .racc a{
+h3.dld a, .racc a {
 	padding: 6px 10px;
 	padding: 0.428571429rem 0.714285714rem;
 	font-size: 11px;
 	font-size: 0.785714286rem;
 	line-height: 1.428571429;
 	font-weight: normal;
-	color: #7c7c7c;
-	background-color: #e6e6e6;
-	background-repeat: repeat-x;
-	background-image: -moz-linear-gradient(top, #f4f4f4, #e6e6e6);
-	background-image: -ms-linear-gradient(top, #f4f4f4, #e6e6e6);
-	background-image: -webkit-linear-gradient(top, #f4f4f4, #e6e6e6);
-	background-image: -o-linear-gradient(top, #f4f4f4, #e6e6e6);
-	background-image: linear-gradient(top, #f4f4f4, #e6e6e6);
-	border: 1px solid #d2d2d2;
-	border-radius: 3px;
+	color: #23282d;
+	background-color: #FFF;
+	border: 1px solid #23282d;
 	box-shadow: 0 1px 2px rgba(64, 64, 64, 0.1);
 }
+
+input[type="submit"].searchsubmit {
+	padding: 8px 10px 6px;
+}
+
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+article.post-password-required input[type=submit],
+li.bypostauthor cite span,
+h3.dld a, .racc a {
+	color: #FFF;
+	background-color: #23282d;
+}
+
 .menu-toggle,
 button,
 input[type="submit"],
@@ -586,48 +626,34 @@ input[disabled] {
     cursor: default;
 }
 .menu-toggle:hover,
-button:hover,
-input[type="submit"]:hover,
-input[type="button"]:hover,
-input[type="reset"]:hover,
-article.post-password-required input[type=submit]:hover,
 #thaim-site nav.main-small-navigation.toggled-on ul li a:hover,
-#pagination .page-numbers:hover,
-h3.dld a:hover, .racc a:hover {
-	color: #5e5e5e;
-	background-color: #ebebeb;
-	background-repeat: repeat-x;
-	background-image: -moz-linear-gradient(top, #f9f9f9, #ebebeb);
-	background-image: -ms-linear-gradient(top, #f9f9f9, #ebebeb);
-	background-image: -webkit-linear-gradient(top, #f9f9f9, #ebebeb);
-	background-image: -o-linear-gradient(top, #f9f9f9, #ebebeb);
-	background-image: linear-gradient(top, #f9f9f9, #ebebeb);
+#pagination .page-numbers:hover {
+	color: #d54e21;
 }
+
 .menu-toggle:active,
 .menu-toggle.toggled-on,
+#pagination .page-numbers:active {
+	color: #FFF;
+	background-color: #23282d;
+}
+
 button:active,
 input[type="submit"]:active,
 input[type="button"]:active,
 input[type="reset"]:active,
-#pagination .page-numbers:active,
-h3.dld a:active, .racc a:active {
-	color: #757575;
-	background-color: #e1e1e1;
-	background-repeat: repeat-x;
-	background-image: -moz-linear-gradient(top, #ebebeb, #e1e1e1);
-	background-image: -ms-linear-gradient(top, #ebebeb, #e1e1e1);
-	background-image: -webkit-linear-gradient(top, #ebebeb, #e1e1e1);
-	background-image: -o-linear-gradient(top, #ebebeb, #e1e1e1);
-	background-image: linear-gradient(top, #ebebeb, #e1e1e1);
-	box-shadow: inset 0 0 8px 2px #c6c6c6, 0 1px 0 0 #f4f4f4;
-	border: none;
+h3.dld a:active, .racc a:active,
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+input[type="reset"]:active,
+h3.dld a:hover, .racc a:hover,
+article.post-password-required input[type=submit]:hover {
+	color: #23282d;
+	background-color: #FFF;
 }
+
 li.bypostauthor cite span {
-	color: #fff;
-	background-color: #21759b;
-	background-image: none;
-	border: 1px solid #1f6f93;
-	border-radius: 2px;
 	box-shadow: none;
 	padding: 0;
 }
@@ -691,8 +717,6 @@ img.header-image,
 .author-avatar img,
 img.wp-post-image,
 img.thaim-image {
-	/* Add fancy borders to all WordPress-added images but not things like badges and icons and the like */
-	border-radius: 3px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -706,6 +730,26 @@ a.post-thumbnail {
 	display: block;
 	margin-bottom: 24px;
     margin-bottom: 1.714285714rem;
+}
+
+body.single-post div.post-thumbnail {
+	position:relative;
+}
+
+.post-thumbnail img {
+	display: block;
+	margin: 0 auto;
+}
+
+body.single-post small.post-thumbnail-overlay {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	z-index: 600;
+	background: #FFF;
+	color: #000;
+	padding: 0 5px 5px;
+	opacity: .8;
 }
 
 .dashicons, .dashicons-before:before {
@@ -1225,9 +1269,8 @@ article.format-link header {
 	font-weight: bold;
 	font-style: italic;
 	text-transform: uppercase;
-	color: #848484;
-	background-color: #ebebeb;
-	border-radius: 3px;
+	color: #fff;
+	background-color: #23282d;
 }
 article.format-link .entry-content {
 	max-width: 80%;
@@ -1361,15 +1404,8 @@ article.format-quote .entry-content blockquote {
 	font-size: 0.857142857rem;
 	font-weight: normal;
 	color: #fff;
-	background-color: #0088d0;
-	background-repeat: repeat-x;
-	background-image: -moz-linear-gradient(top, #009cee, #0088d0);
-	background-image: -ms-linear-gradient(top, #009cee, #0088d0);
-	background-image: -webkit-linear-gradient(top, #009cee, #0088d0);
-	background-image: -o-linear-gradient(top, #009cee, #0088d0);
-	background-image: linear-gradient(top, #009cee, #0088d0);
-	border-radius: 3px;
-	border: 1px solid #007cbd;
+	background-color: #23282d;
+	border: 1px solid #23282d;
 }
 .comments-area li.bypostauthor cite span {
 	position: absolute;
@@ -1490,9 +1526,10 @@ h3.dld {
 }
 
 #pagination .page-numbers.current {
-	background:#C6C6C6;
-	color:#FFF;
+	background: #23282d;
+	color: #FFF;
 }
+
 #pagination .page-numbers.dots {
 	background:none;
 }
@@ -1685,7 +1722,15 @@ a.backtotop:hover {
 ::-moz-selection {background:#d54e21;color:#FFF;text-shadow:none;}
 
 /* Input focus styles */
-input:focus {outline:0;border:1px solid #0091BD;} /* Gets rid of blue glow on field focus, adds border color instead */
+input:focus {outline:0;border:1px solid #d54e21;} /* Gets rid of blue glow on field focus, adds border color instead */
+:focus {
+  outline-color: #d54e21;
+  outline-style: solid;
+  outline-width: 1px;
+}
+textarea:focus {
+	border:none;
+}
 .sticky {}
 .bypostauthor {}
 

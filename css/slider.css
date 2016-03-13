@@ -16,18 +16,20 @@
 
 .thaim-hero-slide .post-thumbnail {
 	padding: 10px 0;
+	max-height: 235px;
+	overflow: hidden;
 }
 
 .thaim-hero-slide .fivecol img {
 	max-width:100%;
-	max-height:240px;
 	border-radius: 0px;
 	margin: 0 auto;
 	display: block;
+	margin-top: 20px;
 }
 
 .thaim-hero-slide .fivecol, .thaim-hero-slide .sevencol, .thaim-hero-slide .twelvecol {
-	height:250px;
+	height: 250px;
 }
 .thaim-hero-slide .fivecol {
 	width: 100%;
@@ -93,14 +95,14 @@
 }
 
 .cycle-overlay {
-    position: absolute;
-    bottom: 15px;
-    width: 100%;
-    z-index: 600;
-    background: #FFF;
-    color: #000;
-    padding: 15px;
-    opacity: .8;
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	z-index: 600;
+	background: #FFF;
+	color: #000;
+	padding: 15px;
+	opacity: .8;
 }
 
 .cycle-overlay h2 a {
@@ -113,7 +115,9 @@
 @media only screen and (min-width: 600px) {
 	.thaim-hero-slide .sevencol,
 	.thaim-hero-slide .sevencol .thaim-slide-article,
-	.thaim-hero-slide .sevencol h2 {
+	.thaim-hero-slide .sevencol h2,
+	.thaim-hero-slide .sevencol p.readmore,
+	.thaim-hero-slide .twelvecol p.readmore {
 		display: block;
 	}
 
@@ -127,8 +131,8 @@
 }
 
 @media only screen and (min-width: 1024px) {
-	.thaim-hero-slide .sevencol p,
-	.thaim-hero-slide .twelvecol p {
+	.thaim-hero-slide .sevencol p.desc,
+	.thaim-hero-slide .twelvecol p.desc {
 		display: block;
 	}
 }

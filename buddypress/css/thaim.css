@@ -10,7 +10,7 @@
 #buddypress .profile .bp-widget h4 {
 	font-style: italic;
 	float: right;
-	color: #21759B;
+	color: #d54e21;
 }
 
 #buddypress table.profile-fields h5 {
@@ -219,6 +219,41 @@
 	border-bottom: 1px dotted #eaeaea;
 	padding: 13px 0;
 	padding: 0.928571429rem 0;
+}
+
+#buddypress div.item-list-tabs ul li.selected a, #buddypress div.item-list-tabs ul li.current a {
+	background-color: #FFF;
+	color: #23282d;
+	border: 1px solid #23282d;
+	opacity: 1;
+	font-weight: bold;
+}
+
+#buddypress button,
+#buddypress a.button,
+#buddypress input[type=submit],
+#buddypress input[type=button],
+#buddypress input[type=reset],
+#buddypress ul.button-nav li a,
+#buddypress .generic-button a,
+#buddypress .comment-reply-link,
+a.bp-title-button {
+	background: #FFF;
+	border: 1px solid #23282d;
+	color: #23282d;
+}
+
+#buddypress button:hover,
+#buddypress a.button:hover,
+#buddypress input[type=submit]:hover,
+#buddypress input[type=button]:hover,
+#buddypress input[type=reset]:hover,
+#buddypress ul.button-nav li a:hover,
+#buddypress .generic-button a:hover,
+#buddypress .comment-reply-link:hover,
+a.bp-title-button:hover {
+	background: #23282d;
+	color: #FFF;
 }
 
 /* 1024px and greater */

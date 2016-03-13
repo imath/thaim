@@ -70,7 +70,7 @@ class Thaim_Tag_Cloud extends WP_Widget_Tag_Cloud {
 	public function form( $instance ) {
 		parent::form( $instance );
 
-		$exlude = '';
+		$exclude = '';
 		if ( ! empty( $instance['exclude'] ) ) {
 			$exclude = join( ',', maybe_unserialize( $instance['exclude'] ) );
 		}
