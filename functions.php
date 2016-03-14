@@ -3,7 +3,7 @@
  *  Author: @imath
  *  URL: imathi.eu
  *
- *  Credits: html5blank.com, _s & twentytwelve themes
+ * 	Requires WordPress 4.5
  */
 
 // Exit if accessed directly.
@@ -66,18 +66,13 @@ final class Thaim {
 	 */
 	private function includes() {
 		require_once( get_template_directory() . '/includes/functions.php' );
-		require_once( get_template_directory() . '/includes/thaim-options.php' );
-		require_once( get_template_directory() . '/includes/thaim-tax-meta.php' );
-		require_once( get_template_directory() . '/includes/thaim-widgets.php' );
-
-		if ( 1 == get_option( 'thaim_use_prettify' ) ) {
-			require_once( get_template_directory() . '/includes/thaim-code-shortcode.php' );
-		}
+		require_once( get_template_directory() . '/includes/tags.php' );
+		require_once( get_template_directory() . '/includes/options.php' );
+		require_once( get_template_directory() . '/includes/tax-meta.php' );
+		require_once( get_template_directory() . '/includes/widgets.php' );
 
 		if ( thaim_is_maintenance_mode() ) {
-			require_once( get_template_directory() . '/includes/thaim-maintenance.php' );
-
-			$maintenance = new Thaim_Maintenance;
+			require_once( get_template_directory() . '/includes/maintenance.php' );
 		}
 
 		if ( function_exists( 'buddypress' ) ) {
@@ -85,7 +80,7 @@ final class Thaim {
 		}
 
 		if ( is_admin() ) {
-			require_once( get_template_directory() . '/includes/thaim-upgrade.php' );
+			require_once( get_template_directory() . '/includes/upgrade.php' );
 		}
 	}
 
@@ -109,15 +104,17 @@ final class Thaim {
 		// Add Menu Support
 		add_theme_support( 'menus' );
 
-		// nav menus
-		register_nav_menus( array( // Using array to specify more menus if needed
-			'header-menu'  => __( 'Header Menu', 'thaim' ), // Main Navigation
-			'sidebar-menu' => __( 'Sidebar Menu', 'thaim' ), // Sidebar Navigation
-			'extra-menu'   => __( 'Extra Menu', 'thaim' ) // Extra Navigation if needed (duplicate as many as you need!)
-	    ) );
+		// Header menu
+		register_nav_menu( 'header-menu', __( 'Header Menu', 'thaim' ) );
 
 		// Load Custom styles inside the wp editor
 	    add_editor_style( array( 'css/editor-style.css', thaim_get_font_url() ) );
+
+	    // Specific shortcode for Action buttons
+	    add_shortcode( 'thaim_button', 'thaim_button_shortcode_handler' );
+
+	    // Gist Support
+	    wp_embed_register_handler( 'thaim_gist', '#(https://gist.github.com/imath/([a-zA-Z0-9]+)?)(\#file(\-|_)(.+))?$#i', 'thaim_gist_handler' );
 	}
 }
 

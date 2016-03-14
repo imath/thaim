@@ -3,7 +3,7 @@
  * The header of thaim.
  *
  * @package thaim
- * @since thaim 1.0-beta1
+ * @since 1.0.0
  */
 ?><!DOCTYPE html>
 <!--[if lt IE 7]><html <?php language_attributes(); ?> class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
@@ -38,13 +38,13 @@
 			<!-- Info -->
 			<div id="thaim-info">
 				<h1><a href="<?php echo site_url();?>"><?php thaim_blogname();?></a></h1>
-				<div class="description"><?php bloginfo('description');?></div>
+				<div class="description"><?php bloginfo( 'description' );?></div>
 			</div>
 			<!-- /Info -->
 
 			<!-- Nav -->
 			<nav role="navigation" class="site-navigation main-navigation">
-				<h1 class="assistive-text"><?php _e( 'Menu', 'thaim' ); ?></h1>
+				<h1 class="assistive-text"><?php esc_html_e( 'Menu', 'thaim' ); ?></h1>
 				<?php thaim_nav(); ?>
 			</nav>
 			<!-- /Nav -->

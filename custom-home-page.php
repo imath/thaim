@@ -5,7 +5,7 @@
  * Description: Use this page template to remove the sidebar from any page.
  *
  * @package thaim
- * @since thaim 1.0-beta1
+ * @since 1.0.0
  */
 
 get_header(); ?>
@@ -22,7 +22,7 @@ get_header(); ?>
 
 				<?php the_content(); ?>
 
-				<?php if( ! function_exists( 'dynamic_sidebar' ) || ! dynamic_sidebar( 'home-widgets' ) ); ?>
+				<?php if ( ! function_exists( 'dynamic_sidebar' ) || ! dynamic_sidebar( 'home-widgets' ) ); ?>
 
 			</div>
 

@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
  * The template for displaying 404 pages (Not Found).
  *
  * @package thaim
- * @since thaim 1.0-beta1
+ * @since 1.0.0
  */
 
 get_header(); ?>
@@ -12,7 +12,7 @@ get_header(); ?>
 <section id="thaim-section" class="eightcol">
 
 	<?php get_template_part( 'entry', 'none' );?>
-	
+
 </section>
 <!-- /Section -->
 

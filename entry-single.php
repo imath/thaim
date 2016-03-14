@@ -3,7 +3,7 @@
  * The template for displaying an entry in the single template.
  *
  * @package thaim
- * @since thaim 1.0-beta1
+ * @since 1.0.0
  */
 ?>
 

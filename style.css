@@ -561,12 +561,18 @@ article.format-status footer.entry-meta {
 /* Form fields, general styles first */
 button,
 input,
-textarea {
+textarea,
+.thaim-button {
 	border: 1px solid #23282d;
 	font-family: inherit;
 	padding: 6px;
 	padding: 0.428571429rem;
+	margin-right: 1%;
 }
+.thaim-button.last {
+	margin-right: 0;
+}
+
 button,
 input {
     line-height: normal;
@@ -662,6 +668,47 @@ h3.dld a:hover, .racc a:hover,
 article.post-password-required input[type=submit]:hover {
 	color: #23282d;
 	background-color: #FFF;
+}
+
+.thaim-button {
+	float:left;
+}
+
+.thaim-button.one {
+	width: 98%;
+}
+
+.thaim-button.two {
+	width: 48%;
+}
+
+.thaim-button.three {
+	width: 33%;
+}
+
+.thaim-button.four {
+	width: 23%;
+}
+
+.thaim-button {
+	margin-bottom: 24px;
+    margin-bottom: 1.714285714rem;
+}
+
+.thaim-button a {
+	display: inline-block;
+	width: 100%;
+	padding: 5px;
+	text-align: center;
+	font-weight: bold;
+	text-decoration: none;
+	border: none;
+}
+
+.thaim-buttons {
+	padding: 0 20%;
+	clear:both;
+	overflow: hidden;
 }
 
 li.bypostauthor cite span {

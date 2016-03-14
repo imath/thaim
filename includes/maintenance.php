@@ -6,6 +6,10 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
+function thaim_maintenance_info() {
+	echo apply_filters( 'thaim_maintenance_info', '<h3><span class="dashicons dashicons-admin-tools"></span> '. __( 'will be up and running soon !', 'thaim' ) .'</h3>' );
+}
+
 /**
 * thaim maintenance
 * let's work with no pressure to finish the job..
@@ -56,9 +60,4 @@ class Thaim_Maintenance {
 	}
 }
 
-function thaim_maintenance_info() {
-
-	$info = apply_filters( 'thaim_maintenance_info', '<h3><span class="dashicons dashicons-admin-tools"></span> '. __( 'will be up and running soon !', 'thaim' ) .'</h3>');
-
-	echo $info;
-}
+new Thaim_Maintenance;

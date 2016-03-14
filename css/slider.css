@@ -116,8 +116,8 @@
 	.thaim-hero-slide .sevencol,
 	.thaim-hero-slide .sevencol .thaim-slide-article,
 	.thaim-hero-slide .sevencol h2,
-	.thaim-hero-slide .sevencol p.readmore,
-	.thaim-hero-slide .twelvecol p.readmore {
+	.thaim-hero-slide .sevencol p.desc,
+	.thaim-hero-slide .twelvecol p.desc {
 		display: block;
 	}
 
@@ -131,8 +131,8 @@
 }
 
 @media only screen and (min-width: 1024px) {
-	.thaim-hero-slide .sevencol p.desc,
-	.thaim-hero-slide .twelvecol p.desc {
+	.thaim-hero-slide .sevencol p.readmore,
+	.thaim-hero-slide .twelvecol p.readmore {
 		display: block;
 	}
 }

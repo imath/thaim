@@ -43,6 +43,7 @@ class Thaim_Tag_Cloud extends WP_Widget_Tag_Cloud {
 
 	public function exclude_tags( $args = array() ) {
 		$instances = $this->get_settings();
+		$args['number'] = 20;
 
 		if ( array_key_exists( $this->number, $instances ) ) {
 			$instance = $instances[ $this->number ];

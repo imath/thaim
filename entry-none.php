@@ -3,7 +3,7 @@
  * The template for displaying a "No posts found" message.
  *
  * @package thaim
- * @since thaim 1.0-beta1
+ * @since 1.0.0
  */
 ?>
 
