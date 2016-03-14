@@ -189,11 +189,11 @@ function thaim_single_post_nav() {
 	?>
 	<nav class="nav-single">
 		<div class="nav-top">
-			<a href="#top" class="backtotop single" title="<?php _e('Jump to the top of the page', 'thaim');?>"><span aria-hidden="true" data-icon="&#xe09d;"></span> <?php _e('Back to top', 'thaim');?></a>
+			<a href="#top" class="backtotop single" title="<?php _e('Jump to the top of the page', 'thaim');?>"><span class="dashicons dashicons-arrow-up"></span> <?php esc_html_e( 'Back to top', 'thaim' );?></a>
 		</div>
 		<br class="clear"/>
-		<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '<span aria-hidden="true" data-icon="&#xe0b0;"></span>', 'Previous post link', 'thaim' ) . '</span> %title' ); ?></span>
-		<span class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '<span aria-hidden="true" data-icon="&#xe09b;"></span>', 'Next post link', 'thaim' ) . '</span>' ); ?></span>
+		<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '<span class="dashicons dashicons-arrow-left"></span>', 'Previous post link', 'thaim' ) . '</span> %title' ); ?></span>
+		<span class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '<span class="dashicons dashicons-arrow-right"></span>', 'Next post link', 'thaim' ) . '</span>' ); ?></span>
 		<br class="clear"/>
 	</nav><!-- .nav-single -->
 	<?php
@@ -304,32 +304,68 @@ function thaim_entry_meta() {
 }
 endif;
 
+function thaim_excerpt_was_trimed( $text ) {
+	if ( false !== strpos( $text, 'class="view-article"' ) ) {
+		thaim()->excerpt_was_trimed = true;
+	}
 
-// Custom Excerpts
-// Create 20 Word Callback for Index page Excerpts, call using thaim_wp_excerpt('thaim_wp_index');
-function thaim_wp_index( $length = 0 ) {
-    return 20;
+	return $text;
+}
+add_filter( 'wp_trim_words', 'thaim_excerpt_was_trimed', 10, 1 );
+
+
+// Custom Excerpt length
+function thaim_excerpt_length( $length = 0 ) {
+    return 30;
 }
 
-// Create 40 Word Callback for Custom Post Excerpts, call using thaim_wp_excerpt('thaim_wp_custom_post');
-function thaim_wp_custom_post( $length = 0 ) {
-    return 40;
+function thaim_excerpt_more() {
+	$post_id = get_the_ID();
+
+	$link = sprintf( '<a href="%1$s" class="view-article">%2$s &rarr;</a>',
+		esc_url( get_permalink( $post_id ) ),
+		/* translators: %s: Name of current post */
+		sprintf( __( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'thaim' ), get_the_title( $post_id ) )
+	);
+	return ' &hellip; ' . $link;
 }
 
-// Create the Custom Excerpts callback
-function thaim_wp_excerpt( $length_callback = '', $more_callback = '' ) {
-    global $post;
-    if ( function_exists( $length_callback ) ) {
-        add_filter( 'excerpt_length', $length_callback );
-    }
-    if ( function_exists( $more_callback ) ) {
-        add_filter( 'excerpt_more', $more_callback );
-    }
-    $output = get_the_excerpt();
-    $output = apply_filters( 'wptexturize', $output );
-    $output = apply_filters( 'convert_chars', $output );
-    $output = '<p>' . $output . '</p>';
-    echo $output;
+function thaim_excerpt( $class = '', $length = 'thaim_excerpt_more' ) {
+	$thaim = thaim();
+
+	if ( ! empty( $class ) ) {
+		$class = ' class="' . sanitize_html_class( $class ) . '"';
+	}
+
+	if ( has_excerpt() ) : ?>
+		<p<?php echo $class; ?>><?php the_excerpt(); ?></p>
+
+	<?php else :
+		add_filter( 'excerpt_more', 'thaim_excerpt_more' );
+
+		if ( ! empty( $length ) ) {
+			add_filter( 'excerpt_length', 'thaim_excerpt_length' );
+		}
+	?>
+
+		<p<?php echo $class; ?>><?php the_excerpt();?></p>
+
+	<?php
+		remove_filter( 'excerpt_more', 'thaim_excerpt_more' );
+
+		if ( ! empty( $length ) ) {
+			remove_filter( 'excerpt_length', 'thaim_excerpt_length' );
+		}
+
+	endif;
+
+	if ( has_excerpt() || empty( $thaim->excerpt_was_trimed ) ) : ?>
+		<p class="readmore">
+			<a class="view-article" href="<?php the_permalink()?>" title="<?php the_title();?>"><?php esc_html_e( 'View Article', 'thaim' );?> &rarr;</a>
+		</p>
+
+	<?php endif;
+	$thaim->excerpt_was_trimed = false;
 }
 
 function thaim_has_stickies() {
@@ -545,9 +581,8 @@ function thaim_slider_handle() {
 
 						<h2><a href="<?php the_permalink();?>" title="<?php the_title();?>"><?php the_title()?></a></h2>
 
-						<p class="desc"><?php the_excerpt()?></p>
+						<?php thaim_excerpt('desc', false ); ?>
 
-						<p class="readmore"><a class="view-article" href="<?php the_permalink()?>" title="<?php the_title();?>"> <?php _e('View Article', 'thaim');?> &rarr;</a></p>
 					</div>
 				</div>
 			<?php else: ?>
@@ -555,9 +590,8 @@ function thaim_slider_handle() {
 					<div class="thaim-slide-article">
 						<h2><a href="<?php the_permalink();?>" title="<?php the_title();?>"><?php the_title()?></a></h2>
 
-						<p class="desc"><?php the_excerpt()?></p>
+						<?php thaim_excerpt( 'desc', false ); ?>
 
-						<p class="readmore"><a class="view-article" href="<?php the_permalink()?>" title="<?php the_title();?>"> <?php _e('View Article', 'thaim');?> &rarr;</a></p>
 					</div>
 				</div>
 			<?php endif; ?>

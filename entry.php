@@ -32,9 +32,7 @@
 			<!-- Entry-summary -->
 			<div class="entry-summary">
 
-				<p><?php thaim_wp_excerpt('thaim_wp_index'); ?></p>
-
-				<p class="readmore"><a class="view-article" href="<?php the_permalink()?>" title="<?php the_title();?>"> <?php _e('View Article', 'thaim');?> &rarr;</a></p>
+				<?php thaim_excerpt(); ?>
 
 			</div>
 			<!-- .entry-summary -->

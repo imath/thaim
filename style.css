@@ -105,6 +105,16 @@ body {
 	position: relative;
 }
 
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	height: 1px;
+	overflow: hidden;
+	position: absolute !important;
+	width: 1px;
+	/* many screen reader and browser combinations announce broken words as they would appear visually */
+	word-wrap: normal !important;
+}
+
 /* =============================================================================
    Thaim specific
    ========================================================================== */
@@ -934,6 +944,12 @@ article.sticky .featured-post {
 .mu_register {
 	line-height: 1.714285714;
 }
+
+.entry-summary {
+	padding-top: 24px;
+	padding-top: 1.714285714rem;;
+}
+
 .entry-content h1,
 .comment-content h1,
 .entry-content h2,
