@@ -31,6 +31,23 @@ function thaim_upgrade() {
 
 			// Clean up options
 			foreach ( $post_terms as $post_term ) {
+				$url = false;
+				$tax_meta = get_option( 'tax_meta_' . $post_term );
+
+				if ( empty( $tax_meta ) ) {
+					continue;
+				}
+
+				if ( isset( $tax_meta['thaim_tax_image']['src'] ) ) {
+					$url = parse_url( $tax_meta['thaim_tax_image']['src'], PHP_URL_PATH );
+
+					if ( ! empty( $url ) ) {
+						$url = '//ps.w.org' . $url;
+
+						update_term_meta( $post_term, '_thaim_term_image', esc_url_raw( $url ) );
+					}
+				}
+
 				delete_option( 'tax_meta_' . $post_term );
 			}
 
