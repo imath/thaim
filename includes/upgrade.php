@@ -279,7 +279,7 @@ function thaim_upgrade_thumbnails( $number = 5 ) {
 		foreach ( $migrate_images as $migrate_image ) {
 			$is_site_image = false;
 
-			if ( false !== strpos( $migrate_image->imageslider, $site_url ) ) {
+			if ( false !== strpos( $migrate_image->imageslider, site_url() ) ) {
 				$site_images[ $migrate_image->imageslider ] = true;
 
 			} else {
