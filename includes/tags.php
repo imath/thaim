@@ -546,4 +546,53 @@ function thaim_add_feed_link() {
 	</div>
 	<?php
 }
-add_action( 'thaim_before_sidebar_widgets', 'thaim_add_feed_link');
+add_action( 'thaim_before_sidebar_widgets', 'thaim_add_feed_link' );
+
+/**
+ * Add Twitter cards to single posts/pages
+ *
+ * @since 2.0.0
+ */
+function thaim_twitter_card() {
+	if ( ! is_singular() ) {
+		return;
+	}
+
+	$post = get_post();
+
+	if ( ! empty( $post->post_excerpt ) ) {
+		$description = strip_shortcodes( $post->post_excerpt );
+	} else {
+		$description = strip_shortcodes( $post->post_content );
+	}
+
+	$twitter = array(
+		'twitter:card'        => 'summary_large_image',
+		'twitter:site'        => '@imath',
+		'twitter:title'       => wp_strip_all_tags( apply_filters( 'the_title', $post->post_title, $post->ID ) ),
+		'twitter:description' => wp_strip_all_tags( apply_filters( 'the_excerpt', wp_trim_words( $description, 40, '...' ) ) ),
+	);
+
+	if ( empty( $twitter['twitter:title'] ) || empty( $twitter['twitter:description'] ) ) {
+		return;
+	}
+
+	$large_image = get_the_post_thumbnail_url( $post );
+
+	if ( empty( $large_image ) ) {
+		$twitter['twitter:card'] = 'summary';
+
+		$small_image = get_site_icon_url( 120 );
+
+		if ( ! empty( $small_image ) ) {
+			$twitter['twitter:image'] = esc_url_raw( $small_image );
+		}
+	} else {
+		$twitter['twitter:image'] = esc_url_raw( $large_image );
+	}
+
+	foreach ( $twitter as $meta_name => $meta_content ) {
+		printf( '<meta name="%1$s" content="%2$s">' . "\n", esc_attr( $meta_name ), esc_attr( $meta_content ) );
+	}
+}
+add_action( 'wp_head', 'thaim_twitter_card', 20 );
