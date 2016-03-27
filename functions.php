@@ -98,8 +98,12 @@ final class Thaim {
 		add_theme_support( 'title-tag' );
 
 		// Custom Logo
-		add_image_size( 'thaim-logo', 220, 60 );
-		add_theme_support( 'custom-logo', array( 'size' => 'thaim-logo' ) );
+		add_theme_support( 'custom-logo', array(
+			'height'      => 60,
+			'width'       => 220,
+			'flex-height' => false,
+			'flex-width'  => false,
+		) );
 
 		// Add Menu Support
 		add_theme_support( 'menus' );
