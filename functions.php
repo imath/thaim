@@ -22,14 +22,13 @@ final class Thaim {
 	 *
 	 * @var string
 	 */
-	public static $required_wp_version = '4.5';
+	public static $required_wp_version = 4.5;
 
 	/**
 	 * Initialize the theme
 	 */
 	private function __construct() {
-		if ( ! isset( $GLOBALS['wp_version'] ) || self::$required_wp_version < (float) $GLOBALS['wp_version'] ) {
-			// Notice in admin
+		if ( ! isset( $GLOBALS['wp_version'] ) || (float) $GLOBALS['wp_version'] < self::$required_wp_version ) {
 			return;
 		}
 

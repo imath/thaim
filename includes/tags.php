@@ -175,8 +175,8 @@ function thaim_single_post_nav() {
 			<a href="#top" class="backtotop single" title="<?php _e('Jump to the top of the page', 'thaim');?>"><span class="dashicons dashicons-arrow-up"></span> <?php esc_html_e( 'Back to top', 'thaim' );?></a>
 		</div>
 		<br class="clear"/>
-		<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '<span class="dashicons dashicons-arrow-left"></span>', 'Previous post link', 'thaim' ) . '</span> %title' ); ?></span>
-		<span class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '<span class="dashicons dashicons-arrow-right"></span>', 'Next post link', 'thaim' ) . '</span>' ); ?></span>
+		<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav"><span class="dashicons dashicons-arrow-left"></span></span> %title' ); ?></span>
+		<span class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav"><span class="dashicons dashicons-arrow-right"></span></span>' ); ?></span>
 		<br class="clear"/>
 	</nav><!-- .nav-single -->
 	<?php
