@@ -64,9 +64,6 @@ class Thaim_BuddyPress {
 
 		// Author link now goes to my BuddyPress profile !
 		add_filter( 'author_link', array( $this, 'filter_author_link' ), 10, 3 );
-
-		// Menu items highligthing
-		add_filter( 'page_css_class', array( $this, 'maybe_unhighlight_page' ), 20, 2 );
 	}
 
 	public function default_component( $default = array() ) {
@@ -173,7 +170,6 @@ class Thaim_BuddyPress {
 		foreach ( $badges as $badge ) {
 			$badge = trim( $badge );
 
-
 			if ( ! isset( $data_badges[ $badge ] ) ) {
 				continue;
 			}
@@ -206,44 +202,6 @@ class Thaim_BuddyPress {
 		}
 
 		return $link;
-	}
-
-	/**
-	 * Since BuddyPress 2.2, we need to do this
-	 */
-	public function maybe_unhighlight_page( $retval, $page ) {
-		if ( ! is_buddypress() ) {
-			return $retval;
-		}
-
-		// loop against all BP component pages
-		foreach ( (array) buddypress()->pages as $component => $bp_page ) {
-			// handles the majority of components
-			if ( bp_is_current_component( $component ) ) {
-				$page_id = (int) $bp_page->id;
-			}
-
-			// stop if not on a user page
-			if ( ! bp_is_user() && ! empty( $page_id ) ) {
-				break;
-			}
-
-			// members component requires an explicit check due to overlapping components
-			if ( bp_is_user() && 'members' === $component ) {
-				$page_id = (int) $bp_page->id;
-				break;
-			}
-		}
-
-		if ( empty( $page_id ) || empty( $page->ID ) || $page_id == $page->ID ) {
-			return $retval;
-		}
-
-		// If we are here, we need to make sure no other pages are highlighted
-		return array_diff( $retval, array(
-			'current_page_parent',
-			'current_page_item',
-		) );
 	}
 }
 
