@@ -392,3 +392,51 @@ add_filter( 'body_class', 'thaim_body_class' );
 // Allow shortcodes in Dynamic Sidebar
 add_filter( 'widget_text', 'do_shortcode' );
 add_filter( 'widget_text', 'shortcode_unautop' );
+
+// Make sure there's a version of the site icon for the login logo
+function thaim_login_screen_icon_size( $icon_sizes = array() ) {
+	return array_merge( $icon_sizes, array( 84 ) );
+}
+add_filter( 'site_icon_image_sizes', 'thaim_login_screen_icon_size', 10, 1 );
+
+// Use the site icon as the login screen logo
+function thaim_login_screen_logo() {
+	$logo_icon_url = get_site_icon_url( 84 );
+
+	if ( ! empty( $logo_icon_url ) ) {
+		wp_add_inline_style( 'login', sprintf( '
+			#login h1 a {
+				background-image: none, url(%s);
+			}
+
+			#login p.submit .button-primary.button-large {
+				color: #FFF;
+				background-color: #23282d;
+				border-color: #23282d;
+				-webkit-box-shadow: none;
+				box-shadow: none;
+				text-shadow: none;
+			}
+
+			#login p.submit .button-primary.button-large:hover {
+				color: #23282d;
+				background-color: #FFF;
+				border-color: #23282d;
+			}
+
+			a:focus {
+				color: #23282d;
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+
+			#login input[type="text"]:focus,
+			#login input[type="password"]:focus {
+				border-color: #23282d;
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+		', esc_url_raw( $logo_icon_url ) ) );
+	}
+}
+add_action( 'login_init', 'thaim_login_screen_logo' );
