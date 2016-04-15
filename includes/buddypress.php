@@ -60,7 +60,7 @@ class Thaim_BuddyPress {
 		add_action( 'bp_activity_screen_index', array( $this, 'redirect_owner' ) );
 
 		// Thaim headline
-		add_filter( 'thaim_headline_get_h1', array( $this, 'headline' ), 10 , 1 );
+		add_filter( 'thaim_headline_get_h2', array( $this, 'headline' ), 10 , 1 );
 
 		// Author link now goes to my BuddyPress profile !
 		add_filter( 'author_link', array( $this, 'filter_author_link' ), 10, 3 );
@@ -80,14 +80,16 @@ class Thaim_BuddyPress {
 	}
 
 	public function profile_nav_position() {
-		if ( defined( 'BP_DEFAULT_COMPONENT' ) && 'profile' == BP_DEFAULT_COMPONENT )
+		if ( defined( 'BP_DEFAULT_COMPONENT' ) && 'profile' == BP_DEFAULT_COMPONENT ) {
 			buddypress()->bp_nav['profile']['position'] = 1;
+		}
 	}
 
 	public function define_badges_field() {
 		// Bail if not displaying a user
-		if ( ! bp_is_user() )
+		if ( ! bp_is_user() ) {
 			return;
+		}
 
 		/**
 		 * Create a xprofile field named "Badges"
@@ -123,8 +125,9 @@ class Thaim_BuddyPress {
 	}
 
 	public function redirect_owner() {
-		if ( empty( $this->owner_id ) )
+		if ( empty( $this->owner_id ) ) {
 			return;
+		}
 
 		$redirect = false;
 
@@ -143,29 +146,39 @@ class Thaim_BuddyPress {
 
 	public function headline( $headline = '' ) {
 		// Bail if not on a user's page
-		if ( ! bp_is_user() )
+		if ( ! bp_is_user() ) {
 			return $headline;
+		}
 
 		return esc_html__( 'About me!', 'thaim' );
 	}
 
 	public function build_bagdes_output( $badges = array(), $css_id = 'user-badges' ) {
-		if ( empty( $badges ) )
+		if ( empty( $badges ) ) {
 			return false;
+		}
 
 		$data_badges = array(
-			'wordpress-codex'  => array( 'title' => __( 'WordPress Codex Contributor', 'thaim' ),  'data-icon' => '&#xe104;' ),
-		    'buddypress-codex' => array( 'title' => __( 'BuddyPress Codex Contributor', 'thaim' ), 'data-icon' => '&#xe000;' ),
-			'plugin-developer' => array( 'title' => __( 'Plugin Developer', 'thaim' ),             'data-icon' => '&#xe602;' ),
-		 	'theme-designer'   => array( 'title' => __( 'Theme Designer', 'thaim' ),               'data-icon' => '&#xe007;' ),
-			'wordcamp-speaker' => array( 'title' => __( 'WordCamp Speaker', 'thaim' ),             'data-icon' => '&#xe019;' ),
+			'wordpress-core'          => array( 'title' => __( 'WordPress Core Contributor', 'thaim' ),  'icon' => 'editor-code'      ),
+			'buddypress-core'         => array( 'title' => __( 'BuddyPress Core Contributor', 'thaim' ), 'icon' => 'buddypress'       ),
+			'plugin-developer'        => array( 'title' => __( 'Plugin Developer', 'thaim' ),            'icon' => 'admin-plugins'    ),
+			'community-team'          => array( 'title' => __( 'Community Team', 'thaim' ),              'icon' => 'groups'           ),
+			'theme-designer'          => array( 'title' => __( 'Theme Designer', 'thaim' ),              'icon' => 'admin-appearance' ),
+			'wordcamp-speaker'        => array( 'title' => __( 'WordCamp Speaker', 'thaim' ),            'icon' => 'megaphone'        ),
+			'translation-contributor' => array( 'title' => __( 'Translation Contributor', 'thaim' ),     'icon' => 'translation'      ),
 		);
 
 		$output = '<ul id="' . $css_id . '" class="item-list" role="main">';
 
 		foreach ( $badges as $badge ) {
 			$badge = trim( $badge );
-			$output .= '<li><div class="badge badge-' . sanitize_html_class( $badge ) . ' thaimicons" title="' . esc_attr( $data_badges[ $badge ]['title'] ) . '" data-icon="' . esc_attr( $data_badges[ $badge ]['data-icon'] ) . '"></div></li>';
+
+
+			if ( ! isset( $data_badges[ $badge ] ) ) {
+				continue;
+			}
+
+			$output .= '<li><div class="badge badge-' . sanitize_html_class( $badge ) . ' dashicons dashicons-' . esc_attr( $data_badges[ $badge ]['icon'] ) .'" title="' . esc_attr( $data_badges[ $badge ]['title'] ) . '"></div></li>';
 		}
 
 		$output .= '</ul>';
@@ -188,8 +201,9 @@ class Thaim_BuddyPress {
 	}
 
 	public function filter_author_link( $link = '', $author_id = 0, $author_nicename = '' ) {
-		if( ! empty( $author_id ) &&  $this->owner_id == $author_id )
+		if( ! empty( $author_id ) &&  (int) $this->owner_id == (int) $author_id ) {
 			$link = bp_core_get_userlink( $author_id, false, true );
+		}
 
 		return $link;
 	}

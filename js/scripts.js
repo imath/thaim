@@ -1,67 +1,68 @@
 // DOM Ready
-jQuery(function($) {
-	
+jQuery( function( $ ) {
+
 	// SVG Modernizr detect and PNG replace
 	// toddmotto.com/mastering-svg-use-for-a-retina-web-fallbacks-with-png-script
-	if(!Modernizr.svg) {
-	    $('img[src*="svg"]').attr('src', function () {
-	        return $(this).attr('src').replace('.svg', '.png');
-	    });
+	if ( ! Modernizr.svg ) {
+	    $( 'img[src*="svg"]' ).attr( 'src', function () {
+	        return $(this).attr( 'src' ).replace( '.svg', '.png' );
+	    } );
 	}
-	
+
 	// iPhone Safari URL bar hides itself on pageload
-	if (navigator.userAgent.indexOf('iPhone') != -1) {
+	if ( navigator.userAgent.indexOf( 'iPhone' ) != -1 ) {
 	    addEventListener("load", function () {
-	        setTimeout(hideURLbar, 0);
-	    }, false);
+	        setTimeout( hideURLbar, 0 );
+	    }, false );
 	}
-	
+
 	function hideURLbar() {
-	    window.scrollTo(0, 0);
+	    window.scrollTo( 0, 0 );
 	}
-	
+
 	/** handling menu on small screens - Credit : _s theme **/
 	var $header = $( '#thaim-site' ),
-	    timeout = false;
+		timeout = false;
+
+
+	$header.find( '.site-navigation li' ).each( function( i, li ) {
+		$( li ).append( $('<div></div' ).addClass( 'arrow' ) );
+	} );
 
 	$.fn.smallMenu = function() {
 		$header.find( '.site-navigation' ).removeClass( 'main-navigation' ).addClass( 'main-small-navigation' );
 		$header.find( '.site-navigation h1' ).removeClass( 'assistive-text' ).addClass( 'menu-toggle' );
-		$header.find( '#thaim-info').css('margin', '0 auto');
-		$header.find( '#thaim-info').css('text-align', 'center');
-		$header.find( '.wrapper').css('height', 'auto');
-		$header.css('background-position', 'bottom');
-		
-		if( $('.thaim-hero-slide-container').length ) {
-			$('.thaim-hero-slide-container .sevencol').addClass('adapt');
-			//.adapt .thaim-slide-article
-			
-			if( $('.thaim-hero-slide-container .fivecol img').length ) {
-				var newwidth = $('.thaim-hero-slide-container .fivecol').width();
-				if( newwidth == 0)
-					newwidth = 320;
-				$('.thaim-hero-slide-container .adapt').css('width', newwidth+'px');
-			}
-				
+		$header.find( '#thaim-info' ).css( 'margin', '0 auto' );
+		$header.find( '#thaim-info' ).css( 'text-align', 'center' );
+		$header.find( '.wrapper' ).css( 'height', 'auto' );
+		$header.css( 'background-position', 'bottom' );
+
+		if ( $( '.thaim-hero-slide-container .fivecol' ).length ) {
+			$( '.thaim-hero-slide-container .fivecol' ).addClass( 'last' );
 		}
 
+		$( 'header#thaim-site' ).css( {
+			'border-bottom': '1px solid #DFDFDF'
+		} );
+
 		$( '.menu-toggle' ).unbind( 'click' ).click( function() {
-			//$header.find( '.menu' ).toggle();
 			$( this ).toggleClass( 'toggled-on' );
-			$( this ).parent('nav').toggleClass( 'toggled-on' );
+			$( this ).parent( 'nav' ).toggleClass( 'toggled-on' );
 		} );
 	};
 
 	// Check viewport width on first load.
-	if ( $( window ).width() < 600 )
+	if ( $( window ).width() < 600 ) {
 		$.fn.smallMenu();
+	}
 
 	// Check viewport width when user resizes the browser window.
 	$( window ).resize( function() {
 		var browserWidth = $( window ).width();
 
-		if ( false !== timeout )
+		if ( false !== timeout ) {
 			clearTimeout( timeout );
+		}
 
 		timeout = setTimeout( function() {
 			if ( browserWidth < 600 ) {
@@ -70,18 +71,24 @@ jQuery(function($) {
 				$header.find( '.site-navigation' ).removeClass( 'main-small-navigation' ).addClass( 'main-navigation' );
 				$header.find( '.site-navigation h1' ).removeClass( 'menu-toggle' ).addClass( 'assistive-text' );
 				$header.find( '.menu' ).removeAttr( 'style' );
-				$header.find( '#thaim-info').css('margin', '0');
-				$header.find( '#thaim-info').css('text-align', 'left');
-				$header.find( '.wrapper').css('height', '88px');
-				$header.css('background-position', 'top left');
-				if( $('.thaim-hero-slide-container').length ) {
-					$('.thaim-hero-slide-container .adapt').css('width', 'auto');
-					$('.thaim-hero-slide-container .adapt').removeClass('adapt');
-					$('.thaim-hero-slide-container').css('width', '100%');
-					$('.thaim-hero-slide').css('width', '100%');
+				$header.find( '#thaim-info' ).css( 'margin', '0' );
+				$header.find( '#thaim-info' ).css( 'text-align', 'left' );
+
+				if ( $( 'body' ).hasClass( 'custom-logo' ) ) {
+					$header.find( '.wrapper' ).css( 'height', '120px' );
+				} else {
+					$header.find( '.wrapper' ).css( 'height', '88px' );
+				}
+
+				$header.css( {
+					'background-position': 'top left',
+					'border-bottom': 'none'
+				} );
+
+				if ( $( '.thaim-hero-slide-container .fivecol' ).length ) {
+					$( '.thaim-hero-slide-container .fivecol' ).removeClass( 'last' );
 				}
 			}
 		}, 200 );
 	} );
-	
-});
+} );

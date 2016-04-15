@@ -1,6 +1,8 @@
 <?php
 /**
- * The template for displaying a page.
+ * Template Name: Custom Home page
+ *
+ * Description: Use this page template to remove the sidebar from any page.
  *
  * @package thaim
  * @since 1.0.0
@@ -9,7 +11,7 @@
 get_header(); ?>
 
 	<!-- Section -->
-	<section id="thaim-section" class="eightcol">
+	<section id="thaim-section" class="twelvecol">
 
 	<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
@@ -20,6 +22,8 @@ get_header(); ?>
 
 				<?php the_content(); ?>
 
+				<?php if ( ! function_exists( 'dynamic_sidebar' ) || ! dynamic_sidebar( 'home-widgets' ) ); ?>
+
 			</div>
 
 			<br class="clear">
@@ -28,8 +32,6 @@ get_header(); ?>
 
 		</article>
 		<!-- /Article -->
-
-		<?php comments_template( '', true ); // Remove if you don't want comments ?>
 
 	<?php endwhile; ?>
 
@@ -41,7 +43,5 @@ get_header(); ?>
 
 	</section>
 	<!-- /Section -->
-
-<?php get_sidebar(); ?>
 
 <?php get_footer(); ?>
