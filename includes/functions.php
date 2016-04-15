@@ -7,15 +7,6 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Maintenance mode ?
- *
- * @since 1.0.0
- */
-function thaim_is_maintenance_mode() {
-	return (bool) get_option( 'thaim_maintenance_mode', 0 );
-}
-
-/**
  * Thaim fonts
  *
  * @since 2.0.0

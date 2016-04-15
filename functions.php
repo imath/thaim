@@ -28,10 +28,6 @@ final class Thaim {
 	 * Initialize the theme
 	 */
 	private function __construct() {
-		if ( ! isset( $GLOBALS['wp_version'] ) || (float) $GLOBALS['wp_version'] < self::$required_wp_version ) {
-			return;
-		}
-
 		$this->setup_globals();
 		$this->includes();
 		$this->setup_supports();
@@ -58,34 +54,46 @@ final class Thaim {
 		if ( empty( $GLOBALS['content_width'] ) ) {
 		    $GLOBALS['content_width'] = 600;
 		}
+
+		$this->requires_wp_upgrade = ! isset( $GLOBALS['wp_version'] ) || (float) $GLOBALS['wp_version'] < self::$required_wp_version;
+		$this->is_maintenance_mode = (bool) get_option( 'thaim_maintenance_mode', 0 );
 	}
 
 	/**
 	 * Include required files
 	 */
 	private function includes() {
-		require_once( get_template_directory() . '/includes/functions.php' );
-		require_once( get_template_directory() . '/includes/tags.php' );
-		require_once( get_template_directory() . '/includes/options.php' );
-		require_once( get_template_directory() . '/includes/tax-meta.php' );
-		require_once( get_template_directory() . '/includes/widgets.php' );
+		if ( ! $this->requires_wp_upgrade ) {
+			require_once( get_template_directory() . '/includes/functions.php' );
+			require_once( get_template_directory() . '/includes/tags.php' );
+			require_once( get_template_directory() . '/includes/options.php' );
+			require_once( get_template_directory() . '/includes/tax-meta.php' );
+			require_once( get_template_directory() . '/includes/widgets.php' );
 
-		if ( thaim_is_maintenance_mode() ) {
+			if ( function_exists( 'buddypress' ) ) {
+				require_once( get_template_directory() . '/includes/buddypress.php' );
+			}
+
+			if ( is_admin() ) {
+				require_once( get_template_directory() . '/includes/upgrade.php' );
+			}
+		}
+
+		if ( $this->is_maintenance_mode || $this->requires_wp_upgrade ) {
 			require_once( get_template_directory() . '/includes/maintenance.php' );
-		}
-
-		if ( function_exists( 'buddypress' ) ) {
-			require_once( get_template_directory() . '/includes/buddypress.php' );
-		}
-
-		if ( is_admin() ) {
-			require_once( get_template_directory() . '/includes/upgrade.php' );
 		}
 	}
 
 	private function setup_supports() {
 		// Localisation Support
 		load_theme_textdomain( 'thaim', get_template_directory() . '/languages' );
+
+		if ( $this->requires_wp_upgrade ) {
+			add_action( 'admin_notices', array( $this, 'warning' ) );
+
+			// No need to carry on.
+			return;
+		}
 
 		// Enables post and comment RSS feed links to head
 		add_theme_support( 'automatic-feed-links' );
@@ -118,6 +126,19 @@ final class Thaim {
 
 	    // Gist Support
 	    wp_embed_register_handler( 'thaim_gist', '#(https://gist.github.com/imath/([a-zA-Z0-9]+)?)(\#file(\-|_)(.+))?$#i', 'thaim_gist_handler' );
+	}
+
+	public function warning() {
+		if ( did_action( 'thaim_warning_displayed' ) ) {
+			return;
+		}
+
+		printf(
+			'<div id="message" class="error"><p>%s</p></div>',
+			sprintf( __( 'Thaim requires WordPress %s, please upgrade.', 'thaim' ), self::$required_wp_version )
+		);
+
+		do_action( 'thaim_warning_displayed' );
 	}
 }
 

@@ -98,6 +98,10 @@ body {
 	content: "\e903";
 }
 
+.dashicons-warning:before {
+	color: #dc3232;
+}
+
 .wrapper {
 	max-width: 1140px;
 	width: 95%;
@@ -160,21 +164,29 @@ header#thaim-site #thaim-info {
 }
 
 header#thaim-site #thaim-info h1,
-header#thaim-site #thaim-info-maintenance h1 {
+div#thaim-site #thaim-info-maintenance h1 {
 	font-size: 3em;
 	line-height: 1em;
 }
 
 header#thaim-site #thaim-info h1 a,
-header#thaim-site #thaim-info-maintenance h1 {
+div#thaim-site #thaim-info-maintenance h1 {
 	text-decoration:none;
 	color: #C6C6C6;
 	text-shadow: rgba(0, 0, 0, 0.1) 0 1px 1px;
 }
 
 header#thaim-site #thaim-info h1 a span,
-header#thaim-site #thaim-info-maintenance h1 span {
+div#thaim-site #thaim-info-maintenance h1 span {
 	color: #23282d;
+}
+
+div#thaim-site #thaim-info-maintenance .dashicons-warning:before {
+	font-size: 140%;
+}
+
+div#thaim-site #thaim-info-maintenance .dashicons-warning {
+	margin-bottom: 1em;
 }
 
 header#thaim-site #thaim-logo {

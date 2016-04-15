@@ -39,7 +39,11 @@
 
 				<div id="thaim-info-maintenance" class="fourcol">
 
-					<h1><?php thaim_blogname();?></h1>
+					<?php if ( ! thaim_maintenance_upgrade() ) : ?>
+
+						<h1><?php thaim_blogname();?></h1>
+
+					<?php endif; ?>
 
 					<?php thaim_maintenance_info();?>
 
