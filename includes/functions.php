@@ -348,7 +348,7 @@ function thaim_gist_handler( $matches, $attr, $url, $rawattr ) {
 			$url = add_query_arg( 'file', preg_replace( '/[\-\.]([a-z]+)$/', '.\1', $matches[5] ), $url );
 		}
 
-		printf( '<script src="%s"></script>', esc_url( $url ) );
+		return sprintf( '<script src="%s"></script>', esc_url( $url ) );
 	}
 }
 
