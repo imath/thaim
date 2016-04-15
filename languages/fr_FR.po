@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: thaim 1.0-beta1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/thaim\n"
-"POT-Creation-Date: 2016-04-14 17:29:17+00:00\n"
-"PO-Revision-Date: 2016-04-14 20:47+0100\n"
+"POT-Creation-Date: 2016-04-15 16:17:45+00:00\n"
+"PO-Revision-Date: 2016-04-15 18:31+0100\n"
 "Last-Translator: imath <mathchristo@yahoo.fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -84,9 +84,13 @@ msgstr ""
 msgid "Proudly Powered by"
 msgstr "Fièrement propulsé par"
 
-#: functions.php:112
+#: functions.php:119
 msgid "Header Menu"
 msgstr "Menu d&rsquo;entête"
+
+#: functions.php:138 includes/maintenance.php:83
+msgid "Thaim requires WordPress %s, please upgrade."
+msgstr "Thaim nécessite la version %s de WordPress, merci de mettre à jour."
 
 #: header.php:47
 msgid "Menu"
@@ -127,7 +131,7 @@ msgstr "Contributeur à la traduction"
 #. translators: If there are characters in your language that are not supported
 #. by Open Sans, translate this to 'off'. Do not translate into your own
 #. language.
-#: includes/functions.php:30
+#: includes/functions.php:21
 msgctxt "Open Sans font: on or off"
 msgid "on"
 msgstr "on"
@@ -135,61 +139,61 @@ msgstr "on"
 #. translators: If there are characters in your language that are not supported
 #. by Shadows, translate this to 'off'. Do not translate into your own
 #. language.
-#: includes/functions.php:37
+#: includes/functions.php:28
 msgctxt "Shadows Into Light: on or off"
 msgid "on"
 msgstr "on"
 
-#: includes/functions.php:144
+#: includes/functions.php:135
 msgid "Widget Area 1"
 msgstr "Zone de widgets 1"
 
-#: includes/functions.php:145
+#: includes/functions.php:136
 msgid "Top sidebar area"
 msgstr "Zone haute de la barre latérale"
 
-#: includes/functions.php:155
+#: includes/functions.php:146
 msgid "Widget Area 2"
 msgstr "Zone de widgets 2"
 
-#: includes/functions.php:156
+#: includes/functions.php:147
 msgid "Bottom sidebar area"
 msgstr "Zone basse de la barre latérale"
 
-#: includes/functions.php:166
+#: includes/functions.php:157
 msgid "Home Page Widget"
 msgstr "Widgets de Page d&#39;accueil"
 
-#: includes/functions.php:167
+#: includes/functions.php:158
 msgid "Widgetable area of the custom-home-page template."
 msgstr "Zone widgetisable du modèle custom-home-page"
 
-#: includes/functions.php:177
+#: includes/functions.php:168
 msgid "Footer Area 1"
 msgstr "Zone 1 du pied de page"
 
-#: includes/functions.php:178
+#: includes/functions.php:169
 msgid "Left footer area"
 msgstr "Zone de gauche du pied de page"
 
-#: includes/functions.php:187
+#: includes/functions.php:178
 msgid "Footer Area 2"
 msgstr "Zone 2 du pied de page"
 
-#: includes/functions.php:188
+#: includes/functions.php:179
 msgid "Middle footer area"
 msgstr "Zone centrale du pied de page"
 
-#: includes/functions.php:197
+#: includes/functions.php:188
 msgid "Footer Area 3"
 msgstr "Zone 3 du pied de page"
 
-#: includes/functions.php:198
+#: includes/functions.php:189
 msgid "Right footer area"
 msgstr "Zone de droite du pied de page"
 
 #. translators: %s: Name of current post
-#: includes/functions.php:252
+#: includes/functions.php:243
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "Poursuivre la lecture<span class=\"screen-reader-text\"> \"%s\"</span>"
 
@@ -197,7 +201,7 @@ msgstr "Poursuivre la lecture<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgid "will be up and running soon !"
 msgstr "sera prochainement disponible !"
 
-#: includes/maintenance.php:54
+#: includes/maintenance.php:70
 msgid "Under maintenance"
 msgstr "En cours de maintenance"
 
@@ -369,20 +373,20 @@ msgstr ""
 msgctxt "Upgrader feedback message"
 msgid "Stickies for the theme slider - %d item(s) to upgrade"
 msgstr ""
-"Articles mis en avant pour le carousel du thème - %d item(s) à mettre à jour"
+"Articles mis en avant pour le carrousel du thème - %d item(s) à mettre à jour"
 
 #: includes/upgrade.php:44
 msgctxt "Upgrader feedback message"
 msgid "Snippets in post content - %d item(s) to upgrade"
 msgstr ""
-"Code sources dans les contenus d&#39;articles - %d item(s) à mettre à jour"
+"Codes sources dans les contenus d'articles - %d item(s) à mettre à jour"
 
 #: includes/upgrade.php:50
 msgctxt "Upgrader feedback message"
 msgid "Migrate imagesliders meta to post thumbnails - %d item(s) to upgrade"
 msgstr ""
-"Migration des métas imagesliders pour des vignettes d&#39;articles - %d "
-"item(s) à mettre à jour"
+"Migration des métas imagesliders pour des vignettes d'articles - %d item(s) "
+"à mettre à jour"
 
 #: includes/upgrade.php:56
 msgctxt "Upgrader feedback message"

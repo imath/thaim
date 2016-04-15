@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: thaim 2.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/thaim\n"
-"POT-Creation-Date: 2016-04-14 17:29:17+00:00\n"
+"POT-Creation-Date: 2016-04-15 16:17:45+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -70,8 +70,12 @@ msgstr ""
 msgid "Proudly Powered by"
 msgstr ""
 
-#: functions.php:112
+#: functions.php:119
 msgid "Header Menu"
+msgstr ""
+
+#: functions.php:138 includes/maintenance.php:83
+msgid "Thaim requires WordPress %s, please upgrade."
 msgstr ""
 
 #: header.php:47
@@ -114,7 +118,7 @@ msgstr ""
 #. by Open Sans, translate this to 'off'. Do not translate into your own
 #. language.
 
-#: includes/functions.php:30
+#: includes/functions.php:21
 msgctxt "Open Sans font: on or off"
 msgid "on"
 msgstr ""
@@ -123,62 +127,62 @@ msgstr ""
 #. by Shadows, translate this to 'off'. Do not translate into your own
 #. language.
 
-#: includes/functions.php:37
+#: includes/functions.php:28
 msgctxt "Shadows Into Light: on or off"
 msgid "on"
 msgstr ""
 
-#: includes/functions.php:144
+#: includes/functions.php:135
 msgid "Widget Area 1"
 msgstr ""
 
-#: includes/functions.php:145
+#: includes/functions.php:136
 msgid "Top sidebar area"
 msgstr ""
 
-#: includes/functions.php:155
+#: includes/functions.php:146
 msgid "Widget Area 2"
 msgstr ""
 
-#: includes/functions.php:156
+#: includes/functions.php:147
 msgid "Bottom sidebar area"
 msgstr ""
 
-#: includes/functions.php:166
+#: includes/functions.php:157
 msgid "Home Page Widget"
 msgstr ""
 
-#: includes/functions.php:167
+#: includes/functions.php:158
 msgid "Widgetable area of the custom-home-page template."
 msgstr ""
 
-#: includes/functions.php:177
+#: includes/functions.php:168
 msgid "Footer Area 1"
 msgstr ""
 
-#: includes/functions.php:178
+#: includes/functions.php:169
 msgid "Left footer area"
 msgstr ""
 
-#: includes/functions.php:187
+#: includes/functions.php:178
 msgid "Footer Area 2"
 msgstr ""
 
-#: includes/functions.php:188
+#: includes/functions.php:179
 msgid "Middle footer area"
 msgstr ""
 
-#: includes/functions.php:197
+#: includes/functions.php:188
 msgid "Footer Area 3"
 msgstr ""
 
-#: includes/functions.php:198
+#: includes/functions.php:189
 msgid "Right footer area"
 msgstr ""
 
 #. translators: %s: Name of current post
 
-#: includes/functions.php:252
+#: includes/functions.php:243
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr ""
 
@@ -186,7 +190,7 @@ msgstr ""
 msgid "will be up and running soon !"
 msgstr ""
 
-#: includes/maintenance.php:54
+#: includes/maintenance.php:70
 msgid "Under maintenance"
 msgstr ""
 
