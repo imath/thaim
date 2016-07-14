@@ -78,7 +78,7 @@ class Thaim_BuddyPress {
 
 	public function profile_nav_position() {
 		if ( defined( 'BP_DEFAULT_COMPONENT' ) && 'profile' == BP_DEFAULT_COMPONENT ) {
-			buddypress()->bp_nav['profile']['position'] = 1;
+			buddypress()->members->nav->edit_nav( array( 'position' => 1 ), 'profile' );
 		}
 	}
 
