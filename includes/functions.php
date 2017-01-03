@@ -69,10 +69,6 @@ function thaim_parse_query( WP_Query $qv ) {
 		$qv->query_vars['ignore_sticky_posts'] = true;
 	}
 
-	if ( $qv->is_main_query() && is_home() && thaim_has_stickies() ) {
-		$qv->set( 'post__not_in', get_option( 'sticky_posts', array() ) );
-	}
-
 	return $qv;
 }
 add_action( 'parse_query', 'thaim_parse_query', 10, 1 );
