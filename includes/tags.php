@@ -367,7 +367,7 @@ function thaim_post_term_description() {
 		<?php endif ; ?>
 
 		<blockquote>
-			<?php echo esc_html( $term->description ) ;?>
+			<?php echo wp_kses( $term->description, array( 'a' => array( 'href' => true ) ) ) ;?>
 		</blockquote>
 	</div>
 	<?php

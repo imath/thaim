@@ -316,6 +316,12 @@ h3.wordpress a {
 	text-decoration: none;
 }
 
+h3.clusterpress,
+h3.clusterpress a {
+	color: #8e3d58;
+	text-decoration: none;
+}
+
 /* Small menu */
 #thaim-site h1.menu-toggle {
 	cursor: pointer;
@@ -760,6 +766,9 @@ iframe,
 object,
 video {
 	max-width: 100%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 .entry-content .twitter-tweet-rendered {
 	max-width: 100% !important; /* Override the Twitter embed fixed width */

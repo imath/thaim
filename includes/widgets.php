@@ -126,7 +126,18 @@ class Thaim_Category_Boxes extends WP_Widget {
 	 * @param  array  $instance
 	 */
 	public function widget( $args = array(), $instance = array() ) {
-		$categories = get_categories( array( 'orderby' => 'count', 'order' => 'DESC' ) );
+		$category_args = array( 'orderby' => 'count', 'order' => 'DESC' );
+
+		if ( isset( $instance['exclude'] ) )  {
+			$exclude = maybe_unserialize( $instance['exclude'] );
+
+			if ( ! empty( $exclude ) ) {
+				$category_args = array_merge( $category_args, array( 'exclude' => $exclude ) );
+			}
+		}
+
+
+		$categories = get_categories( $category_args );
 
 		if ( empty( $categories ) ) {
 			return;
@@ -179,7 +190,7 @@ class Thaim_Category_Boxes extends WP_Widget {
 			echo $args['after_title'];
 
 			if ( $show_description && ! empty( $category->description ) ) {
-				printf( '<p>%s</p>', esc_html( $category->description ) );
+				printf( '<p>%s</p>', wp_kses( $category->description, array( 'a' => array( 'href' => true ) ) ) );
 			}
 
 			printf( '<p class="readmore"><a class="view-article" href="%1$s" title="%2$s">%3$s &rarr;</a></p>',
@@ -207,6 +218,11 @@ class Thaim_Category_Boxes extends WP_Widget {
 			$instance['dashicon'] = 1;
 		}
 
+		$instance['exclude'] = 0;
+		if ( ! empty( $new_instance['exclude'] ) ) {
+			$instance['exclude'] = maybe_serialize( wp_parse_id_list( $new_instance['exclude'] ) );
+		}
+
 		return $instance;
 	}
 
@@ -230,6 +246,15 @@ class Thaim_Category_Boxes extends WP_Widget {
 		if ( isset( $instance['dashicon'] ) )  {
 			$dashicon = (bool) $instance['dashicon'];
 		}
+
+		$exclude = '';
+		if ( ! empty( $instance['exclude'] ) ) {
+			$exclude = join( ',', maybe_unserialize( $instance['exclude'] ) );
+		}
+
+		if ( 0 === (int) $exclude ) {
+			$exclude = '';
+		}
 		?>
 		<p>
 			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'description' ); ?>" name="<?php echo $this->get_field_name( 'description' ); ?>"<?php checked( $description ); ?> />
@@ -240,6 +265,13 @@ class Thaim_Category_Boxes extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'dashicon' ); ?>"><?php _e( 'Display category icons', 'thaim' ); ?></label><br />
 		</p>
 		<?php
+
+		printf( '<p><label for="%1$s">%2$s</label><input type="text" class="widefat" id="%1$s" name="%3$s" value="%4$s" /></p>',
+			$this->get_field_id( 'exclude' ),
+			esc_html__( 'Comma separated list of Category ids to exclude:', 'thaim' ),
+			$this->get_field_name( 'exclude' ),
+			esc_attr( $exclude )
+		);
 	}
 }
 add_action( 'widgets_init', array( 'Thaim_Category_Boxes', 'register_widget' ), 10 );
