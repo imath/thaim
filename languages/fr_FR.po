@@ -3,9 +3,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: thaim 1.0-beta1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/thaim\n"
-"POT-Creation-Date: 2016-04-15 16:17:45+00:00\n"
-"PO-Revision-Date: 2016-04-15 18:31+0100\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/style.css\n"
+"POT-Creation-Date: 2017-01-06 18:08:48+00:00\n"
+"PO-Revision-Date: 2017-01-06 21:21+0100\n"
 "Last-Translator: imath <mathchristo@yahoo.fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -47,6 +47,14 @@ msgstr ""
 msgid "Comments are closed."
 msgstr "Les commentaires sont fermés."
 
+#: email.php:120 includes/functions.php:545
+msgid "Your message:"
+msgstr "Votre message :"
+
+#: email.php:131 includes/functions.php:545
+msgid "My reply:"
+msgstr "Ma réponse :"
+
 #: entry-none.php:13
 msgid "Oops ! nothing there.."
 msgstr "Oops ! Rien par là.."
@@ -84,11 +92,11 @@ msgstr ""
 msgid "Proudly Powered by"
 msgstr "Fièrement propulsé par"
 
-#: functions.php:119
+#: functions.php:118
 msgid "Header Menu"
 msgstr "Menu d&rsquo;entête"
 
-#: functions.php:138 includes/maintenance.php:83
+#: functions.php:137 includes/maintenance.php:83
 msgid "Thaim requires WordPress %s, please upgrade."
 msgstr "Thaim nécessite la version %s de WordPress, merci de mettre à jour."
 
@@ -96,42 +104,10 @@ msgstr "Thaim nécessite la version %s de WordPress, merci de mettre à jour."
 msgid "Menu"
 msgstr "Menu"
 
-#: includes/buddypress.php:150
-msgid "About me!"
-msgstr "A mon propos !"
-
-#: includes/buddypress.php:159
-msgid "WordPress Core Contributor"
-msgstr "Contributeur au Core de WordPress"
-
-#: includes/buddypress.php:160
-msgid "BuddyPress Core Contributor"
-msgstr "Contributeur au Core de BuddyPress"
-
-#: includes/buddypress.php:161
-msgid "Plugin Developer"
-msgstr "Développeur de Plugins"
-
-#: includes/buddypress.php:162
-msgid "Community Team"
-msgstr "Equipe de communautés"
-
-#: includes/buddypress.php:163
-msgid "Theme Designer"
-msgstr "Développeur de Thèmes"
-
-#: includes/buddypress.php:164
-msgid "WordCamp Speaker"
-msgstr "Orateur WordCamp"
-
-#: includes/buddypress.php:165
-msgid "Translation Contributor"
-msgstr "Contributeur à la traduction"
-
 #. translators: If there are characters in your language that are not supported
 #. by Open Sans, translate this to 'off'. Do not translate into your own
 #. language.
-#: includes/functions.php:21
+#: includes/functions.php:23
 msgctxt "Open Sans font: on or off"
 msgid "on"
 msgstr "on"
@@ -139,63 +115,75 @@ msgstr "on"
 #. translators: If there are characters in your language that are not supported
 #. by Shadows, translate this to 'off'. Do not translate into your own
 #. language.
-#: includes/functions.php:28
+#: includes/functions.php:30
 msgctxt "Shadows Into Light: on or off"
 msgid "on"
 msgstr "on"
 
-#: includes/functions.php:135
+#: includes/functions.php:137
 msgid "Widget Area 1"
 msgstr "Zone de widgets 1"
 
-#: includes/functions.php:136
+#: includes/functions.php:138
 msgid "Top sidebar area"
 msgstr "Zone haute de la barre latérale"
 
-#: includes/functions.php:146
+#: includes/functions.php:148
 msgid "Widget Area 2"
 msgstr "Zone de widgets 2"
 
-#: includes/functions.php:147
+#: includes/functions.php:149
 msgid "Bottom sidebar area"
 msgstr "Zone basse de la barre latérale"
 
-#: includes/functions.php:157
+#: includes/functions.php:159
 msgid "Home Page Widget"
 msgstr "Widgets de Page d&#39;accueil"
 
-#: includes/functions.php:158
+#: includes/functions.php:160
 msgid "Widgetable area of the custom-home-page template."
 msgstr "Zone widgetisable du modèle custom-home-page"
 
-#: includes/functions.php:168
+#: includes/functions.php:170
 msgid "Footer Area 1"
 msgstr "Zone 1 du pied de page"
 
-#: includes/functions.php:169
+#: includes/functions.php:171
 msgid "Left footer area"
 msgstr "Zone de gauche du pied de page"
 
-#: includes/functions.php:178
+#: includes/functions.php:180
 msgid "Footer Area 2"
 msgstr "Zone 2 du pied de page"
 
-#: includes/functions.php:179
+#: includes/functions.php:181
 msgid "Middle footer area"
 msgstr "Zone centrale du pied de page"
 
-#: includes/functions.php:188
+#: includes/functions.php:190
 msgid "Footer Area 3"
 msgstr "Zone 3 du pied de page"
 
-#: includes/functions.php:189
+#: includes/functions.php:191
 msgid "Right footer area"
 msgstr "Zone de droite du pied de page"
 
 #. translators: %s: Name of current post
-#: includes/functions.php:243
+#: includes/functions.php:245
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "Poursuivre la lecture<span class=\"screen-reader-text\"> \"%s\"</span>"
+
+#: includes/functions.php:490
+msgid "Questions"
+msgstr "Questions"
+
+#: includes/functions.php:524
+msgid "Reply to your message"
+msgstr "Réponse à votre message"
+
+#: includes/functions.php:614
+msgid "The reply couldnot be sent"
+msgstr "Votre réponse n&#39;a pu être envoyée."
 
 #: includes/maintenance.php:10
 msgid "will be up and running soon !"
@@ -209,15 +197,19 @@ msgstr "En cours de maintenance"
 msgid "Put the blog in maintenance mode"
 msgstr "Mettre le blog en maintenance"
 
-#: includes/options.php:49 includes/options.php:50 includes/options.php:93
+#: includes/options.php:40
+msgid "ID of the contact page"
+msgstr "Identifiant de la page de contact"
+
+#: includes/options.php:63 includes/options.php:64 includes/options.php:114
 msgid "Maintenance mode"
 msgstr "Mode maintenance"
 
-#: includes/options.php:66
+#: includes/options.php:80
 msgid "Put the blog in maintenance mode:"
 msgstr "Mettre le blog en maintenance :"
 
-#: includes/options.php:67
+#: includes/options.php:81
 msgid ""
 "use this option if you want to work on your blog and hide its content to "
 "regular users"
@@ -225,7 +217,7 @@ msgstr ""
 "Utilisez cette option si vous souhaitez travailler sur votre blog et masquer "
 "son contenu aux utilisateurs réguliers."
 
-#: includes/options.php:68
+#: includes/options.php:82
 msgid ""
 "Remember to click \"Save Changes\" to save any changes you have made to the "
 "theme options."
@@ -234,15 +226,15 @@ msgstr ""
 "précisément sauvegarder les modifications que vous aurez apporté aux options "
 "de thaim."
 
-#: includes/options.php:74
+#: includes/options.php:88
 msgid "Overview"
 msgstr "Vue d&rsquo;ensemble"
 
-#: includes/options.php:84
+#: includes/options.php:98
 msgid "Yes"
 msgstr "Oui"
 
-#: includes/options.php:85
+#: includes/options.php:99
 msgid "No"
 msgstr "Non"
 
@@ -347,6 +339,24 @@ msgstr "commentaire"
 msgid "Subscribe to %s feed"
 msgstr "S&rsquo;abonner au flux %s"
 
+#: includes/tags.php:620
+msgid ""
+"Thanks a lot for your feedback. Your message was sent successfully. We will "
+"reply to it asap."
+msgstr ""
+"Merci beaucoup pour votre message. Il a bien été envoyé. J&#39;y répondrai "
+"aussi vite que je peux."
+
+#: includes/tags.php:628
+msgid "Ouch. There was a problem sending the message. Please try again."
+msgstr ""
+"Ouch. Une erreur s&#39;est produite pendant l'envoi de votre message. "
+"Veuillez recommencer."
+
+#: includes/tags.php:668
+msgid "Email used:"
+msgstr "Email utilisé :"
+
 #: includes/tax-meta.php:13
 msgid "Icon"
 msgstr "Icône"
@@ -419,324 +429,40 @@ msgstr "Blocs de catégorie pour votre page d&#39;accueil."
 msgid "(Thaim) Category boxes"
 msgstr "(Thaim) Blocs de catégorie"
 
-#: includes/widgets.php:188
+#: includes/widgets.php:199
 msgid "View Articles"
 msgstr "Voir les articles"
 
-#: includes/widgets.php:236
+#: includes/widgets.php:262
 msgid "Display category descriptions"
 msgstr "Afficher les descriptions de catégorie"
 
-#: includes/widgets.php:240
+#: includes/widgets.php:266
 msgid "Display category icons"
 msgstr "Afficher les icônes de catégorie"
+
+#: includes/widgets.php:272
+msgid "Comma separated list of Category ids to exclude:"
+msgstr ""
+"Liste d&#39;identifiants de catégorie à exclure, séparés par des virgules :"
+
+#: questions.php:21
+msgid "How can I help you ?"
+msgstr "En quoi puis-je vous aider ?"
+
+#: questions.php:22
+msgid "Send your message"
+msgstr "Postez votre message"
+
+#: questions.php:23
+msgid "Please, make sure to avoid adding more than 2 links."
+msgstr ""
+"Merci d&#39;éviter d&#39;inclure plus de deux liens dans votre message."
+
+#: questions.php:28
+msgid "Message"
+msgstr "Message"
 
 #: searchform.php:5
 msgid "Search"
 msgstr "Rechercher"
-
-#. Theme Name of the plugin/theme
-msgid "thaim"
-msgstr "thaim"
-
-#. Theme URI of the plugin/theme
-msgid "http://imathi.eu/tag/thaim"
-msgstr "http://imathi.eu/tag/thaim"
-
-#. Description of the plugin/theme
-msgid "thaim is imath's theme !"
-msgstr "thaim c le thème d'imath !"
-
-#. Author of the plugin/theme
-msgid "imath"
-msgstr "imath"
-
-#. Author URI of the plugin/theme
-msgid "http://imathi.eu"
-msgstr "http://imathi.eu"
-
-#. Template Name of the plugin/theme
-msgid "Custom Home page"
-msgstr "Page d&#39;accueil personnalisée"
-
-#. Template Name of the plugin/theme
-msgid "No Sidebar page"
-msgstr "Page sans sidebar"
-
-#~ msgid "Sidebar Menu"
-#~ msgstr "Menu de barre latérale"
-
-#~ msgid "Extra Menu"
-#~ msgstr "Menu supplémentaire"
-
-#~ msgctxt "Previous post link"
-#~ msgid "<span aria-hidden=\"true\" data-icon=\"&#xe0b0;\"></span>"
-#~ msgstr "<span aria-hidden=\"true\" data-icon=\"&#xe0b0;\"></span>"
-
-#~ msgctxt "Next post link"
-#~ msgid "<span aria-hidden=\"true\" data-icon=\"&#xe09b;\"></span>"
-#~ msgstr "<span aria-hidden=\"true\" data-icon=\"&#xe09b;\"></span>"
-
-#~ msgid "Delete this image"
-#~ msgstr "Supprimer cette image"
-
-#~ msgid "Delete"
-#~ msgstr "Supprimer"
-
-#~ msgid "Cannot delete file. Something's wrong."
-#~ msgstr "Impossible de supprimer ce ficher. Quelque chose ne va pas."
-
-#~ msgid "Remove"
-#~ msgstr "Effacer"
-
-#~ msgid "Add"
-#~ msgstr "Ajouter"
-
-#~ msgid "Uploaded files"
-#~ msgstr "Fichiers transmis"
-
-#~ msgid "Upload new files"
-#~ msgstr "Transférer de nouveaux fichiers"
-
-#~ msgid "Add more files"
-#~ msgstr "Ajouter plus de fichiers"
-
-#~ msgid "Select a color"
-#~ msgstr "Sélectionner une couleur"
-
-#~ msgid "OOpsy! Github is unreachable :("
-#~ msgstr "OOpsy! nous ne sommes pas parvenu à contacter Github :("
-
-#~ msgid "View this code on github"
-#~ msgstr "Voir ce code sur github"
-
-#~ msgid "Prettify your snippet !"
-#~ msgstr "Mettez en valeur votre code !"
-
-#~ msgid "Shortocode to prettify your snippets"
-#~ msgstr "Shortcode pour mettre en valeur vos codes"
-
-#~ msgid "Theme Options"
-#~ msgstr "Options de Thaim"
-
-#~ msgid ""
-#~ "You can customize the behavior of thaim within this theme options page."
-#~ msgstr ""
-#~ "Vous pouvez personnaliser le comportement de thaim à l'aide cette page "
-#~ "d&rsquo;options de thème."
-
-#~ msgid ""
-#~ "<strong>Shortcode to prettify your snippets</strong>: You can choose to "
-#~ "activate this option in order to add a quicktag to the WordPress editor. "
-#~ "You will be able to paste your code in the window or reference a github "
-#~ "gists or a file from one of your github repo."
-#~ msgstr ""
-#~ "<strong>Mettre en valeur vos codes</strong> : vous pouvez choisir d&rsquo;"
-#~ "activer cette option afin de disposer d&rsquo;un nouveau bouton dans "
-#~ "votre éditeur WordPress. Vous serez alors en mesure de coller votre code "
-#~ "dans la fenêtre affichée suite au clic de ce bouton ou vous pourrez "
-#~ "également indiquer les références de votre gist ou d&rsquo;un fichier "
-#~ "d&rsquo;un de vos repos Github."
-
-#~ msgid "For more information:"
-#~ msgstr "Pour plus d&rsquo;information:"
-
-#~ msgid ""
-#~ "<a href=\"http://imathi.eu/tag/thaim\" target=\"_blank\">Blog posts about "
-#~ "Thaim</a>"
-#~ msgstr ""
-#~ "<a href=\"http://imathi.eu/tag/thaim\" target=\"_blank\">Articles au "
-#~ "sujet de thaim</a>"
-
-#~ msgid "Thaim options"
-#~ msgstr "Options de thaim"
-
-#~ msgid "Oops, you forgot to add a github raw url"
-#~ msgstr ""
-#~ "Oops, vous avez oublié de mentionner l&rsquo;adresse raw de votre code "
-#~ "github"
-
-#~ msgid "Oops, you forgot to add a github url"
-#~ msgstr ""
-#~ "Oops, vous avez oublié de mentionner l&rsquo;adresse url de votre code "
-#~ "github"
-
-#~ msgid "Edit your shortcode"
-#~ msgstr "Créer votre shortcode"
-
-#~ msgid "Choose the kind of shortcode you want to use"
-#~ msgstr "Choisissez le type de shortcode que vous souhaitez utiliser"
-
-#~ msgid "Add your code"
-#~ msgstr "Coller votre code"
-
-#~ msgid "Add a code from github"
-#~ msgstr "Ajouter un code depuis github"
-
-#~ msgid "Print line numbers"
-#~ msgstr "Afficher les numéros de ligne"
-
-#~ msgid "Add the github url to your gist or repo file"
-#~ msgstr ""
-#~ "Ajouter l&rsquo;url de votre gist ou du fichier de votre repo github"
-
-#~ msgid "Add the github <b>raw</b> url to your gist or repo file"
-#~ msgstr ""
-#~ "Ajouter l&rsquo;url <b>raw</b> de votre gist ou du fichier de votre repo "
-#~ "github"
-
-#~ msgid "The code is taken from this raw url"
-#~ msgstr "Le code est récupéré depuis cette url raw"
-
-#~ msgid ""
-#~ "You can extract a portion of the github code by adding the starting and "
-#~ "ending line numbers"
-#~ msgstr ""
-#~ "Vous pouvez extraire une portion du code github en indiquant le numéro "
-#~ "des lignes de départ et d&rsquo;arrivée"
-
-#~ msgid "Starting point"
-#~ msgstr "Point de départ"
-
-#~ msgid "Ending point"
-#~ msgstr "Point d&rsquo;arrivée"
-
-#~ msgid "Insert Shortcode"
-#~ msgstr "Insérer le shortcode"
-
-#~ msgid "Cancel"
-#~ msgstr "Annuler"
-
-#~ msgid ""
-#~ "Do not forget to add a custom field having the name of prettifyed and a "
-#~ "value set to 1"
-#~ msgstr ""
-#~ "N&rsquo;oubliez pas d&rsquo;ajouter un champ personnalisé ayant pour nom "
-#~ "prettifyed et valeur 1"
-
-#~ msgid ""
-#~ "You can choose an icon in this <a href=\"%s?TB_iframe=true\" class="
-#~ "\"thickbox\" title=\"Copy &amp; Paste the desired icon\">list</a>"
-#~ msgstr ""
-#~ "Vous pouvez choisir un icône depuis cette <a href=\"%s?TB_iframe=true\" "
-#~ "class=\"thickbox\" title=\"Copier &amp; coller l&rsquo;icône\">liste</a>"
-
-#~ msgid "Image header"
-#~ msgstr "Image pour l&rsquo;entête"
-
-#~ msgid "HTML5, CSS3, light, gray, white, slider, responsive"
-#~ msgstr "HTML5, CSS3, light, gray, white, slider, responsive"
-
-#~ msgid "Name of the repo"
-#~ msgstr "Nom du repo"
-
-#~ msgid "Infos about the repo"
-#~ msgstr "Infos sur le repo"
-
-#~ msgid "Repo link"
-#~ msgstr "lien vers le repo"
-
-#~ msgid "View on github"
-#~ msgstr "Voir sur github"
-
-#~ msgid "Oops, seems no github repos were synced..."
-#~ msgstr ""
-#~ "Oops, il semble qu&rsquo;aucun repo github n&rsquo;ait été synchronisé"
-
-#~ msgid "Link your WordPress.org plugins"
-#~ msgstr "Lier vos plugins WordPress.org"
-
-#~ msgid "List your github repos"
-#~ msgstr "Lister vos repos Github"
-
-#~ msgid ""
-#~ "<strong>Link your WordPress.org plugins</strong>: by adding your "
-#~ "WordPress.org user name, you will be able to create a page to list up to "
-#~ "20 of your WordPress plugins ordered by their latest activity. To finish "
-#~ "the process, you will need to create a page and to choose the Plugins "
-#~ "template in the available templates of this theme."
-#~ msgstr ""
-#~ "<strong>Lier vos plugins WordPress.org</strong> : en ajoutant votre nom "
-#~ "d&rsquo;utilisateur WordPress.org, vous pourrez facilement ajouter une "
-#~ "liste de vos derniers plugins (jusqu&rsquo;à 20) à votre blog. Pour "
-#~ "compléter le processus, il s&rsquo;agira de créer une page en choisissant "
-#~ "le Modèle plugins dans les templates disponibles de ce thème."
-
-#~ msgid ""
-#~ "<strong>List your github repos</strong>: By adding your github user name, "
-#~ "you will be able to list your github repos thanks to the same template. "
-#~ "This list is refreshed each hour using the WordPress cron of this blog. "
-#~ "Make sure your host provides the curl method to take benefit of this "
-#~ "feature"
-#~ msgstr ""
-#~ "<strong>Lister vos repos github</strong> :  en ajoutant votre nom d&rsquo;"
-#~ "utilisateur github, vous pouvez lister vos repos à l&rsquo;aide du même "
-#~ "template. Cette liste est rafraîchie toutes les heures via l&rsquo;"
-#~ "utilisation du WordPress cron de ce blog. Merci de veiller à ce que votre "
-#~ "hébergeur ait activé la librairie curl de php afin de bénéficier de cette "
-#~ "fonctionnalité."
-
-#~ msgid "Fill with your WordPress.org user name"
-#~ msgstr "Renseignez votre nom d&rsquo;utilisateur WordPress.org"
-
-#~ msgid "Number of plugins to display (up to 20)"
-#~ msgstr "Nombre de plugins à afficher (jusqu&rsquo;à 20)"
-
-#~ msgid "Fill with your github user name"
-#~ msgstr "Renseignez votre nom d&rsquo;utilisateur github"
-
-#~ msgctxt "Plugins pagination previous text"
-#~ msgid "&larr;"
-#~ msgstr "&larr;"
-
-#~ msgctxt "Plugins pagination next text"
-#~ msgid "&rarr;"
-#~ msgstr "&rarr;"
-
-#~ msgid "<div>Average of %s stars out of %s votes"
-#~ msgstr "<div>Moyenne %s stars sur %s votes"
-
-#~ msgid "Latest version is %s and requires %s"
-#~ msgstr "La dernière version disponible est %s et elle requiert %s"
-
-#~ msgid "Number of downloads:<br/> %s"
-#~ msgstr "Nombre de téléchargements:<br/> %s"
-
-#~ msgid "<a href=\"%s\" title=\"Download plugin\">Download</a>"
-#~ msgstr "<a href=\"%s\" title=\"Télécharger le plugin\">Télécharger</a>"
-
-#~ msgid ""
-#~ "<a href=\"%s\" title=\"View Plugin on WordPress.org\">View details</a>"
-#~ msgstr ""
-#~ "<a href=\"%s\" title=\"Voir le détail sur WordPress.org\">Voir le détail</"
-#~ "a>"
-
-#~ msgid "<a href=\"%s\" title=\"View Posts about the plugin\">Posts</a>"
-#~ msgstr ""
-#~ "<a href=\"%s\" title=\"Afficher les articles traitant du plugin"
-#~ "\">Articles</a>"
-
-#~ msgid "My plugins in WordPress Repository"
-#~ msgstr "Mes plugins disponibles sur le repo WordPress.org"
-
-#~ msgid "Name of the plugin"
-#~ msgstr "Nom du plugin"
-
-#~ msgid "Infos about the plugin"
-#~ msgstr "Infos du plugin"
-
-#~ msgid "Plugin links"
-#~ msgstr "Liens du plugin"
-
-#~ msgid "Oops, seems WordPress.org is not responding..."
-#~ msgstr "OOps, on dirait que WordPress.org ne répond plus..."
-
-#~ msgid "My github repositories"
-#~ msgstr "Mes repos Github"
-
-#~ msgid ""
-#~ "<a href=\"http://wordpress.org/support/\" target=\"_blank\">Support "
-#~ "Forums</a>"
-#~ msgstr ""
-#~ "<a href=\"http://wordpress.org/support/\" target=\"_blank\">Support "
-#~ "Forums</a>"

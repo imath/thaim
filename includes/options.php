@@ -34,6 +34,20 @@ function thaim_theme_options_init() {
 		'thaim_maintenance_mode',
 		'thaim_maintenance_validate'
 	);
+
+	add_settings_field(
+		'thaim_page_contact',
+		__( 'ID of the contact page', 'thaim' ),
+		'thaim_settings_page_contact',
+		'thaim_maintenance',
+		'general'
+	);
+
+	register_setting(
+		'thaim_options',
+		'thaim_contact_page',
+		'thaim_contact_page_validate'
+	);
 }
 add_action( 'admin_init', 'thaim_theme_options_init' );
 
@@ -87,6 +101,13 @@ function thaim_settings_field_maintenance() {
 	<?php
 }
 
+function thaim_settings_page_contact() {
+	$option = get_option( 'thaim_contact_page', 0 );
+	?>
+	<input name="thaim_theme_options[thaim_page_contact]" type="text" class="regular code" value="<?php echo (int) $option; ?>" />
+	<?php
+}
+
 function thaim_options_render_page() {
 	?>
 	<div class="wrap">
@@ -107,6 +128,14 @@ function thaim_options_render_page() {
 
 function thaim_maintenance_validate() {
 	$input = $_POST['thaim_theme_options']['thaim_maintenance'];
+
+	$output = intval( $input );
+
+	return apply_filters( 'thaim_maintenance_validate', $output, $input );
+}
+
+function thaim_contact_page_validate() {
+	$input = $_POST['thaim_theme_options']['thaim_page_contact'];
 
 	$output = intval( $input );
 

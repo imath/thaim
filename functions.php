@@ -3,7 +3,7 @@
  *  Author: @imath
  *  URL: imathi.eu
  *
- * 	Requires WordPress 4.5
+ * 	Requires WordPress 4.7
  */
 
 // Exit if accessed directly.
@@ -22,7 +22,7 @@ final class Thaim {
 	 *
 	 * @var string
 	 */
-	public static $required_wp_version = 4.5;
+	public static $required_wp_version = 4.7;
 
 	/**
 	 * Initialize the theme
@@ -49,7 +49,7 @@ final class Thaim {
 	 * Sets some globals for the theme
 	 */
 	private function setup_globals() {
-		$this->version = '2.0.0';
+		$this->version = '2.1.0';
 
 		if ( empty( $GLOBALS['content_width'] ) ) {
 		    $GLOBALS['content_width'] = 600;
@@ -57,10 +57,13 @@ final class Thaim {
 
 		$this->requires_wp_upgrade = ! isset( $GLOBALS['wp_version'] ) || (float) $GLOBALS['wp_version'] < self::$required_wp_version;
 		$this->is_maintenance_mode = (bool) get_option( 'thaim_maintenance_mode', 0 );
+		$this->contact_page_id     = (int) get_option( 'thaim_contact_page', 0 );
 	}
 
 	/**
 	 * Include required files
+	 *
+	 * @since 2.1.0 Drop Specific BuddyPress functions.
 	 */
 	private function includes() {
 		if ( ! $this->requires_wp_upgrade ) {
@@ -69,10 +72,6 @@ final class Thaim {
 			require_once( get_template_directory() . '/includes/options.php' );
 			require_once( get_template_directory() . '/includes/tax-meta.php' );
 			require_once( get_template_directory() . '/includes/widgets.php' );
-
-			if ( function_exists( 'buddypress' ) ) {
-				require_once( get_template_directory() . '/includes/buddypress.php' );
-			}
 
 			if ( is_admin() ) {
 				require_once( get_template_directory() . '/includes/upgrade.php' );

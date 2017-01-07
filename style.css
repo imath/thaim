@@ -1,8 +1,8 @@
 /*
 Theme Name: thaim
-Theme URI: http://imathi.eu/tag/thaim
+Theme URI: https://imathi.eu/tag/thaim
 Description: thaim is imath's theme !
-Version: 2.0.0
+Version: 2.1.0
 Author: imath
 Author URI: http://imathi.eu
 Tags: HTML5, CSS3, light, black, white, slider, responsive
@@ -1677,6 +1677,35 @@ a.backtotop:hover {
 .twitter-share a,
 .twitter-share a:hover {
 	color: #21759b;
+}
+
+.message-info {
+	padding: 1px 12px;
+	background-color: #fff;
+	-webkit-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.1);
+	box-shadow: 0 1px 1px 1px rgba(0,0,0,0.1);
+ 	margin: 10px 0 20px 0;
+ 	padding: 10px;
+}
+
+.message-info.error {
+ 	border-left: 4px solid #dd3333;
+}
+
+.message-info.success {
+ 	border-left: 4px solid #88aa22;
+}
+
+.message-content {
+	background-color: #f0f0f0;
+	padding: 2px 5px 0px 5px;
+	margin-bottom: 10px;
+}
+
+.message-content p {
+	margin: 0 0 24px;
+	margin: 0 0 1.714285714rem;
+	line-height: 1.714285714;
 }
 
 /* =============================================================================

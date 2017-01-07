@@ -230,6 +230,7 @@ class Thaim_Category_Boxes extends WP_Widget {
 	 * Display the form in Widgets Administration
 	 *
 	 * @since 2.0.0
+	 * @since 2.1.0 Add an option to disable category IDs.
 	 *
 	 * @param array $instance The Widget instance
 	 */

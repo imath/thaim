@@ -3,9 +3,9 @@
  * The template for displaying a page.
  *
  * @package thaim
- * @since 1.0.0
+ * @since  1.0.0
+ * @since  2.1.0 Use a "dynamic" comments template.
  */
-
 get_header(); ?>
 
 	<!-- Section -->
@@ -29,7 +29,7 @@ get_header(); ?>
 		</article>
 		<!-- /Article -->
 
-		<?php comments_template( '', true ); // Remove if you don't want comments ?>
+		<?php comments_template( thaim_get_comment_template(), true ); // Remove if you don't want comments ?>
 
 	<?php endwhile; ?>
 

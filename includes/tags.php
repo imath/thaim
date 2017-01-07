@@ -596,3 +596,101 @@ function thaim_twitter_card() {
 	}
 }
 add_action( 'wp_head', 'thaim_twitter_card', 20 );
+
+/**
+ * Check if a question was just sent and build the feedback output for the user.
+ *
+ * @since  2.1.0
+ *
+ * @return bool True if a question was successfully saved. False otherwise.
+ */
+function thaim_question_sent() {
+	if ( empty( $_GET['message'] ) ) {
+		return false;
+	}
+
+	$thaim = thaim();
+
+	$id       = (int) $_GET['message'];
+	$question = get_comment( $id );
+
+	if ( ! empty( $question->comment_author_email ) && isset( $_COOKIE['comment_author_email_' . COOKIEHASH] ) && $question->comment_author_email === $_COOKIE['comment_author_email_' . COOKIEHASH] ) {
+		$thaim->message_raw = array(
+			'message-feedback' => sprintf( '<p class="message-info success">%1$s</p>',
+				__( 'Thanks a lot for your feedback. Your message was sent successfully. We will reply to it asap.', 'thaim' )
+			),
+			'message-content'  => $question->comment_content,
+			'message-email'    => $question->comment_author_email,
+		);
+	} else {
+		$thaim->message_raw = array(
+			'message-feedback' => sprintf( '<p class="message-info error">%s</p>',
+				__( 'Ouch. There was a problem sending the message. Please try again.', 'thaim' )
+			),
+			'message-content' => '',
+			'message-email'   => '',
+		);
+	}
+
+	return true;
+}
+
+/**
+ * Display The Question's feedback.
+ *
+ * @since  2.1.0
+ *
+ * @return string HTML Output.
+ */
+function thaim_question_content() {
+	echo thaim_question_get_content();
+}
+
+	/**
+	 * Get the Question's feedback.
+	 *
+	 * @since  2.1.0
+	 *
+	 * @return string The question's feedback content.
+	 */
+	function thaim_question_get_content() {
+		$thaim  = thaim();
+		$output = '';
+
+		if ( empty( $thaim->message_raw ) ) {
+			return $output;
+		}
+
+
+		foreach ( $thaim->message_raw as $class => $html )  {
+			if ( empty( $html ) ) {
+				continue;
+			}
+
+			$part = $html;
+
+			if ( 'message-email' === $class ) {
+				$part = sprintf( '<strong>%1$s</strong> %2$s', __( 'Email used:', 'thaim' ), $html );
+			}
+
+			$output .= '<div class="' . sanitize_html_class( $class ) . '">' . $part . '</div>' . "\n";
+		}
+
+		/**
+		 * Sanitize the output.
+		 *
+		 * @since  2.1.0
+		 *
+		 * @param string $output The question's feedback content.
+		 */
+		$output = apply_filters( 'comment_text', $output );
+
+		/**
+		 * Filter here to edit the output.
+		 *
+		 * @since  2.1.0
+		 *
+		 * @param string $output The question's feedback content.
+		 */
+		return apply_filters( 'thaim_question_get_content', $output );
+	}
