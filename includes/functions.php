@@ -696,3 +696,138 @@ function thaim_question_post_redirect( $location = '', $comment = null ) {
 	return $location;
 }
 add_filter( 'comment_post_redirect', 'thaim_question_post_redirect', 10, 2 );
+
+function thaim_github_release( $atts = array() ) {
+	// Merge default with shortcode attributes
+	$a = shortcode_atts( array(
+		'name'  => '',
+		'label' => '',
+		'tag'   => '',
+	), $atts, 'thaim_github_release' );
+
+	if ( empty( $a['name'] ) ) {
+		return;
+	}
+
+	$name = sanitize_key( $a['name'] );
+
+	// Check hourly updated transient for the plugin
+	$plugin_data = get_site_transient( 'github_plugin_data_' . $name );
+
+	if ( ! is_array( $plugin_data ) ) {
+		$response = wp_remote_get( "https://api.github.com/repos/imath/{$name}/releases" );
+
+		if ( is_wp_error( $response ) || 200 != wp_remote_retrieve_response_code( $response ) ) {
+			return false;
+		}
+
+		$releases = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		if ( ! is_array( $releases ) ) {
+			return false;
+		}
+
+		$plugin_data = array();
+		foreach ( $releases as $release ) {
+			$package = array();
+
+			if ( ! empty( $release['assets'] ) ) {
+				$package = reset( $release['assets'] );
+			}
+
+			$plugin_data[ $release['id'] ] = (object) array(
+				'id'       => $release['id'],
+				'url'      => $release['html_url'],
+				'name'     => $release['name'],
+				'tag_name' => $release['tag_name'],
+				'package'  => $package,
+			);
+
+			set_site_transient( 'github_plugin_data_' . $name, $plugin_data, HOUR_IN_SECONDS );
+		}
+	}
+
+	if ( ! is_array( $plugin_data ) ) {
+		if ( empty( $a['tag'] ) ) {
+			return;
+		}
+
+		$tag = esc_html( $a['tag'] );
+		if ( empty( $a['label'] ) ) {
+			$a['label'] = $a['name'];
+		}
+
+		$release_data = (object) apply_filters( 'thaim_github_get_default', array(
+			'name' => esc_html( $a['label'] ),
+
+			// 1 is the plugin name, 2 is tag name.
+			'url' => sprintf( 'https://github.com/imath/%1$s/releases/tag/%2$s', $name, $tag ),
+
+			/**
+			 * 1 is the plugin name, 2 is tag name.
+			 * NB: make sure to upload a zip named plugin_name.zip as an asset to the release
+			 */
+			'browser_download_url' => sprintf( 'https://github.com/imath/%1$s/releases/download/%2$s/%1$s.zip', $name, $tag ),
+		) );
+	} else {
+		rsort( $plugin_data );
+		$release_data = reset( $plugin_data );
+		$release_data->download_count = 0;
+
+		if ( ! empty( $a['label'] ) ) {
+			$release_data->name = esc_html( $a['label'] );
+		}
+
+		if ( ! empty( $release_data->package['browser_download_url'] ) ) {
+			$release_data->browser_download_url = $release_data->package['browser_download_url'];
+		} else {
+			$release_data->browser_download_url = $release_data->url;
+		}
+
+		foreach ( $plugin_data as $p ) {
+			if ( ! isset( $p->package ) || empty( $p->package['download_count'] ) ) {
+				continue;
+			}
+
+			$release_data->download_count += (int) $p->package['download_count'];
+		}
+	}
+
+	$count = '';
+	if ( ! empty( $release_data->download_count ) ) {
+		$count = sprintf( __( '<p class="description">Number of downloads: %d</p>', 'thaim' ), $release_data->download_count );
+	}
+
+	$view_ongithub = esc_html__( 'View on Github', 'thaim' );
+
+	$version = esc_html__( 'Download', 'thaim' );
+	if ( ! empty( $release_data->tag_name ) ) {
+		$version = sprintf( esc_html__( 'Download tag %s', 'thaim' ), $release_data->tag_name );
+	}
+
+	return sprintf( '
+		<div class="plugin-card">
+			<div class="plugin-card-top">
+				<div class="name column-name">
+					<h3>
+						<a href="%1$s">
+							<span class="custom-dashicons custom-dashicons-github"></span>
+							%2$s
+						</a>
+					</h3>
+				</div>
+				<div class="desc column-description">
+					%3$s
+					<p class="description"><a href="%4$s" target="_blank">%5$s</a></p>
+					<div class="download">
+						<button class="button submit">
+							<span class="dashicons dashicons-download"></span>
+							<a href="%1$s">%6$s</a>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	', esc_url( $release_data->browser_download_url ), $release_data->name, $count, esc_url( $release_data->url ), $view_ongithub, $version );
+}
+add_shortcode( 'github_release', 'thaim_github_release' );
