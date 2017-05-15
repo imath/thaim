@@ -1763,7 +1763,17 @@ div.action-links,
 }
 
 .plugin-card .download {
+	clear: both;
 	text-align: center;
+}
+
+.plugin-icon {
+	float:left;
+	top: 20px;
+	left: 20px;
+	width: 128px;
+	height: 128px;
+	margin: 0 20px 20px 0;
 }
 
 /* =============================================================================

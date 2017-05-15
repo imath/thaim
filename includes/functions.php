@@ -697,12 +697,13 @@ function thaim_question_post_redirect( $location = '', $comment = null ) {
 }
 add_filter( 'comment_post_redirect', 'thaim_question_post_redirect', 10, 2 );
 
-function thaim_github_release( $atts = array() ) {
+function thaim_github_release( $atts = array(), $content = '' ) {
 	// Merge default with shortcode attributes
 	$a = shortcode_atts( array(
 		'name'  => '',
 		'label' => '',
 		'tag'   => '',
+		'logo'  => '',
 	), $atts, 'thaim_github_release' );
 
 	if ( empty( $a['name'] ) ) {
@@ -789,7 +790,17 @@ function thaim_github_release( $atts = array() ) {
 				continue;
 			}
 
-			$release_data->download_count += (int) $p->package['download_count'];
+			if ( ! empty( $a['tag'] ) && $p->tag_name === $a['tag'] ) {
+				$release_data->id                   = $p->id;
+				$release_data->url                  = $p->url;
+				$release_data->name                 = $p->name;
+				$release_data->tag_name             = $p->tag_name;
+				$release_data->package              = $p->package;
+				$release_data->browser_download_url = $release_data->package['browser_download_url'];
+				$release_data->download_count       = (int) $p->package['download_count'];
+			} else {
+				$release_data->download_count += (int) $p->package['download_count'];
+			}
 		}
 	}
 
@@ -805,29 +816,45 @@ function thaim_github_release( $atts = array() ) {
 		$version = sprintf( esc_html__( 'Download tag %s', 'thaim' ), $release_data->tag_name );
 	}
 
+	$thumbnail = '<span class="custom-dashicons custom-dashicons-github"></span>';
+	if ( ! empty( $a['logo'] ) ) {
+		$thumbnail = sprintf( '<img class="plugin-icon" src="%s">', esc_url( $a['logo'] ) );
+	}
+
+	if ( ! empty( $content ) ) {
+		$count = sprintf( '<p class="description">%s</p>', esc_html( $content ) ) . "\n" . $count;
+	}
+
 	return sprintf( '
 		<div class="plugin-card">
 			<div class="plugin-card-top">
 				<div class="name column-name">
 					<h3>
 						<a href="%1$s">
-							<span class="custom-dashicons custom-dashicons-github"></span>
 							%2$s
+							%3$s
 						</a>
 					</h3>
 				</div>
 				<div class="desc column-description">
-					%3$s
-					<p class="description"><a href="%4$s" target="_blank">%5$s</a></p>
-					<div class="download">
-						<button class="button submit">
-							<span class="dashicons dashicons-download"></span>
-							<a href="%1$s">%6$s</a>
-						</button>
-					</div>
+					%4$s
+					<p class="description"><a href="%5$s" target="_blank">%6$s</a></p>
+				</div>
+				<div class="download">
+					<button class="button submit">
+						<span class="dashicons dashicons-download"></span>
+						<a href="%1$s">%7$s</a>
+					</button>
 				</div>
 			</div>
-		</div>
-	', esc_url( $release_data->browser_download_url ), $release_data->name, $count, esc_url( $release_data->url ), $view_ongithub, $version );
+		</div>',
+		esc_url( $release_data->browser_download_url ),
+		$thumbnail,
+		$release_data->name,
+		$count,
+		esc_url( $release_data->url ),
+		$view_ongithub,
+		$version
+	);
 }
 add_shortcode( 'github_release', 'thaim_github_release' );
