@@ -712,7 +712,7 @@ function thaim_github_release( $atts = array(), $content = '' ) {
 
 	$name = sanitize_key( $a['name'] );
 
-	// Check hourly updated transient for the plugin
+	// Check dayly updated transient for the plugin
 	$plugin_data = get_site_transient( 'github_plugin_data_' . $name );
 
 	if ( ! is_array( $plugin_data ) ) {
@@ -744,7 +744,7 @@ function thaim_github_release( $atts = array(), $content = '' ) {
 				'package'  => $package,
 			);
 
-			set_site_transient( 'github_plugin_data_' . $name, $plugin_data, HOUR_IN_SECONDS );
+			set_site_transient( 'github_plugin_data_' . $name, $plugin_data, DAY_IN_SECONDS );
 		}
 	}
 
@@ -823,6 +823,10 @@ function thaim_github_release( $atts = array(), $content = '' ) {
 
 	if ( ! empty( $content ) ) {
 		$count = sprintf( '<p class="description">%s</p>', esc_html( $content ) ) . "\n" . $count;
+	}
+
+	if ( ! empty( $a['label'] ) ) {
+		$release_data->name = esc_html( $a['label'] );
 	}
 
 	return sprintf( '
