@@ -25,6 +25,20 @@ function thaim_upgrader_tasks( $items = array() ) {
 			'type'           => 'theme',
 			'db_version'     => $db_version,
 			'tasks'          => array(
+				'2.2.0' => array(
+					array(
+						'callback'  => 'thaim_upgrade_delete_options',
+						'count'     => 'thaim_get_db_version_upgrade_count',
+						'message'   => _x( 'Deleting unused options - %d item to upgrade', 'Upgrader feedback message', 'thaim' ),
+						'number'    => 1,
+					),
+					array(
+						'callback'  => 'thaim_upgrade_db_version',
+						'count'     => 'thaim_get_db_version_upgrade_count',
+						'message'   => _x( 'Theme version - %d item to upgrade', 'Upgrader feedback message', 'thaim' ),
+						'number'    => 1,
+					),
+				),
 				'2.0.0' => array(
 					array(
 						'callback'  => 'thaim_upgrade_term_metas',
@@ -350,6 +364,20 @@ function thaim_get_db_version_upgrade_count() {
  */
 function thaim_upgrade_db_version() {
 	update_option( 'thaim_version', thaim()->version );
+
+	return 1;
+}
+
+/**
+ * Remove no more used options.
+ *
+ * @since  2.2.0
+ *
+ * @return int 2
+ */
+function thaim_upgrade_delete_options() {
+	delete_option( 'thaim_maintenance_mode' );
+	delete_option( 'thaim_contact_page' );
 
 	return 1;
 }
