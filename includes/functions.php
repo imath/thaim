@@ -451,11 +451,25 @@ add_action( 'login_init', 'thaim_login_screen_logo' );
  * @return string the relative path to the comments template.
  */
 function thaim_get_comment_template() {
-	$post = get_post();
+	$thaim = thaim();
+
+	if ( isset( $thaim->comment_template ) ) {
+		return $thaim->comment_template;
+	}
+
+	$post  = get_post();
 
 	$return = '';
-	if ( ! empty( $post->ID ) && (int) $post->ID === thaim()->contact_page_id ) {
-		$return = '/questions.php';
+	if ( ! empty( $post->ID ) ) {
+		if ( (int) $post->ID === $thaim->contact_page_id ) {
+			$return = '/questions.php';
+		} elseif( (int) $post->ID === $thaim->galerie_page_id ) {
+			$return = '/flag.php';
+		}
+
+		if ( $return ) {
+			$thaim->comment_template = $return;
+		}
 	}
 
 	return $return;
@@ -470,8 +484,22 @@ function thaim_get_comment_template() {
  * @return array                The array containing the comment data to be saved in DB.
  */
 function thaim_preprocess_comment( $comment_data = array() ) {
-	if ( ! empty( $comment_data['comment_post_ID'] ) && (int) $comment_data['comment_post_ID'] === thaim()->contact_page_id ) {
-		$comment_data['comment_type'] = 'question';
+	if ( ! empty( $comment_data['comment_post_ID'] ) ) {
+		if ( (int) $comment_data['comment_post_ID'] === thaim()->contact_page_id ) {
+			$comment_data['comment_type'] = 'question';
+		} elseif ( (int) $comment_data['comment_post_ID'] === thaim()->galerie_page_id ) {
+			$comment_data['comment_type'] = 'flag';
+
+			if ( ! empty( $_REQUEST['galerie_plugin_slug'] ) ) {
+				if ( ! isset( $comment_data['comment_meta'] ) ) {
+					$comment_data['comment_meta'] = array();
+				}
+
+				$comment_data['comment_meta'] = array_merge( $comment_data['comment_meta'], array(
+					'galerie_plugin_slug' => strip_tags( $_REQUEST['galerie_plugin_slug'] ),
+				) );
+			}
+		}
 	}
 
 	return $comment_data;
@@ -487,9 +515,10 @@ add_filter( 'preprocess_comment', 'thaim_preprocess_comment', 10, 1 );
  * @return array         The available comment's types (default types + the 'question' one).
  */
 function thaim_admin_comment_types_dropdown( $types = array() ) {
-	$types['question'] = esc_attr__( 'Questions', 'thaim' );
-
-	return $types;
+	return array_merge( $types, array(
+		'question' => esc_attr__( 'Questions', 'thaim' ),
+		'flag'     => esc_attr__( 'Alert report', 'thaim' ),
+	) );
 }
 add_filter( 'admin_comment_types_dropdown', 'thaim_admin_comment_types_dropdown', 10, 1 );
 
@@ -630,7 +659,8 @@ add_action( 'comment_post', 'thaim_comment_post', 10, 3 );
  */
 function thaim_admin_questions_inline_style() {
 	wp_add_inline_style( 'common', '
-		.thaim-question {
+		.thaim-question,
+		.thaim-flag {
 			display: inline-block;
 			float: left;
 			margin-right: 10px;
@@ -644,10 +674,18 @@ function thaim_admin_questions_inline_style() {
 			background-position: center;
 			-webkit-transition: background .1s ease-in;
 			transition: background .1s ease-in;
+		}
+
+		.thaim-question {
 			background-image: url("data:image/svg+xml;charset=utf8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C%21DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20d%3D%22M19%2014.5v-9c0-0.83-0.67-1.5-1.5-1.5h-14.010c-0.83%200-1.5%200.67-1.5%201.5v9c0%200.83%200.67%201.5%201.5%201.5h14.010c0.83%200%201.5-0.67%201.5-1.5zM17.69%205.39c0.33%200.33%200.15%200.67-0.030%200.84l-4.060%203.72%203.9%204.060c0.12%200.14%200.2%200.36%200.060%200.51-0.13%200.16-0.43%200.15-0.56%200.050l-4.37-3.73-2.14%201.95-2.13-1.95-4.37%203.73c-0.13%200.1-0.43%200.11-0.56-0.050-0.14-0.15-0.060-0.37%200.060-0.51l3.9-4.060-4.060-3.72c-0.18-0.17-0.36-0.51-0.030-0.84s0.67-0.17%200.95%200.070l6.24%205.040%206.25-5.040c0.28-0.24%200.62-0.4%200.95-0.070z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
 		}
 
-		#dashboard-widgets .thaim-question {
+		.thaim-flag {
+			background-image: url("data:image/svg+xml;charset=utf8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C%21DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%23a00%22%3E%3Cpath%20d%3D%22M10%202c4.42%200%208%203.58%208%208s-3.58%208-8%208-8-3.58-8-8%203.58-8%208-8zM11.13%2011.38l0.35-6.46h-2.96l0.35%206.46h2.26zM11.040%2014.74c0.24-0.23%200.37-0.55%200.37-0.96%200-0.42-0.12-0.74-0.36-0.97s-0.59-0.35-1.060-0.35-0.82%200.12-1.070%200.35-0.37%200.55-0.37%200.97c0%200.41%200.13%200.73%200.38%200.96%200.26%200.23%200.61%200.34%201.060%200.34s0.8-0.11%201.050-0.34z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
+		}
+
+		#dashboard-widgets .thaim-question,
+		#dashboard-widgets .thaim-flag {
 			width: 50px;
 			height: 50px;
 			-webkit-background-size: 50px 50px;
@@ -671,13 +709,27 @@ function thaim_set_comment_author_avatar( $output = null, $comment = null ) {
 		return $output;
 	}
 
-	if ( ! empty( $comment->comment_type ) && 'question' === $comment->comment_type ) {
-		$output = '<span class="thaim-question"></span>';
+	if ( ! empty( $comment->comment_type ) ) {
+		if ( 'question' === $comment->comment_type ) {
+			$output = '<span class="thaim-question"></span>';
+		} elseif ( 'flag' === $comment->comment_type ) {
+			$output = '<span class="thaim-flag"></span>';
+		}
 	}
 
 	return $output;
 }
 add_filter( 'pre_get_avatar', 'thaim_set_comment_author_avatar', 11, 2 );
+
+function comment_form_flag_fields() {
+	if ( '/flag.php' !== thaim_get_comment_template() || empty( $_REQUEST['repository'] ) ) {
+		return;
+	}
+
+	printf( '<input type="hidden" name="galerie_plugin_slug" value="%s"></input>', esc_attr( $_REQUEST['repository'] ) );
+
+}
+add_action( 'comment_form_top', 'comment_form_flag_fields' );
 
 /**
  * Use a specific location to redirect the user once a question is posted.
@@ -689,13 +741,34 @@ add_filter( 'pre_get_avatar', 'thaim_set_comment_author_avatar', 11, 2 );
  * @return string               The regular redirect URL or the specific to questions one.
  */
 function thaim_question_post_redirect( $location = '', $comment = null ) {
-	if ( ! empty( $comment->comment_type ) && 'question' === $comment->comment_type ) {
+	if ( ! empty( $comment->comment_type ) && ( 'question' === $comment->comment_type || 'flag' === $comment->comment_type ) ) {
 		$location = esc_url_raw( add_query_arg( 'message', $comment->comment_ID, get_permalink( $comment->comment_post_ID ) ) );
 	}
 
 	return $location;
 }
 add_filter( 'comment_post_redirect', 'thaim_question_post_redirect', 10, 2 );
+
+function thaim_flag_prepend_plugin_slug( $content = '', $comment_ID = 0, $comment = null ) {
+	if ( is_a( $comment_ID, 'WP_Comment' ) && 'get_comment_text' === current_filter() ) {
+		$comment = $comment_ID;
+		$comment_ID = $comment->comment_ID;
+	}
+
+	if ( ! isset( $comment->comment_type ) || 'flag' !== $comment->comment_type ) {
+		return $content;
+	}
+
+	$plugin_slug = get_comment_meta( $comment_ID, 'galerie_plugin_slug', true );
+
+	if ( ! $plugin_slug ) {
+		return $content;
+	}
+
+	return sprintf( '<strong>%1$s</strong>:&nbsp;%2$s', esc_html( $plugin_slug ), $content );
+}
+add_filter( 'get_comment_excerpt', 'thaim_flag_prepend_plugin_slug', 10, 3 );
+add_filter( 'get_comment_text', 'thaim_flag_prepend_plugin_slug', 10, 3 );
 
 function thaim_github_release( $atts = array(), $content = '' ) {
 	// Merge default with shortcode attributes

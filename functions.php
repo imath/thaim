@@ -49,15 +49,18 @@ final class Thaim {
 	 * Sets some globals for the theme
 	 */
 	private function setup_globals() {
-		$this->version = '2.1.0';
+		$this->version = '2.2.0-beta';
 
 		if ( empty( $GLOBALS['content_width'] ) ) {
 		    $GLOBALS['content_width'] = 600;
 		}
 
 		$this->requires_wp_upgrade = ! isset( $GLOBALS['wp_version'] ) || (float) $GLOBALS['wp_version'] < self::$required_wp_version;
-		$this->is_maintenance_mode = (bool) get_option( 'thaim_maintenance_mode', 0 );
-		$this->contact_page_id     = (int) get_option( 'thaim_contact_page', 0 );
+		$this->is_maintenance_mode = (bool) get_theme_mod( 'maintenance_mode', 0 );
+		$this->contact_page_id     = (int)  get_theme_mod( 'contact_page', 0 );
+		$this->galerie_page_id     = (int)  get_theme_mod( 'galerie_page', 0 );
+
+		$this->inc_dir = trailingslashit( get_template_directory() ) . 'includes';
 	}
 
 	/**
@@ -66,20 +69,23 @@ final class Thaim {
 	 * @since 2.1.0 Drop Specific BuddyPress functions.
 	 */
 	private function includes() {
+		$inc_dir = trailingslashit( $this->inc_dir );
+
 		if ( ! $this->requires_wp_upgrade ) {
-			require_once( get_template_directory() . '/includes/functions.php' );
-			require_once( get_template_directory() . '/includes/tags.php' );
-			require_once( get_template_directory() . '/includes/options.php' );
-			require_once( get_template_directory() . '/includes/tax-meta.php' );
-			require_once( get_template_directory() . '/includes/widgets.php' );
+
+			require_once( $inc_dir . 'functions.php'  );
+			require_once( $inc_dir . 'tags.php'       );
+			require_once( $inc_dir . 'customizer.php' );
+			require_once( $inc_dir . 'tax-meta.php'   );
+			require_once( $inc_dir . 'widgets.php'    );
 
 			if ( is_admin() ) {
-				require_once( get_template_directory() . '/includes/upgrade.php' );
+				require_once( $inc_dir . 'upgrade.php' );
 			}
 		}
 
 		if ( $this->is_maintenance_mode || $this->requires_wp_upgrade ) {
-			require_once( get_template_directory() . '/includes/maintenance.php' );
+			require_once(  $inc_dir . 'maintenance.php' );
 		}
 	}
 
@@ -118,13 +124,13 @@ final class Thaim {
 		register_nav_menu( 'header-menu', __( 'Header Menu', 'thaim' ) );
 
 		// Load Custom styles inside the wp editor
-	    add_editor_style( array( 'css/editor-style.css', thaim_get_font_url() ) );
+		add_editor_style( array( 'css/editor-style.css', thaim_get_font_url() ) );
 
-	    // Specific shortcode for Action buttons
-	    add_shortcode( 'thaim_button', 'thaim_button_shortcode_handler' );
+		// Specific shortcode for Action buttons
+		add_shortcode( 'thaim_button', 'thaim_button_shortcode_handler' );
 
-	    // Gist Support
-	    wp_embed_register_handler( 'thaim_gist', '#(https://gist.github.com/imath/([a-zA-Z0-9]+)?)(\#file(\-|_)(.+))?$#i', 'thaim_gist_handler' );
+		// Gist Support
+		wp_embed_register_handler( 'thaim_gist', '#(https://gist.github.com/imath/([a-zA-Z0-9]+)?)(\#file(\-|_)(.+))?$#i', 'thaim_gist_handler' );
 	}
 
 	public function warning() {

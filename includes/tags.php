@@ -615,17 +615,31 @@ function thaim_question_sent() {
 	$question = get_comment( $id );
 
 	if ( ! empty( $question->comment_author_email ) && isset( $_COOKIE['comment_author_email_' . COOKIEHASH] ) && $question->comment_author_email === $_COOKIE['comment_author_email_' . COOKIEHASH] ) {
+		$message         = __( 'Thanks a lot for your feedback. Your message was sent successfully. We will reply to it asap.', 'thaim' );
+		$message_content = $question->comment_content;
+
+		if ( 'flag' === $question->comment_type ) {
+			$plugin_slug     = get_comment_meta( $question->comment_ID, 'galerie_plugin_slug', true );
+			$message         = __( 'Thanks a lot for your report. Your message was sent successfully.', 'thaim' );
+			$message_content = sprintf( __( 'Flagged plugin: <strong>%s</strong>.', 'thaim' ), $plugin_slug );
+		}
+
 		$thaim->message_raw = array(
 			'message-feedback' => sprintf( '<p class="message-info success">%1$s</p>',
-				__( 'Thanks a lot for your feedback. Your message was sent successfully. We will reply to it asap.', 'thaim' )
+				$message
 			),
-			'message-content'  => $question->comment_content,
+			'message-content'  => $message_content,
 			'message-email'    => $question->comment_author_email,
 		);
 	} else {
+		$message = __( 'Ouch. There was a problem sending the message. Please try again.', 'thaim' );
+		if ( isset( $question->comment_type ) && 'flag' === $question->comment_type ) {
+			$message = __( 'Ouch. There was a problem reporting the plugin. Please try again.', 'thaim' );
+		}
+
 		$thaim->message_raw = array(
 			'message-feedback' => sprintf( '<p class="message-info error">%s</p>',
-				__( 'Ouch. There was a problem sending the message. Please try again.', 'thaim' )
+				$message
 			),
 			'message-content' => '',
 			'message-email'   => '',
