@@ -708,3 +708,51 @@ function thaim_question_content() {
 		 */
 		return apply_filters( 'thaim_question_get_content', $output );
 	}
+
+/**
+ * Prints the necessary markup for the embed download button.
+ *
+ * @since 2.2.0
+ */
+function thaim_print_download_button() {
+	$link_data = thaim_github_release( array( 'name' => 'wp-idea-stream', 'link_only' => true ) );
+
+	if ( empty( $link_data['url'] ) ) {
+		return;
+	}
+
+	?>
+	<div class="wp-embed-download">
+		<a href="<?php echo esc_url( $link_data['url'] ); ?>" target="_top">
+			<span class="dashicons dashicons-download"></span>
+
+			<?php if ( ! empty( $link_data['count'] ) ) :
+			printf(
+				_n(
+					'%s <span class="screen-reader-text">Download</span>',
+					'%s <span class="screen-reader-text">Downloads</span>',
+					$link_data['count'],
+					'thaim'
+				),
+				number_format_i18n( $link_data['count'] )
+			);
+		  endif; ?>
+
+		</a>
+	</div>
+	<?php
+}
+
+function thaim_embed_enqueue_script() {
+	$post = get_post();
+
+	if ( empty( $post->ID ) || thaim()->galerie_page_id !== (int) $post->ID ) {
+		return;
+	}
+
+	remove_action( 'embed_content_meta', 'print_embed_comments_button' );
+	add_action( 'embed_content_meta', 'thaim_print_download_button', 1 );
+
+	wp_enqueue_style( 'thaim-embed', get_template_directory_uri() . '/css/embed.css', array(), 'all' );
+}
+add_action( 'enqueue_embed_scripts', 'thaim_embed_enqueue_script' );

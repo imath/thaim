@@ -773,10 +773,11 @@ add_filter( 'get_comment_text', 'thaim_flag_prepend_plugin_slug', 10, 3 );
 function thaim_github_release( $atts = array(), $content = '' ) {
 	// Merge default with shortcode attributes
 	$a = shortcode_atts( array(
-		'name'  => '',
-		'label' => '',
-		'tag'   => '',
-		'logo'  => '',
+		'name'      => '',
+		'label'     => '',
+		'tag'       => '',
+		'logo'      => '',
+		'link_only' => false,
 	), $atts, 'thaim_github_release' );
 
 	if ( empty( $a['name'] ) ) {
@@ -900,6 +901,18 @@ function thaim_github_release( $atts = array(), $content = '' ) {
 
 	if ( ! empty( $a['label'] ) ) {
 		$release_data->name = esc_html( $a['label'] );
+	}
+
+	if ( ! empty( $a['link_only'] ) ) {
+		$link_data = array(
+			'url' => $release_data->browser_download_url,
+		);
+
+		if ( $count ) {
+			$link_data['count'] = $release_data->download_count;
+		}
+
+		return $link_data;
 	}
 
 	return sprintf( '
