@@ -792,33 +792,29 @@ function thaim_github_release( $atts = array(), $content = '' ) {
 	if ( ! is_array( $plugin_data ) ) {
 		$response = wp_remote_get( "https://api.github.com/repos/imath/{$name}/releases" );
 
-		if ( is_wp_error( $response ) || 200 != wp_remote_retrieve_response_code( $response ) ) {
-			return false;
-		}
+		if ( ! is_wp_error( $response ) && 200 === (int) wp_remote_retrieve_response_code( $response ) ) {
+			$releases = json_decode( wp_remote_retrieve_body( $response ), true );
 
-		$releases = json_decode( wp_remote_retrieve_body( $response ), true );
+			if ( is_array( $releases ) ) {
+				$plugin_data = array();
+				foreach ( $releases as $release ) {
+					$package = array();
 
-		if ( ! is_array( $releases ) ) {
-			return false;
-		}
+					if ( ! empty( $release['assets'] ) ) {
+						$package = reset( $release['assets'] );
+					}
 
-		$plugin_data = array();
-		foreach ( $releases as $release ) {
-			$package = array();
+					$plugin_data[ $release['id'] ] = (object) array(
+						'id'       => $release['id'],
+						'url'      => $release['html_url'],
+						'name'     => $release['name'],
+						'tag_name' => $release['tag_name'],
+						'package'  => $package,
+					);
 
-			if ( ! empty( $release['assets'] ) ) {
-				$package = reset( $release['assets'] );
+					set_site_transient( 'github_plugin_data_' . $name, $plugin_data, DAY_IN_SECONDS );
+				}
 			}
-
-			$plugin_data[ $release['id'] ] = (object) array(
-				'id'       => $release['id'],
-				'url'      => $release['html_url'],
-				'name'     => $release['name'],
-				'tag_name' => $release['tag_name'],
-				'package'  => $package,
-			);
-
-			set_site_transient( 'github_plugin_data_' . $name, $plugin_data, DAY_IN_SECONDS );
 		}
 	}
 
