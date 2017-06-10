@@ -944,3 +944,30 @@ function thaim_github_release( $atts = array(), $content = '' ) {
 	);
 }
 add_shortcode( 'github_release', 'thaim_github_release' );
+
+function thaim_github_release_redirect() {
+	$post = get_post();
+
+	if ( empty( $post->ID ) || (int) $post->ID !== thaim()->galerie_page_id ) {
+		return;
+	}
+
+	if ( isset( $_GET['redirectto'] ) ) {
+		$url = parse_url( $_GET['redirectto'] );
+
+		if ( isset( $url['host'] ) && 'github.com' === $url['host'] && isset( $url['path'] ) ) {
+			$path     = explode( '/', ltrim( $url['path'], '/' ) );
+			$username = reset( $path );
+
+			if ( 'imath' === $username ) {
+				wp_redirect( esc_url_raw( $_GET['redirectto'] ) );
+				exit;
+			}
+		}
+	}
+
+	if ( isset( $_GET['locale'] ) && 'fr_FR' !== $_GET['locale'] ) {
+		switch_to_locale( 'en_US' );
+	}
+}
+add_action( 'template_redirect', 'thaim_github_release_redirect', 12 );
