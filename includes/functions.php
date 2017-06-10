@@ -71,7 +71,22 @@ function thaim_parse_query( WP_Query $qv ) {
 		$qv->query_vars['ignore_sticky_posts'] = true;
 	}
 
-	return $qv;
+	$bail = false;
+	if ( ! $qv->is_main_query() || true === $qv->get( 'suppress_filters' ) ) {
+		$bail = true;
+	}
+
+	if ( ! $bail && is_admin() ) {
+		$bail = ! wp_doing_ajax();
+	}
+
+	if ( $bail ) {
+		return;
+	}
+
+	if ( (int) get_query_var( 'en_us' ) === 1 && get_queried_object_id() === thaim()->galerie_page_id ) {
+		switch_to_locale( 'en_US' );
+	}
 }
 add_action( 'parse_query', 'thaim_parse_query', 10, 1 );
 
@@ -965,9 +980,89 @@ function thaim_github_release_redirect() {
 			}
 		}
 	}
-
-	if ( isset( $_GET['locale'] ) && 'fr_FR' !== $_GET['locale'] ) {
-		switch_to_locale( 'en_US' );
-	}
 }
 add_action( 'template_redirect', 'thaim_github_release_redirect', 12 );
+
+function thaim_galerie_page_excerpt_meta_box( $post = null ) {
+	if ( ! isset( $post->post_excerpt ) ) {
+		return;
+	}
+
+	wp_editor( $post->post_excerpt, 'excerpt', array(
+		'_content_editor_dfw' => false,
+		'drag_drop_upload'    => false,
+		'editor_height'       => 150,
+		'tinymce' => array(
+			'resize' => false,
+			'add_unload_trigger' => false,
+		),
+	) );
+}
+
+function thaim_galerie_page_meta_boxes( $post_type = '', $post = null ) {
+	if ( 'en_US' === get_locale() || 'page' !== $post_type || empty( $post->ID ) || (int) $post->ID !== thaim()->galerie_page_id ) {
+		return;
+	}
+
+	add_meta_box('pageexcerpt', __( 'American Translation', 'thaim' ), 'thaim_galerie_page_excerpt_meta_box', null, 'normal', 'high' );
+}
+add_action( 'add_meta_boxes', 'thaim_galerie_page_meta_boxes', 1, 2 );
+
+function thaim_locale_rewrite_rule() {
+	global $wp_rewrite;
+
+	add_rewrite_tag(
+		'%en_us%',
+		'([1]{1,})'
+	);
+
+	add_rewrite_rule(
+		'(.?.+?)/en-us/?$',
+		$wp_rewrite->index . '?pagename=$matches[1]&en_us=1',
+		'top'
+	);
+
+	add_rewrite_rule(
+		'(.?.+?)/en-us/embed/?$',
+		$wp_rewrite->index . '?pagename=$matches[1]&en_us=1&embed=true',
+		'top'
+	);
+}
+add_action( 'init', 'thaim_locale_rewrite_rule' );
+
+function thaim_locale_page_link( $page_link = '', $page_id = 0 ) {
+	if ( empty( $page_id ) || (int) $page_id !== thaim()->galerie_page_id ) {
+		return $page_link;
+	}
+
+	if ( 'en_US' === get_locale() ) {
+		$page_link = trailingslashit( $page_link ) . 'en-us/';
+	}
+
+	return $page_link;
+}
+add_filter( 'page_link', 'thaim_locale_page_link', 10, 2 );
+
+function thaim_oembed_page_request_id( $page_id = 0, $url = '' ) {
+	if ( (int) $page_id !== thaim()->galerie_page_id ) {
+		return $page_id;
+	}
+
+	$path = explode( '/', trim( parse_url( $url, PHP_URL_PATH ), '/' ) );
+
+	if ( false !== array_search( 'en-us', $path ) ) {
+		switch_to_locale( 'en_US' );
+	}
+
+	return $page_id;
+}
+add_filter( 'oembed_request_post_id', 'thaim_oembed_page_request_id', 10, 2 );
+
+function thaim_oembed_response_data( $data = array() ) {
+	if ( is_locale_switched() ) {
+		restore_current_locale();
+	}
+
+	return $data;
+}
+add_filter( 'oembed_response_data', 'thaim_oembed_response_data', 11, 1 );

@@ -745,25 +745,25 @@ function thaim_print_download_button() {
 }
 
 function thaim_print_translate_button() {
-	if ( 'fr_FR' !== get_locale() ) {
-		return;
-	}
-
 	$french  = wp_staticize_emoji( '🇫🇷' );
 	$english = wp_staticize_emoji( '🇬🇧' );
 
 	if ( is_locale_switched() ) {
-		$to   = $french;
-		$from = $english;
+		$to         = $french;
+		$to_class   = 'fr_FR';
+		$from       = $english;
+		$from_class = 'en_US';
 	} else {
-		$from = $french;
-		$to   = $english;
+		$from       = $french;
+		$from_class = 'fr_FR';
+		$to         = $english;
+		$to_class   = 'en_US';
 	}
 	?>
 	<div class="wp-embed-translate">
 		<a href="#" id="thaim-translate">
-			<span class="thaim-translate-emoji to"><?php echo $to; ?></span>
-			<span class="thaim-translate-emoji from hidden"><?php echo $from; ?></span>
+			<span class="thaim-translate-emoji to" data-locale="<?php echo esc_attr( $to_class ); ?>"><?php echo $to; ?></span>
+			<span class="thaim-translate-emoji from hidden" data-locale="<?php echo esc_attr( $from_class ); ?>"><?php echo $from; ?></span>
 		</a>
 	</div>
 	<?php
@@ -783,8 +783,49 @@ function thaim_embed_enqueue_script() {
 	wp_enqueue_style ( 'thaim-embed', get_template_directory_uri() . '/css/embed.css', thaim()->version, 'all' );
 	wp_enqueue_script( 'thaim-embed', get_template_directory_uri() . '/js/embed.js', array(), thaim()->version, true );
 
-	wp_localize_script( 'thaim-embed', 'l10nThaimEmbed', array(
-		'permalink' => esc_url_raw( get_permalink( $post ) ),
-	) );
+	$fr_fr = apply_filters( 'the_excerpt_embed', wp_trim_excerpt( $post->post_content ) );
+	$en_us = apply_filters( 'the_excerpt_embed', wp_trim_excerpt( $post->post_excerpt ) );
+	$link_fr = str_replace( 'en-us/', '', get_permalink( $post ) );
+	$link_us = trailingslashit( $link_fr ) . 'en-us/';
+
+	$locale = get_locale();
+	$switch = array(
+		'fr_FR' => 'en_US',
+		'en_US' => 'fr_FR',
+	);
+
+	switch_to_locale( $switch[ $locale ] );
+
+	$ui_strings = array(
+		'wp-embed-share-dialog-open'           => esc_attr__( 'Open sharing dialog', 'default' ),
+		'wp-embed-share-dialog'                => esc_attr__( 'Sharing options', 'default' ),
+		'wp-embed-share-tab-button-wordpress'  => esc_html__( 'WordPress Embed', 'default' ),
+		'wp-embed-share-tab-button-html'       => esc_html__( 'HTML Embed', 'default' ),
+		'wp-embed-share-description-wordpress' => esc_html__( 'Copy and paste this URL into your WordPress site to embed', 'default' ),
+		'wp-embed-share-description-html'      => esc_html__( 'Copy and paste this code into your site to embed', 'default' ),
+		'wp-embed-share-dialog-close'          => esc_html__( 'Close sharing dialog', 'default' ),
+	);
+
+	restore_previous_locale();
+
+	$l10nthaimembed = array(
+		'link' => array(
+			'fr_FR' => esc_url_raw( $link_fr ),
+			'en_US' => esc_url_raw( $link_us ),
+		),
+		'content'   => array(
+			'fr_FR' => $fr_fr,
+			'en_US' => $en_us,
+		),
+		'uiStrings' => array(
+			$switch[ $locale ] => $ui_strings,
+		),
+		'currentLocale' => $locale,
+	);
+
+	if ( 'en_US' !== $locale ) {
+		$GLOBALS['post']->post_excerpt = '';
+	}
+	wp_localize_script( 'thaim-embed', 'l10nThaimEmbed', $l10nthaimembed );
 }
 add_action( 'enqueue_embed_scripts', 'thaim_embed_enqueue_script' );
