@@ -16,7 +16,7 @@
 
 		var links     = document.getElementsByTagName( 'a' ), hrefAttribute,
 		    inputWP   = document.getElementsByTagName( 'input' ),
-			inputHTML = document.getElementsByTagName( 'textarea' );
+		    inputHTML = document.getElementsByTagName( 'textarea' );
 
 		for ( var i = 0 ; i < links.length ; i++ ) {
 			hrefAttribute = links[i].getAttribute( 'href' );

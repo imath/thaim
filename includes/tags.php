@@ -724,7 +724,7 @@ function thaim_print_download_button() {
 	$link = add_query_arg( 'redirectto', $link_data['url'], get_permalink() );
 	?>
 	<div class="wp-embed-download">
-		<a id="galerie-link" href="<?php echo esc_url( $link ); ?>" target="_top">
+		<a href="<?php echo esc_url( $link ); ?>" target="_top">
 			<span class="dashicons dashicons-download"></span>
 
 			<?php if ( ! empty( $link_data['count'] ) ) :
