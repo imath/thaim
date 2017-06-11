@@ -62,6 +62,7 @@ function thaim_has_stickies() {
  * By default, ignore stickies in WP_Query
  *
  * @since 2.0.0
+ * @since 2.2.0 Eventually switch the locale if needed.
  *
  * @param  WP_Query $qv The current WP_Query object.
  * @return WP_Query     The current WP_Query object.
@@ -462,6 +463,7 @@ add_action( 'login_init', 'thaim_login_screen_logo' );
  * Use a specific comments template for the Page used as a contact one.
  *
  * @since  2.1.0
+ * @since  2.2.0 Adds the flag report template.
  *
  * @return string the relative path to the comments template.
  */
@@ -494,6 +496,7 @@ function thaim_get_comment_template() {
  * Set a comment to be a question using the comment_type property.
  *
  * @since  2.1.0
+ * @since  2.2.0 Edit the comment data in case we need to set the flag comment type.
  *
  * @param  array  $comment_data The array containing the comment data to be saved in DB.
  * @return array                The array containing the comment data to be saved in DB.
@@ -525,6 +528,7 @@ add_filter( 'preprocess_comment', 'thaim_preprocess_comment', 10, 1 );
  * Add an option to the comment's types dropdown in the comments screen.
  *
  * @since  2.1.0
+ * @since  2.2.0 Adds the flag comment type.
  *
  * @param  array  $types The available comment's types (ping and regular comment by default).
  * @return array         The available comment's types (default types + the 'question' one).
@@ -669,6 +673,7 @@ add_action( 'comment_post', 'thaim_comment_post', 10, 3 );
  * Style the specific "gravatar" to easily visually see the difference between regular comments and questions.
  *
  * @since  2.1.0
+ * @since  2.2.0 Adds CSS rules for the flag reports dashicon.
  *
  * @return string CSS Output.
  */
@@ -714,6 +719,7 @@ add_action( 'admin_enqueue_scripts', 'thaim_admin_questions_inline_style' );
  * Use a specific "gravatar" for questions.
  *
  * @since  2.1.0
+ * @since  2.2.0 Include a new dashicon for flag reports.
  *
  * @param  null $output                   A null value to not override the avatar.
  * @param  WP_Comment|int|string $comment A comment object, a user ID or a user email.
@@ -736,6 +742,13 @@ function thaim_set_comment_author_avatar( $output = null, $comment = null ) {
 }
 add_filter( 'pre_get_avatar', 'thaim_set_comment_author_avatar', 11, 2 );
 
+/**
+ * Adds an hidden field to the flag report's form to save the flagged repository.
+ *
+ * @since 2.2.0
+ *
+ * @return string HTML Output.
+ */
 function comment_form_flag_fields() {
 	if ( '/flag.php' !== thaim_get_comment_template() || empty( $_REQUEST['repository'] ) ) {
 		return;
@@ -764,6 +777,16 @@ function thaim_question_post_redirect( $location = '', $comment = null ) {
 }
 add_filter( 'comment_post_redirect', 'thaim_question_post_redirect', 10, 2 );
 
+/**
+ * Prepends the Plugin Name to flag reports.
+ *
+ * @since 2.2.0
+ *
+ * @param  string     $content    The flag report's content.
+ * @param  integer    $comment_ID The comment ID.
+ * @param  WP_Comment $comment    The comment object.
+ * @return string                 The flag report's content.
+ */
 function thaim_flag_prepend_plugin_slug( $content = '', $comment_ID = 0, $comment = null ) {
 	if ( is_a( $comment_ID, 'WP_Comment' ) && 'get_comment_text' === current_filter() ) {
 		$comment = $comment_ID;
@@ -785,6 +808,14 @@ function thaim_flag_prepend_plugin_slug( $content = '', $comment_ID = 0, $commen
 add_filter( 'get_comment_excerpt', 'thaim_flag_prepend_plugin_slug', 10, 3 );
 add_filter( 'get_comment_text', 'thaim_flag_prepend_plugin_slug', 10, 3 );
 
+/**
+ * Output the github_release shortcode's content.
+ *
+ * @since 2.1.0
+ *
+ * @param  array  $atts The shortcode attributes.
+ * @return string       HTML output.
+ */
 function thaim_github_release( $atts = array(), $content = '' ) {
 	// Merge default with shortcode attributes
 	$a = shortcode_atts( array(
@@ -960,6 +991,14 @@ function thaim_github_release( $atts = array(), $content = '' ) {
 }
 add_shortcode( 'github_release', 'thaim_github_release' );
 
+/**
+ * Redirects the user to the Galerie latest download.
+ *
+ * This is necessary since only same domain url can be reached whithin
+ * the embedded Galerie page.
+ *
+ * @since 2.2.0
+ */
 function thaim_github_release_redirect() {
 	$post = get_post();
 
@@ -988,6 +1027,13 @@ function thaim_github_release_redirect() {
 }
 add_action( 'template_redirect', 'thaim_github_release_redirect', 12 );
 
+/**
+ * Output the content of the Translation metabox.
+ *
+ * @since 2.2.0
+ *
+ * @param  WP_Post $post The post type object.
+ */
 function thaim_galerie_page_excerpt_meta_box( $post = null ) {
 	if ( ! isset( $post->post_excerpt ) ) {
 		return;
@@ -1004,6 +1050,14 @@ function thaim_galerie_page_excerpt_meta_box( $post = null ) {
 	) );
 }
 
+/**
+ * Register a new metabox to translate the Galerie page content.
+ *
+ * @since 2.2.0
+ *
+ * @param  string $post_type The current post type name.
+ * @param  WP_Post $post     The post type object.
+ */
 function thaim_galerie_page_meta_boxes( $post_type = '', $post = null ) {
 	if ( 'en_US' === get_locale() || 'page' !== $post_type || empty( $post->ID ) || (int) $post->ID !== thaim()->galerie_page_id ) {
 		return;
@@ -1013,6 +1067,13 @@ function thaim_galerie_page_meta_boxes( $post_type = '', $post = null ) {
 }
 add_action( 'add_meta_boxes', 'thaim_galerie_page_meta_boxes', 1, 2 );
 
+/**
+ * Add a new rewrite tag to handle en_US tranlation.
+ *
+ * @since 2.2.0
+ *
+ * @global $wp_rewrite The WordPress rewrite object.
+ */
 function thaim_locale_rewrite_rule() {
 	global $wp_rewrite;
 
@@ -1035,6 +1096,15 @@ function thaim_locale_rewrite_rule() {
 }
 add_action( 'init', 'thaim_locale_rewrite_rule' );
 
+/**
+ * Adds a en-us suffix to the page permalink if needed.
+ *
+ * @since 2.2.0
+ *
+ * @param  string  $page_link The page permalink.
+ * @param  integer $page_id   The page ID.
+ * @return string             The page permalink.
+ */
 function thaim_locale_page_link( $page_link = '', $page_id = 0 ) {
 	if ( empty( $page_id ) || (int) $page_id !== thaim()->galerie_page_id ) {
 		return $page_link;
@@ -1048,6 +1118,15 @@ function thaim_locale_page_link( $page_link = '', $page_id = 0 ) {
 }
 add_filter( 'page_link', 'thaim_locale_page_link', 10, 2 );
 
+/**
+ * Avoids the flag report form to be output when not needed.
+ *
+ * @since 2.2.0
+ *
+ * @param  boolean $open    True to enable the comment form. False otherwise.
+ * @param  integer $page_id The post type ID being displayed.
+ * @return boolean          True to enable the comment form. False otherwise.
+ */
 function thaim_galerie_is_flag_report( $open = true, $page_id = 0 ) {
 	if ( false === $open ) {
 		return $open;
@@ -1061,6 +1140,15 @@ function thaim_galerie_is_flag_report( $open = true, $page_id = 0 ) {
 }
 add_filter( 'comments_open', 'thaim_galerie_is_flag_report', 10, 2 );
 
+/**
+ * Checks if switching locale is required.
+ *
+ * @since 2.2.0
+ *
+ * @param  integer $page_id The current post type ID being embedded.
+ * @param  string  $url     The embed url.
+ * @return integer          The current post type ID being embedded.
+ */
 function thaim_oembed_page_request_id( $page_id = 0, $url = '' ) {
 	if ( (int) $page_id !== thaim()->galerie_page_id ) {
 		return $page_id;
@@ -1076,6 +1164,14 @@ function thaim_oembed_page_request_id( $page_id = 0, $url = '' ) {
 }
 add_filter( 'oembed_request_post_id', 'thaim_oembed_page_request_id', 10, 2 );
 
+/**
+ * Restores the current locale if needed.
+ *
+ * @since 2.2.0
+ *
+ * @param  array  $data The embed data.
+ * @return array        The embed data.
+ */
 function thaim_oembed_response_data( $data = array() ) {
 	if ( is_locale_switched() ) {
 		restore_current_locale();

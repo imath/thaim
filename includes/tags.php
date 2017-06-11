@@ -744,6 +744,11 @@ function thaim_print_download_button() {
 	<?php
 }
 
+/**
+ * Outputs the Language switcher.
+ *
+ * @since 2.2.0
+ */
 function thaim_print_translate_button() {
 	$french  = wp_staticize_emoji( '🇫🇷' );
 	$english = wp_staticize_emoji( '🇬🇧' );
@@ -769,6 +774,11 @@ function thaim_print_translate_button() {
 	<?php
 }
 
+/**
+ * Enqueues specific embed styles and scripts & Prepares the embed content.
+ *
+ * @since 2.2.0
+ */
 function thaim_embed_enqueue_script() {
 	$post = get_post();
 
@@ -826,6 +836,7 @@ function thaim_embed_enqueue_script() {
 	if ( 'en_US' !== $locale ) {
 		$GLOBALS['post']->post_excerpt = '';
 	}
+
 	wp_localize_script( 'thaim-embed', 'l10nThaimEmbed', $l10nthaimembed );
 }
 add_action( 'enqueue_embed_scripts', 'thaim_embed_enqueue_script' );
