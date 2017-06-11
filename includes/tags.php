@@ -422,9 +422,7 @@ function thaim_featured_post() {
 	rsort( $stickies );
 
 	// Only keep the first post.
-	$featured_id = reset( $stickies );
-	//var_dump( $featured_id );
-
+	$featured_id   = reset( $stickies );
 	$featured_post = get_post( $featured_id );
 
 	if ( empty( $featured_post->ID ) || ! has_post_thumbnail( $featured_post ) ) {
@@ -449,9 +447,9 @@ function thaim_featured_post() {
 			<a href="<?php echo esc_url( $permalink ); ?>">
 				<span class="dashicons dashicons-admin-post"></span>
 				<span class="screen-reader-text">
-					<?php printf( esc_attr__( 'Lire %s', 'thaim'), $title ); ?>
+					<?php printf( esc_attr__( 'Read more about %s', 'thaim'), $title ); ?>
 				</span>
-				<?php echo $title; ?>
+				<span class="featured-post-title"><?php echo $title; ?></span>
 			</a>
 		</h2>
 	</div>
@@ -467,6 +465,71 @@ function thaim_featured_post() {
 function thaim_slider_handle() {
 	_deprecated_function( __FUNCTION__, '2.2.0', 'thaim_featured_post()' );
 	thaim_featured_post();
+}
+
+/**
+ * Checks the Galerie page is set.
+ *
+ * @since 2.2.0
+ */
+function thaim_has_hero_content() {
+	return is_front_page() && thaim()->galerie_page_id;
+}
+
+/**
+ * Displays the Galerie hero output.
+ *
+ * @since 2.2.0
+ */
+function thaim_hero() {
+	global $post;
+
+	$post = get_post( thaim()->galerie_page_id );
+	setup_postdata( $post );
+
+	$link  = get_the_permalink();
+	$title = get_the_title();
+
+	$more_link_text = sprintf(
+		'<span aria-label="%1$s">%2$s</span>',
+		sprintf(
+			/* translators: %s: Name of current post */
+			__( 'Continue reading %s', 'default' ),
+			the_title_attribute( array( 'echo' => false ) )
+		),
+		sprintf( __( 'Discover %s &rarr;', 'thaim' ), $title )
+	);
+	?>
+	<div class="twelvecol hero-wrapper">
+		<div class="twocol">&nbsp;</div>
+
+		<div class="twocol hero-thumbnail">
+			<?php printf( '<a href="%1$s">%2$s</a>',
+				esc_url( get_the_permalink() ),
+				get_the_post_thumbnail( null, 'thumbnail' )
+			); ?>
+		</div><!--.hero-thumbnail-->
+
+		<div class="sixcol hero-content">
+			<h2>
+				<a href="<?php echo esc_url( get_the_permalink() ); ?>">
+					<span class="screen-reader-text">
+						<?php printf( esc_attr__( 'Discover %s', 'thaim' ), $title ); ?>
+					</span>
+					<?php echo $title; ?>
+				</a>
+			</h2>
+
+			<article class="hero-article">
+				<?php the_content( $more_link_text ); ?>
+			</article>
+		</div><!--.hero-content-->
+
+		<div class="fourcol last">&nbsp;</div>
+	</div><!--.hero-wrapper-->
+	<?php
+
+	wp_reset_postdata();
 }
 
 /**
@@ -783,8 +846,11 @@ function thaim_embed_enqueue_script() {
 	wp_enqueue_style ( 'thaim-embed', get_template_directory_uri() . '/css/embed.css', thaim()->version, 'all' );
 	wp_enqueue_script( 'thaim-embed', get_template_directory_uri() . '/js/embed.js', array(), thaim()->version, true );
 
-	$fr_fr = apply_filters( 'the_excerpt_embed', wp_trim_excerpt( $post->post_content ) );
-	$en_us = apply_filters( 'the_excerpt_embed', wp_trim_excerpt( $post->post_excerpt ) );
+	$content = array(
+		'fr_FR' => strip_shortcodes( $post->post_content ),
+		'en_US' => strip_shortcodes( $post->post_excerpt ),
+	);
+
 	$link_fr = str_replace( 'en-us/', '', get_permalink( $post ) );
 	$link_us = trailingslashit( $link_fr ) . 'en-us/';
 
@@ -794,7 +860,11 @@ function thaim_embed_enqueue_script() {
 		'en_US' => 'fr_FR',
 	);
 
+	$content[ $locale ] = apply_filters( 'the_excerpt_embed', wp_trim_words( $content[ $locale ], thaim_excerpt_length(), thaim_excerpt_more() ) );
+
 	switch_to_locale( $switch[ $locale ] );
+
+	$content[ $switch[ $locale ] ] = apply_filters( 'the_excerpt_embed', wp_trim_words( $content[ $switch[ $locale ] ], thaim_excerpt_length(), thaim_excerpt_more() ) );
 
 	$ui_strings = array(
 		'wp-embed-share-dialog-open'           => esc_attr__( 'Open sharing dialog', 'default' ),
@@ -813,20 +883,19 @@ function thaim_embed_enqueue_script() {
 			'fr_FR' => esc_url_raw( $link_fr ),
 			'en_US' => esc_url_raw( $link_us ),
 		),
-		'content'   => array(
-			'fr_FR' => $fr_fr,
-			'en_US' => $en_us,
-		),
+		'content'   => $content,
 		'uiStrings' => array(
 			$switch[ $locale ] => $ui_strings,
 		),
 		'currentLocale' => $locale,
 	);
 
-	if ( 'en_US' !== $locale ) {
-		$GLOBALS['post']->post_excerpt = '';
-	}
+	$GLOBALS['post']->post_excerpt = '';
+	$GLOBALS['post']->post_content = $content[ $locale ];
 
 	wp_localize_script( 'thaim-embed', 'l10nThaimEmbed', $l10nthaimembed );
+
+	remove_filter( 'excerpt_more', 'wp_embed_excerpt_more', 20 );
+	add_filter( 'the_excerpt_embed', 'thaim_galerie_embed_excerpt', 10, 1 );
 }
 add_action( 'enqueue_embed_scripts', 'thaim_embed_enqueue_script' );

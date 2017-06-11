@@ -339,6 +339,7 @@ h3.clusterpress a {
 	color: #FFF;
 	background: #23282d;
 	border-bottom: 1px solid #23282d;
+	overflow: hidden;
 }
 
 #thaim-headline .wrapper > h2 a {
@@ -365,15 +366,22 @@ h3.clusterpress a {
 	margin: 1.428571429rem 0;
 }
 
-#thaim-headline .thaim-in-headline p {
+#thaim-headline .thaim-in-headline p,
+#thaim-hero .hero-content p {
 	font-size: 14px;
 	font-size:1rem;
 	text-rendering: optimizeLegibility;
 }
 
-#thaim-headline .featured_post > h2 a {
+#thaim-headline .featured_post > h2 a,
+#thaim-hero .hero-content > h2 a,
+#thaim-hero .hero-content a.more-link {
 	text-decoration: none;
 	color: #FFF;
+}
+
+#thaim-hero .hero-content > h2 {
+	text-align: center;
 }
 
 #thaim-headline .featured_post > h2 a:hover {
@@ -384,23 +392,72 @@ h3.clusterpress a {
 	position: relative;
 }
 
+#thaim-headline .featured_post > h2 a {
+	display: block;
+	padding: 0 1em 0 0.5em;
+	width: 100%;
+	overflow: hidden;
+}
+
 #thaim-headline .featured_post > h2 {
 	font-size: 2.1em;
 	line-height: 2.2em;
-	position: absolute;
 	top: 2em;
-	background-color: rgba(0, 0, 0, 0.5);
-	padding: 0 1em 0 0.5em;
-	margin-left: 1.5em;
+	width: 100%;
+}
+
+#thaim-headline .thumbnail img {
+	display: block;
+	margin: 0 auto;
+}
+
+#thaim-hero .hero-content > h2 a {
+	font-size: 2.1em;
+	line-height: 2.2em;
+	margin-bottom: 20px;
+	margin-bottom: 1.428571429rem;
 }
 
 #thaim-headline .wrapper h2 span.dashicons-admin-post {
 	transform: rotate( 270deg );
+	float: left;
+	margin-top: 0.8em;
+}
+
+#thaim-headline .wrapper h2 span.featured-post-title {
+	display: inline-block;
+	width: 80%;
+	margin-left: 0.5em;
+	float: left;
 }
 
 #thaim-headline .featured_post {
 	padding: 20px 0;
 	padding: 1.428571429rem 0;
+}
+
+#thaim-hero {
+	background-color: #d54e21;
+	padding: 20px 0;
+	padding: 1.428571429rem 0;
+	overflow: hidden;
+}
+
+#thaim-hero .hero-thumbnail img {
+	box-shadow: none;
+	display: block;
+	margin: 0 auto;
+}
+
+#thaim-hero .hero-content {
+	color: #fff;
+}
+
+#thaim-hero .hero-content a.more-link {
+	display: block;
+	margin-top: 20px;
+	margin-top: 1.428571429rem;
+	font-weight: bolder;
 }
 
 #thaim-content {
@@ -1909,6 +1966,24 @@ div.action-links,
 
 	.commentlist article {
 		border-bottom:dotted 1px #C9C9C9;
+	}
+
+	#thaim-headline .featured_post > h2 {
+		position: absolute;
+	}
+
+	#thaim-headline .wrapper h2 span.featured-post-title {
+		width: 90%
+	}
+
+	#thaim-headline .featured_post > h2 a {
+		background-color: rgba(0, 0, 0, 0.5);
+		margin: 0 auto;
+		width: 80%;
+	}
+
+	#thaim-hero .hero-content > h2 {
+		text-align: left;
 	}
 }
 

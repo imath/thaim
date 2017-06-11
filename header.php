@@ -67,6 +67,24 @@
 		<!-- /Wrapper -->
 	</div>
 
+	<?php if ( thaim_has_hero_content() ) : ?>
+
+		<div id="thaim-hero">
+			<!-- Wrapper -->
+			<div class="wrapper">
+
+				<div class="row">
+
+					<?php thaim_hero();?>
+
+				</div>
+
+			</div>
+			<!-- /Wrapper -->
+		</div>
+
+	<?php endif ; ?>
+
 	<div id="thaim-content" role="main">
 
 		<!-- Wrapper -->

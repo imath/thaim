@@ -20,3 +20,8 @@
 .wp-embed-translate .thaim-translate-emoji.hidden {
 	display: none;
 }
+
+.wp-embed-featured-image img {
+	-webkit-filter: invert(100%);
+	filter: invert(100%);
+}

@@ -1163,3 +1163,14 @@ function thaim_oembed_response_data( $data = array() ) {
 	return $data;
 }
 add_filter( 'oembed_response_data', 'thaim_oembed_response_data', 11, 1 );
+
+/**
+ * Output the full content for the Galerie embed page.
+ *
+ * @since 2.2.0
+ * 
+ * @return string HTML Output.
+ */
+function thaim_galerie_embed_excerpt() {
+	return get_the_content();
+}
