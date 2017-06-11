@@ -1004,7 +1004,7 @@ function thaim_github_release_redirect() {
 	}
 
 	// The excerpt should contain the english version of the page.
-	if ( 'en_US' === get_locale() && $post->post_excerpt ) {
+	if ( 'en_US' === get_locale() && $post->post_excerpt && ! is_embed() ) {
 		$GLOBALS['post']->post_content = $post->post_excerpt;
 	}
 }
