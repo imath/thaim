@@ -980,6 +980,11 @@ function thaim_github_release_redirect() {
 			}
 		}
 	}
+
+	// The excerpt should contain the english version of the page.
+	if ( 'en_US' === get_locale() && $post->post_excerpt ) {
+		$GLOBALS['post']->post_content = $post->post_excerpt;
+	}
 }
 add_action( 'template_redirect', 'thaim_github_release_redirect', 12 );
 
@@ -1042,6 +1047,19 @@ function thaim_locale_page_link( $page_link = '', $page_id = 0 ) {
 	return $page_link;
 }
 add_filter( 'page_link', 'thaim_locale_page_link', 10, 2 );
+
+function thaim_galerie_is_flag_report( $open = true, $page_id = 0 ) {
+	if ( false === $open ) {
+		return $open;
+	}
+
+	if ( (int) $page_id !== thaim()->galerie_page_id ) {
+		return $open;
+	}
+
+	return isset( $_REQUEST['repository'] ) || isset( $_REQUEST['message'] );
+}
+add_filter( 'comments_open', 'thaim_galerie_is_flag_report', 10, 2 );
 
 function thaim_oembed_page_request_id( $page_id = 0, $url = '' ) {
 	if ( (int) $page_id !== thaim()->galerie_page_id ) {
