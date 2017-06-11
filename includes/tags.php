@@ -379,10 +379,10 @@ function thaim_post_term_description() {
  * @since 1.0.0
  */
 function thaim_headline() {
-	// if On home and There are stickies, display the Thaim Slider
+	// if On home and There are stickies, display the Featured post
 	if ( is_front_page() && thaim_has_stickies() && 1 >= get_query_var( 'paged' ) ) {
 
-		thaim_slider_handle();
+		thaim_featured_post();
 
 	} else {
 
@@ -410,73 +410,63 @@ function thaim_headline() {
 	do_action( 'thaim_headline' );
 }
 
+function thaim_featured_post() {
+	$default_headline = sprintf( '<h2>%s</h2>', thaim_headline_get_h2() );
+
+	if ( ! thaim_has_stickies() ) {
+		echo $default_headline;
+		return;
+	}
+
+	$stickies = thaim()->stickies;
+	rsort( $stickies );
+
+	// Only keep the first post.
+	$featured_id = reset( $stickies );
+	//var_dump( $featured_id );
+
+	$featured_post = get_post( $featured_id );
+
+	if ( empty( $featured_post->ID ) || ! has_post_thumbnail( $featured_post ) ) {
+		echo $default_headline;
+		return;
+	}
+
+	$permalink = get_permalink( $featured_post );
+	$title     = get_the_title( $featured_post );
+	?>
+	<div class="twelvecol featured_post">
+		<div class="thumbnail">
+
+			<?php printf( '<a href="%1$s">%2$s</a>',
+				esc_url( $permalink ),
+				get_the_post_thumbnail( $featured_post, 'full' )
+			); ?>
+
+		</div>
+
+		<h2>
+			<a href="<?php echo esc_url( $permalink ); ?>">
+				<span class="dashicons dashicons-admin-post"></span>
+				<span class="screen-reader-text">
+					<?php printf( esc_attr__( 'Lire %s', 'thaim'), $title ); ?>
+				</span>
+				<?php echo $title; ?>
+			</a>
+		</h2>
+	</div>
+	<?php
+}
+
 /**
  * Thaim Slider
  *
  * @since 1.0.0
+ * @deprecated 2.2.0
  */
 function thaim_slider_handle() {
-	if ( ! thaim_has_stickies() ) {
-		return;
-	}
-
-	query_posts( array(
-		'post__in' => thaim()->stickies
-	) );
-
-	if ( have_posts() ) : ?>
-
-	<div class="thaim-hero-slide-container">
-
-		<?php while ( have_posts() ) : the_post(); ?>
-
-		<div class="thaim-hero-slide">
-
-			<?php if ( has_post_thumbnail() ) :?>
-
-				<div class="post-thumbnail fivecol">
-					<?php the_post_thumbnail( 'medium' ); ?>
-					<div class="cycle-overlay">
-						<h2><a href="<?php the_permalink();?>" title="<?php the_title();?>"><?php the_title()?></a></h2>
-					</div>
-				</div>
-				<div class="sevencol last">
-					<div class="thaim-slide-article">
-
-						<h2><a href="<?php the_permalink();?>" title="<?php the_title();?>"><?php the_title()?></a></h2>
-
-						<?php thaim_excerpt('desc', false ); ?>
-
-					</div>
-				</div>
-
-			<?php else: ?>
-
-				<div class="twelvecol">
-					<div class="thaim-slide-article">
-						<h2><a href="<?php the_permalink();?>" title="<?php the_title();?>"><?php the_title()?></a></h2>
-
-						<?php thaim_excerpt( 'desc', false ); ?>
-
-					</div>
-				</div>
-			<?php endif; ?>
-
-		</div>
-
-		<?php endwhile; ?>
-
-	</div>
-
-	<div class="thaim-slide-nav"></div>
-
-	<?php else: ?>
-
-		<h2><?php esc_html_e( 'Home', 'thaim' );?></h2>
-
-	<?php endif;
-
-	wp_reset_query();
+	_deprecated_function( __FUNCTION__, '2.2.0', 'thaim_featured_post()' );
+	thaim_featured_post();
 }
 
 /**

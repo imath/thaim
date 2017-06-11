@@ -37,10 +37,6 @@ jQuery( function( $ ) {
 		$header.find( '.wrapper' ).css( 'height', 'auto' );
 		$header.css( 'background-position', 'bottom' );
 
-		if ( $( '.thaim-hero-slide-container .fivecol' ).length ) {
-			$( '.thaim-hero-slide-container .fivecol' ).addClass( 'last' );
-		}
-
 		$( 'header#thaim-site' ).css( {
 			'border-bottom': '1px solid #DFDFDF'
 		} );
@@ -84,10 +80,6 @@ jQuery( function( $ ) {
 					'background-position': 'top left',
 					'border-bottom': 'none'
 				} );
-
-				if ( $( '.thaim-hero-slide-container .fivecol' ).length ) {
-					$( '.thaim-hero-slide-container .fivecol' ).removeClass( 'last' );
-				}
 			}
 		}, 200 );
 	} );

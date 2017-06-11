@@ -371,6 +371,38 @@ h3.clusterpress a {
 	text-rendering: optimizeLegibility;
 }
 
+#thaim-headline .featured_post > h2 a {
+	text-decoration: none;
+	color: #FFF;
+}
+
+#thaim-headline .featured_post > h2 a:hover {
+	color: #d54e21;
+}
+
+#thaim-headline .featured_post {
+	position: relative;
+}
+
+#thaim-headline .featured_post > h2 {
+	font-size: 2.1em;
+	line-height: 2.2em;
+	position: absolute;
+	top: 2em;
+	background-color: rgba(0, 0, 0, 0.5);
+	padding: 0 1em 0 0.5em;
+	margin-left: 1.5em;
+}
+
+#thaim-headline .wrapper h2 span.dashicons-admin-post {
+	transform: rotate( 270deg );
+}
+
+#thaim-headline .featured_post {
+	padding: 20px 0;
+	padding: 1.428571429rem 0;
+}
+
 #thaim-content {
 	background:#FFF;
 }

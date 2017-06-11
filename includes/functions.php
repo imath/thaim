@@ -118,23 +118,6 @@ function thaim_scripts() {
 	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/js/modernizr.min.js', array( 'jquery' ), '2.6.2' );
 	wp_enqueue_script( 'thaimscripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ), '2.0.0' );
 
-	// Load the needed scripts for Thaim Slider
-	if ( is_front_page() && thaim_has_stickies() && 1 >= get_query_var( 'paged' ) ) {
-		wp_enqueue_style( 'thaim-cycle-style', get_template_directory_uri() .'/css/slider.css' );
-		wp_enqueue_script( 'thaim-cycle-js', get_template_directory_uri() .'/js/jquery.cycle2.min.js', array( 'jquery' ), '2.1.6', true );
-
-		wp_add_inline_script( 'thaim-cycle-js', '
-			jQuery( document ).ready( function( $ ) {
-				$( ".thaim-hero-slide-container" ).cycle( {
-					fx:		"scrollHorz",
-				    pager:  ".thaim-slide-nav",
-				    timeout: 8000,
-				    slides : ".thaim-hero-slide"
-				} );
-			} );
-		' );
-	}
-
 	// Threaded comments
 	if ( is_singular() && comments_open() && 1 === (int) get_option('thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
