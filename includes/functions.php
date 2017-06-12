@@ -1204,3 +1204,30 @@ add_filter( 'oembed_response_data', 'thaim_oembed_response_data', 11, 1 );
 function thaim_galerie_embed_excerpt() {
 	return get_the_content();
 }
+
+/**
+ * Gets the output for the country flag.
+ *
+ * @since 2.2.0
+ *
+ * @param  string $locale The locale to get the country flag for.
+ * @return string         HTML Output.
+ */
+function thaim_get_static_country_flag( $locale = '' ) {
+	$return = '';
+
+	if ( ! $locale ) {
+		$locale = get_locale();
+	}
+
+	$flags = array(
+		'fr_FR' => '🇫🇷',
+		'en_US' => '🇬🇧',
+	);
+
+	if ( isset( $flags[ $locale ] ) ) {
+		$return = wp_staticize_emoji( $flags[ $locale ] );
+	}
+
+	return $return;
+}

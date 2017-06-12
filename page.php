@@ -22,9 +22,13 @@ get_header(); ?>
 
 			</div>
 
-			<br class="clear">
+			<footer class="entry-meta">
 
-			<?php edit_post_link(); ?>
+				<?php thaim_page_meta(); ?>
+
+			</footer>
+
+			<br class="clear">
 
 		</article>
 		<!-- /Article -->

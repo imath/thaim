@@ -803,8 +803,8 @@ function thaim_print_download_button() {
  * @since 2.2.0
  */
 function thaim_print_translate_button() {
-	$french  = wp_staticize_emoji( '🇫🇷' );
-	$english = wp_staticize_emoji( '🇬🇧' );
+	$french  = thaim_get_static_country_flag( 'fr_FR' );
+	$english = thaim_get_static_country_flag( 'en_US' );
 
 	if ( is_locale_switched() ) {
 		$to         = $french;
@@ -873,19 +873,19 @@ function thaim_embed_enqueue_script() {
 	$content[ $switch[ $locale ] ] = apply_filters( 'the_excerpt_embed', wp_trim_words( $content[ $switch[ $locale ] ], $length[ $switch[ $locale ] ], thaim_excerpt_more() ) );
 
 	$ui_strings = array(
-		/* translators do not translate, it's already done in WordPress*/
+		/* translators: do not translate, it's already done in WordPress */
 		'wp-embed-share-dialog-open'           => esc_attr__( 'Open sharing dialog', 'default' ),
-		/* translators do not translate, it's already done in WordPress*/
+		/* translators: do not translate, it's already done in WordPress */
 		'wp-embed-share-dialog'                => esc_attr__( 'Sharing options', 'default' ),
-		/* translators do not translate, it's already done in WordPress*/
+		/* translators: do not translate, it's already done in WordPress */
 		'wp-embed-share-tab-button-wordpress'  => esc_html__( 'WordPress Embed', 'default' ),
-		/* translators do not translate, it's already done in WordPress*/
+		/* translators: do not translate, it's already done in WordPress */
 		'wp-embed-share-tab-button-html'       => esc_html__( 'HTML Embed', 'default' ),
-		/* translators do not translate, it's already done in WordPress*/
+		/* translators: do not translate, it's already done in WordPress */
 		'wp-embed-share-description-wordpress' => esc_html__( 'Copy and paste this URL into your WordPress site to embed', 'default' ),
-		/* translators do not translate, it's already done in WordPress*/
+		/* translators: do not translate, it's already done in WordPress */
 		'wp-embed-share-description-html'      => esc_html__( 'Copy and paste this code into your site to embed', 'default' ),
-		/* translators do not translate, it's already done in WordPress*/
+		/* translators: do not translate, it's already done in WordPress */
 		'wp-embed-share-dialog-close'          => esc_html__( 'Close sharing dialog', 'default' ),
 	);
 
@@ -912,3 +912,73 @@ function thaim_embed_enqueue_script() {
 	add_filter( 'the_excerpt_embed', 'thaim_galerie_embed_excerpt', 10, 1 );
 }
 add_action( 'enqueue_embed_scripts', 'thaim_embed_enqueue_script' );
+
+/**
+ * Output page meta links.
+ *
+ * @since 2.2.0
+ */
+function thaim_page_meta() {
+	$post = get_post();
+
+	if ( empty( $post->ID  ) ) {
+		return;
+	}
+
+	$metas = array( array(
+		'before' => '<span class="edit-link">',
+		'class'  => 'post-edit-link',
+		'url'    => get_edit_post_link( $post->ID ),
+		'text'   => esc_html__( 'Edit', 'thaim' ),
+		'after'  => '</span>',
+	) );
+
+	if ( (int) $post->ID === thaim()->galerie_page_id ) {
+		$locale = get_locale();
+		$link = get_permalink( $post );
+
+		if ( 'fr_FR' !== $locale ) {
+			$locale = 'en_US';
+			$link = str_replace( 'en-us/', '', $link );
+		} else {
+			$link = trailingslashit( $link ) . 'en-us/';
+		}
+
+		$locales = array(
+			'fr_FR' => sprintf( 'View this page in %s', thaim_get_static_country_flag( 'en_US' ) ),
+			'en_US' => sprintf( 'Voir cette page en %s', thaim_get_static_country_flag( 'fr_FR' ) ),
+		);
+
+		$metas[] = array(
+			'before' => '<span class="translate-link">',
+			'class'  => 'thaim-translate-meta',
+			'url'    => $link,
+			'text'   => $locales[ $locale ],
+			'after'  => '</span>',
+		);
+	}
+
+	/**
+	 * Filter here to add meta links.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param array $meta   The list of meta to add.
+	 * @param WP_Post $post The Post type object.
+	 */
+	$page_metas = apply_filters( 'thaim_page_meta', $metas, $post );
+
+	if ( empty( $page_metas ) ) {
+		return;
+	}
+
+	foreach ( $page_metas as $page_meta ) {
+		printf( '%1$s<a class="%2$s" href="%3$s">%4$s</a>%5$s&nbsp;',
+			$page_meta['before'],
+			sanitize_html_class( $page_meta['class'] ),
+			esc_url( $page_meta['url'] ),
+			$page_meta['text'],
+			$page_meta['after']
+		);
+	}
+}

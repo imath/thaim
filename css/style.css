@@ -362,6 +362,12 @@ h3.clusterpress a {
 	color: #FFF;
 }
 
+#thaim-hero .hero-content p a:not( .more-link ) {
+	color: #FFF;
+	text-underline-position: below;
+	text-underline-position: under;
+}
+
 #thaim-hero .hero-content > h2 {
 	text-align: center;
 }

@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: thaim 1.0-beta1\n"
 "Report-Msgid-Bugs-To: https://github.com/imath/thaim/issues\n"
-"POT-Creation-Date: 2017-06-12 05:26:23+00:00\n"
-"PO-Revision-Date: 2017-06-12 07:33+0100\n"
+"POT-Creation-Date: 2017-06-12 19:15:20+00:00\n"
+"PO-Revision-Date: 2017-06-12 21:16+0100\n"
 "Last-Translator: imath <mathchristo@yahoo.fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -80,6 +80,7 @@ msgid "% Replies"
 msgstr "% commentaires"
 
 #: entry-single.php:38 entry.php:45 includes/tags.php:234
+#: includes/tags.php:932
 msgid "Edit"
 msgstr "Modifier"
 
@@ -236,7 +237,7 @@ msgstr "Télécharger"
 msgid "Download tag %s"
 msgstr "Télécharger la version %s"
 
-#: includes/functions.php:1077
+#: includes/functions.php:1079
 msgid "American Translation"
 msgstr "Traduction américaine"
 
@@ -400,31 +401,38 @@ msgid_plural "%s <span class=\"screen-reader-text\">Downloads</span>"
 msgstr[0] "%s <span class=\"screen-reader-text\"> Téléchargement</span>"
 msgstr[1] "%s <span class=\"screen-reader-text\"> Téléchargements</span>"
 
-#: includes/tags.php:872
+#. translators: do not translate, it's already done in WordPress
+#: includes/tags.php:877
 msgid "Open sharing dialog"
 msgstr ""
 
-#: includes/tags.php:874
+#. translators: do not translate, it's already done in WordPress
+#: includes/tags.php:879
 msgid "Sharing options"
 msgstr ""
 
-#: includes/tags.php:876
+#. translators: do not translate, it's already done in WordPress
+#: includes/tags.php:881
 msgid "WordPress Embed"
 msgstr ""
 
-#: includes/tags.php:878
+#. translators: do not translate, it's already done in WordPress
+#: includes/tags.php:883
 msgid "HTML Embed"
 msgstr ""
 
-#: includes/tags.php:880
+#. translators: do not translate, it's already done in WordPress
+#: includes/tags.php:885
 msgid "Copy and paste this URL into your WordPress site to embed"
 msgstr ""
 
-#: includes/tags.php:882
+#. translators: do not translate, it's already done in WordPress
+#: includes/tags.php:887
 msgid "Copy and paste this code into your site to embed"
 msgstr ""
 
-#: includes/tags.php:884
+#. translators: do not translate, it's already done in WordPress
+#: includes/tags.php:889
 msgid "Close sharing dialog"
 msgstr ""
 

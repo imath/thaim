@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: thaim 2.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/imath/thaim/issues\n"
-"POT-Creation-Date: 2017-06-12 05:26:23+00:00\n"
+"POT-Creation-Date: 2017-06-12 19:15:20+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -69,7 +69,7 @@ msgstr ""
 msgid "% Replies"
 msgstr ""
 
-#: entry-single.php:38 entry.php:45 includes/tags.php:234
+#: entry-single.php:38 entry.php:45 includes/tags.php:234 includes/tags.php:932
 msgid "Edit"
 msgstr ""
 
@@ -222,7 +222,7 @@ msgstr ""
 msgid "Download tag %s"
 msgstr ""
 
-#: includes/functions.php:1077
+#: includes/functions.php:1079
 msgid "American Translation"
 msgstr ""
 
@@ -375,31 +375,38 @@ msgid_plural "%s <span class=\"screen-reader-text\">Downloads</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/tags.php:872
+#: includes/tags.php:877
+#. translators: do not translate, it's already done in WordPress
 msgid "Open sharing dialog"
 msgstr ""
 
-#: includes/tags.php:874
+#: includes/tags.php:879
+#. translators: do not translate, it's already done in WordPress
 msgid "Sharing options"
 msgstr ""
 
-#: includes/tags.php:876
+#: includes/tags.php:881
+#. translators: do not translate, it's already done in WordPress
 msgid "WordPress Embed"
 msgstr ""
 
-#: includes/tags.php:878
+#: includes/tags.php:883
+#. translators: do not translate, it's already done in WordPress
 msgid "HTML Embed"
 msgstr ""
 
-#: includes/tags.php:880
+#: includes/tags.php:885
+#. translators: do not translate, it's already done in WordPress
 msgid "Copy and paste this URL into your WordPress site to embed"
 msgstr ""
 
-#: includes/tags.php:882
+#: includes/tags.php:887
+#. translators: do not translate, it's already done in WordPress
 msgid "Copy and paste this code into your site to embed"
 msgstr ""
 
-#: includes/tags.php:884
+#: includes/tags.php:889
+#. translators: do not translate, it's already done in WordPress
 msgid "Close sharing dialog"
 msgstr ""
 
