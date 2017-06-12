@@ -9,6 +9,30 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Get the JS minified suffix.
+ *
+ * @since  1.0.0
+ *
+ * @return string the JS minified suffix.
+ */
+function thaim_min_suffix() {
+	$min = '.min';
+
+	if ( defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG )  {
+		$min = '';
+	}
+
+	/**
+	 * Filter here to edit the minified suffix.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @param  string $min The minified suffix.
+	 */
+	return apply_filters( 'thaim_min_suffix', $min );
+}
+
+/**
  * Thaim fonts
  *
  * @since 2.0.0
@@ -97,15 +121,17 @@ add_action( 'parse_query', 'thaim_parse_query', 10, 1 );
  * @since 1.0.0
  */
 function thaim_styles() {
-	wp_enqueue_style( 'normalize', get_template_directory_uri() . '/css/normalize.css', array(), '2.6.2', 'all' );
+	$min = thaim_min_suffix();
+
+	wp_enqueue_style( 'normalize', get_template_directory_uri() . "/css/normalize{$min}.css", array(), '2.6.2', 'all' );
 
 	$font_url = thaim_get_font_url();
 	if ( ! empty( $font_url ) ) {
 		wp_enqueue_style( 'thaim-fonts', esc_url_raw( $font_url ), array(), null );
 	}
 
-	wp_enqueue_style( 'thaim-1140', get_template_directory_uri() . '/css/1140.css', array(), 'all' );
-	wp_enqueue_style( 'thaim', get_stylesheet_uri(), array( 'dashicons' ), thaim()->version, 'all' );
+	wp_enqueue_style( 'thaim-1140', get_template_directory_uri() . "/css/1140{$min}.css", array(), null, 'all' );
+	wp_enqueue_style( 'thaim', get_template_directory_uri() . "/css/style{$min}.css", array( 'dashicons' ), thaim()->version, 'all' );
 }
 add_action( 'wp_enqueue_scripts', 'thaim_styles' );
 
@@ -115,8 +141,10 @@ add_action( 'wp_enqueue_scripts', 'thaim_styles' );
  * @since 1.0.0
  */
 function thaim_scripts() {
+	$min = thaim_min_suffix();
+
 	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/js/modernizr.min.js', array( 'jquery' ), '2.6.2' );
-	wp_enqueue_script( 'thaimscripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ), '2.0.0' );
+	wp_enqueue_script( 'thaimscripts', get_template_directory_uri() . "/js/scripts{$min}.js", array( 'jquery' ), '2.0.0' );
 
 	// Threaded comments
 	if ( is_singular() && comments_open() && 1 === (int) get_option('thread_comments' ) ) {
@@ -1168,7 +1196,7 @@ add_filter( 'oembed_response_data', 'thaim_oembed_response_data', 11, 1 );
  * Output the full content for the Galerie embed page.
  *
  * @since 2.2.0
- * 
+ *
  * @return string HTML Output.
  */
 function thaim_galerie_embed_excerpt() {

@@ -1,3 +1,5 @@
+/* global l10nThaimEmbed */
+
 ( function ( window, document ) {
 	'use strict';
 
@@ -33,7 +35,7 @@
 		excerpt[0].innerHTML = l10nThaimEmbed.content[ locale ];
 
 		// Update UI strings
-		thaimGetStrings( l10nThaimEmbed.uiStrings[ locales[ locale ] ], l10nThaimEmbed.uiStrings[ locale ]  );
+		window.thaimGetStrings( l10nThaimEmbed.uiStrings[ locales[ locale ] ], l10nThaimEmbed.uiStrings[ locale ]  );
 	};
 
 	/**
@@ -66,11 +68,13 @@
 					break;
 				case 'wp-embed-share-tab-button-wordpress' :
 				case 'wp-embed-share-tab-button-html'      :
+					/* jshint ignore:start */
 					document.getElementsByClassName( k )[0].childNodes.forEach( function( child ) {
 						if ( 'BUTTON' === child.nodeName ) {
 							e = child;
 						}
 					} );
+					/* jshint ignore:end */
 
 					strings[ k ] = e.innerHTML;
 
@@ -113,7 +117,7 @@
 		spans  = target.parentElement.getElementsByClassName( 'thaim-translate-emoji' );
 
 		// Translate
-		thaimTranslate( locale );
+		window.thaimTranslate( locale );
 
 		for ( var i = 0 ; i < spans.length ; i++ ) {
 			if ( -1 === spans[i].className.indexOf( 'hidden' ) ) {
@@ -133,7 +137,7 @@
 	window.addEventListener( 'load', function() {
 		var t = Object.keys( l10nThaimEmbed.uiStrings )[0];
 
-		l10nThaimEmbed.uiStrings[ l10nThaimEmbed.currentLocale ] = thaimGetStrings( l10nThaimEmbed.uiStrings[ t ] );
+		l10nThaimEmbed.uiStrings[ l10nThaimEmbed.currentLocale ] = window.thaimGetStrings( l10nThaimEmbed.uiStrings[ t ] );
 	}, false );
 
 } )( window, document );

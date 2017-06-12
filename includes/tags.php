@@ -834,6 +834,7 @@ function thaim_print_translate_button() {
  */
 function thaim_embed_enqueue_script() {
 	$post = get_post();
+	$min  = thaim_min_suffix();
 
 	if ( empty( $post->ID ) || thaim()->galerie_page_id !== (int) $post->ID ) {
 		return;
@@ -843,8 +844,8 @@ function thaim_embed_enqueue_script() {
 	add_action( 'embed_content_meta', 'thaim_print_translate_button', 1 );
 	add_action( 'embed_content_meta', 'thaim_print_download_button',  3 );
 
-	wp_enqueue_style ( 'thaim-embed', get_template_directory_uri() . '/css/embed.css', thaim()->version, 'all' );
-	wp_enqueue_script( 'thaim-embed', get_template_directory_uri() . '/js/embed.js', array(), thaim()->version, true );
+	wp_enqueue_style ( 'thaim-embed', get_template_directory_uri() . "/css/embed{$min}.css", thaim()->version, 'all' );
+	wp_enqueue_script( 'thaim-embed', get_template_directory_uri() . "/js/embed{$min}.js", array(), thaim()->version, true );
 
 	$content = array(
 		'fr_FR' => strip_shortcodes( $post->post_content ),
@@ -867,12 +868,19 @@ function thaim_embed_enqueue_script() {
 	$content[ $switch[ $locale ] ] = apply_filters( 'the_excerpt_embed', wp_trim_words( $content[ $switch[ $locale ] ], thaim_excerpt_length(), thaim_excerpt_more() ) );
 
 	$ui_strings = array(
+		/* translators do not translate, it's already done in WordPress*/
 		'wp-embed-share-dialog-open'           => esc_attr__( 'Open sharing dialog', 'default' ),
+		/* translators do not translate, it's already done in WordPress*/
 		'wp-embed-share-dialog'                => esc_attr__( 'Sharing options', 'default' ),
+		/* translators do not translate, it's already done in WordPress*/
 		'wp-embed-share-tab-button-wordpress'  => esc_html__( 'WordPress Embed', 'default' ),
+		/* translators do not translate, it's already done in WordPress*/
 		'wp-embed-share-tab-button-html'       => esc_html__( 'HTML Embed', 'default' ),
+		/* translators do not translate, it's already done in WordPress*/
 		'wp-embed-share-description-wordpress' => esc_html__( 'Copy and paste this URL into your WordPress site to embed', 'default' ),
+		/* translators do not translate, it's already done in WordPress*/
 		'wp-embed-share-description-html'      => esc_html__( 'Copy and paste this code into your site to embed', 'default' ),
+		/* translators do not translate, it's already done in WordPress*/
 		'wp-embed-share-dialog-close'          => esc_html__( 'Close sharing dialog', 'default' ),
 	);
 

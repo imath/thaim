@@ -1,3 +1,5 @@
+/* global Modernizr */
+
 // DOM Ready
 jQuery( function( $ ) {
 
@@ -10,8 +12,8 @@ jQuery( function( $ ) {
 	}
 
 	// iPhone Safari URL bar hides itself on pageload
-	if ( navigator.userAgent.indexOf( 'iPhone' ) != -1 ) {
-	    addEventListener("load", function () {
+	if ( navigator.userAgent.indexOf( 'iPhone' ) !== -1 ) {
+	    addEventListener( 'load', function () {
 	        setTimeout( hideURLbar, 0 );
 	    }, false );
 	}
