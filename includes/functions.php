@@ -1050,7 +1050,9 @@ function thaim_galerie_page_excerpt_meta_box( $post = null ) {
 		return;
 	}
 
-	wp_editor( $post->post_excerpt, 'excerpt', array(
+	$excerpt = apply_filters( 'thaim_galerie_page_excerpt_edit', html_entity_decode( $post->post_excerpt ) );
+
+	wp_editor( $excerpt, 'excerpt', array(
 		'_content_editor_dfw' => false,
 		'drag_drop_upload'    => false,
 		'editor_height'       => 150,

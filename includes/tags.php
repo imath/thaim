@@ -848,8 +848,8 @@ function thaim_embed_enqueue_script() {
 	wp_enqueue_script( 'thaim-embed', get_template_directory_uri() . "/js/embed{$min}.js", array(), thaim()->version, true );
 
 	$content = array(
-		'fr_FR' => strip_shortcodes( $post->post_content ),
-		'en_US' => strip_shortcodes( $post->post_excerpt ),
+		'fr_FR' => strip_shortcodes( wp_kses( html_entity_decode( $post->post_content ), array() ) ),
+		'en_US' => strip_shortcodes( wp_kses( html_entity_decode( $post->post_excerpt ), array() ) ),
 	);
 
 	$link_fr = str_replace( 'en-us/', '', get_permalink( $post ) );
@@ -861,11 +861,16 @@ function thaim_embed_enqueue_script() {
 		'en_US' => 'fr_FR',
 	);
 
-	$content[ $locale ] = apply_filters( 'the_excerpt_embed', wp_trim_words( $content[ $locale ], thaim_excerpt_length(), thaim_excerpt_more() ) );
+	$length = array(
+		'fr_FR' => 35,
+		'en_US' => 25,
+	);
+
+	$content[ $locale ] = apply_filters( 'the_excerpt_embed', wp_trim_words( $content[ $locale ], $length[ $locale ], thaim_excerpt_more() ) );
 
 	switch_to_locale( $switch[ $locale ] );
 
-	$content[ $switch[ $locale ] ] = apply_filters( 'the_excerpt_embed', wp_trim_words( $content[ $switch[ $locale ] ], thaim_excerpt_length(), thaim_excerpt_more() ) );
+	$content[ $switch[ $locale ] ] = apply_filters( 'the_excerpt_embed', wp_trim_words( $content[ $switch[ $locale ] ], $length[ $switch[ $locale ] ], thaim_excerpt_more() ) );
 
 	$ui_strings = array(
 		/* translators do not translate, it's already done in WordPress*/
