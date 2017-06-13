@@ -29,7 +29,7 @@ function thaim_customize_register( $wp_customize ) {
 
 	// Maintenance mode
 	$wp_customize->add_setting( 'maintenance_mode', array(
-		'default'           => 0,
+		'default'           => 1,
 		'sanitize_callback' => 'absint',
 		'transport'         => 'postMessage',
 	) );
