@@ -862,7 +862,7 @@ function thaim_embed_enqueue_script() {
 	);
 
 	$length = array(
-		'fr_FR' => 35,
+		'fr_FR' => 33,
 		'en_US' => 25,
 	);
 
