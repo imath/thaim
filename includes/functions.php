@@ -109,7 +109,7 @@ function thaim_parse_query( WP_Query $qv ) {
 		return;
 	}
 
-	if ( (int) get_query_var( 'en_us' ) === 1 && get_queried_object_id() === thaim()->galerie_page_id ) {
+	if ( (int) get_query_var( 'en_us' ) === 1 && get_queried_object_id() === thaim()->entrepot_page_id ) {
 		switch_to_locale( 'en_US' );
 	}
 }
@@ -491,7 +491,7 @@ function thaim_get_comment_template() {
 	if ( ! empty( $post->ID ) ) {
 		if ( (int) $post->ID === $thaim->contact_page_id ) {
 			$return = '/questions.php';
-		} elseif( (int) $post->ID === $thaim->galerie_page_id ) {
+		} elseif( (int) $post->ID === $thaim->entrepot_page_id ) {
 			$return = '/flag.php';
 		}
 
@@ -516,16 +516,16 @@ function thaim_preprocess_comment( $comment_data = array() ) {
 	if ( ! empty( $comment_data['comment_post_ID'] ) ) {
 		if ( (int) $comment_data['comment_post_ID'] === thaim()->contact_page_id ) {
 			$comment_data['comment_type'] = 'question';
-		} elseif ( (int) $comment_data['comment_post_ID'] === thaim()->galerie_page_id ) {
+		} elseif ( (int) $comment_data['comment_post_ID'] === thaim()->entrepot_page_id ) {
 			$comment_data['comment_type'] = 'flag';
 
-			if ( ! empty( $_REQUEST['galerie_plugin_slug'] ) ) {
+			if ( ! empty( $_REQUEST['entrepot_plugin_slug'] ) ) {
 				if ( ! isset( $comment_data['comment_meta'] ) ) {
 					$comment_data['comment_meta'] = array();
 				}
 
 				$comment_data['comment_meta'] = array_merge( $comment_data['comment_meta'], array(
-					'galerie_plugin_slug' => strip_tags( $_REQUEST['galerie_plugin_slug'] ),
+					'entrepot_plugin_slug' => strip_tags( $_REQUEST['entrepot_plugin_slug'] ),
 				) );
 			}
 		}
@@ -765,7 +765,7 @@ function comment_form_flag_fields() {
 		return;
 	}
 
-	printf( '<input type="hidden" name="galerie_plugin_slug" value="%s"></input>', esc_attr( $_REQUEST['repository'] ) );
+	printf( '<input type="hidden" name="entrepot_plugin_slug" value="%s"></input>', esc_attr( $_REQUEST['repository'] ) );
 
 }
 add_action( 'comment_form_top', 'comment_form_flag_fields' );
@@ -782,6 +782,7 @@ add_action( 'comment_form_top', 'comment_form_flag_fields' );
 function thaim_question_post_redirect( $location = '', $comment = null ) {
 	if ( ! empty( $comment->comment_type ) && ( 'question' === $comment->comment_type || 'flag' === $comment->comment_type ) ) {
 		$location = esc_url_raw( add_query_arg( 'message', $comment->comment_ID, get_permalink( $comment->comment_post_ID ) ) );
+		$location .= '#comments';
 	}
 
 	return $location;
@@ -808,7 +809,7 @@ function thaim_flag_prepend_plugin_slug( $content = '', $comment_ID = 0, $commen
 		return $content;
 	}
 
-	$plugin_slug = get_comment_meta( $comment_ID, 'galerie_plugin_slug', true );
+	$plugin_slug = get_comment_meta( $comment_ID, 'entrepot_plugin_slug', true );
 
 	if ( ! $plugin_slug ) {
 		return $content;
@@ -1003,17 +1004,17 @@ function thaim_github_release( $atts = array(), $content = '' ) {
 add_shortcode( 'github_release', 'thaim_github_release' );
 
 /**
- * Redirects the user to the Galerie latest download.
+ * Redirects the user to the Entrepôt latest download.
  *
  * This is necessary since only same domain url can be reached whithin
- * the embedded Galerie page.
+ * the embedded Entrepôt page.
  *
  * @since 2.2.0
  */
 function thaim_github_release_redirect() {
 	$post = get_post();
 
-	if ( empty( $post->ID ) || (int) $post->ID !== thaim()->galerie_page_id ) {
+	if ( empty( $post->ID ) || (int) $post->ID !== thaim()->entrepot_page_id ) {
 		return;
 	}
 
@@ -1045,12 +1046,12 @@ add_action( 'template_redirect', 'thaim_github_release_redirect', 12 );
  *
  * @param  WP_Post $post The post type object.
  */
-function thaim_galerie_page_excerpt_meta_box( $post = null ) {
+function thaim_entrepot_page_excerpt_meta_box( $post = null ) {
 	if ( ! isset( $post->post_excerpt ) ) {
 		return;
 	}
 
-	$excerpt = apply_filters( 'thaim_galerie_page_excerpt_edit', html_entity_decode( $post->post_excerpt ) );
+	$excerpt = apply_filters( 'thaim_entrepot_page_excerpt_edit', html_entity_decode( $post->post_excerpt ) );
 
 	wp_editor( $excerpt, 'excerpt', array(
 		'_content_editor_dfw' => false,
@@ -1064,21 +1065,21 @@ function thaim_galerie_page_excerpt_meta_box( $post = null ) {
 }
 
 /**
- * Register a new metabox to translate the Galerie page content.
+ * Register a new metabox to translate the Entrepôt page content.
  *
  * @since 2.2.0
  *
  * @param  string $post_type The current post type name.
  * @param  WP_Post $post     The post type object.
  */
-function thaim_galerie_page_meta_boxes( $post_type = '', $post = null ) {
-	if ( 'en_US' === get_locale() || 'page' !== $post_type || empty( $post->ID ) || (int) $post->ID !== thaim()->galerie_page_id ) {
+function thaim_entrepot_page_meta_boxes( $post_type = '', $post = null ) {
+	if ( 'en_US' === get_locale() || 'page' !== $post_type || empty( $post->ID ) || (int) $post->ID !== thaim()->entrepot_page_id ) {
 		return;
 	}
 
-	add_meta_box('pageexcerpt', __( 'American Translation', 'thaim' ), 'thaim_galerie_page_excerpt_meta_box', null, 'normal', 'high' );
+	add_meta_box('pageexcerpt', __( 'American Translation', 'thaim' ), 'thaim_entrepot_page_excerpt_meta_box', null, 'normal', 'high' );
 }
-add_action( 'add_meta_boxes', 'thaim_galerie_page_meta_boxes', 1, 2 );
+add_action( 'add_meta_boxes', 'thaim_entrepot_page_meta_boxes', 1, 2 );
 
 /**
  * Add a new rewrite tag to handle en_US tranlation.
@@ -1119,7 +1120,7 @@ add_action( 'init', 'thaim_locale_rewrite_rule' );
  * @return string             The page permalink.
  */
 function thaim_locale_page_link( $page_link = '', $page_id = 0 ) {
-	if ( empty( $page_id ) || (int) $page_id !== thaim()->galerie_page_id ) {
+	if ( empty( $page_id ) || (int) $page_id !== thaim()->entrepot_page_id ) {
 		return $page_link;
 	}
 
@@ -1140,18 +1141,18 @@ add_filter( 'page_link', 'thaim_locale_page_link', 10, 2 );
  * @param  integer $page_id The post type ID being displayed.
  * @return boolean          True to enable the comment form. False otherwise.
  */
-function thaim_galerie_is_flag_report( $open = true, $page_id = 0 ) {
+function thaim_entrepot_is_flag_report( $open = true, $page_id = 0 ) {
 	if ( false === $open ) {
 		return $open;
 	}
 
-	if ( (int) $page_id !== thaim()->galerie_page_id ) {
+	if ( (int) $page_id !== thaim()->entrepot_page_id ) {
 		return $open;
 	}
 
-	return isset( $_REQUEST['repository'] ) || isset( $_REQUEST['message'] );
+	return isset( $_REQUEST['repository'] ) || isset( $_REQUEST['message'] ) || isset( $_REQUEST['entrepot_plugin_slug'] );
 }
-add_filter( 'comments_open', 'thaim_galerie_is_flag_report', 10, 2 );
+add_filter( 'comments_open', 'thaim_entrepot_is_flag_report', 10, 2 );
 
 /**
  * Checks if switching locale is required.
@@ -1163,7 +1164,7 @@ add_filter( 'comments_open', 'thaim_galerie_is_flag_report', 10, 2 );
  * @return integer          The current post type ID being embedded.
  */
 function thaim_oembed_page_request_id( $page_id = 0, $url = '' ) {
-	if ( (int) $page_id !== thaim()->galerie_page_id ) {
+	if ( (int) $page_id !== thaim()->entrepot_page_id ) {
 		return $page_id;
 	}
 
@@ -1195,13 +1196,13 @@ function thaim_oembed_response_data( $data = array() ) {
 add_filter( 'oembed_response_data', 'thaim_oembed_response_data', 11, 1 );
 
 /**
- * Output the full content for the Galerie embed page.
+ * Output the full content for the Entrepôt embed page.
  *
  * @since 2.2.0
  *
  * @return string HTML Output.
  */
-function thaim_galerie_embed_excerpt() {
+function thaim_entrepot_embed_excerpt() {
 	return get_the_content();
 }
 

@@ -78,7 +78,7 @@ msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
 
 #: flag.php:21
-msgid "You are about to flag a plugin of the Galerie. Please explain why."
+msgid "You are about to flag a plugin of the Entrepôt. Please explain why."
 msgstr ""
 
 #: flag.php:22
@@ -134,7 +134,7 @@ msgid "Select the page to use as the contact form."
 msgstr ""
 
 #: includes/customizer.php:70
-msgid "Galerie page"
+msgid "Entrepôt page"
 msgstr ""
 
 #: includes/functions.php:164

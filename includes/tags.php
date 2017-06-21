@@ -468,23 +468,23 @@ function thaim_slider_handle() {
 }
 
 /**
- * Checks the Galerie page is set.
+ * Checks the Entrepôt page is set.
  *
  * @since 2.2.0
  */
 function thaim_has_hero_content() {
-	return is_front_page() && thaim()->galerie_page_id;
+	return is_front_page() && thaim()->entrepot_page_id;
 }
 
 /**
- * Displays the Galerie hero output.
+ * Displays the Entrepôt hero output.
  *
  * @since 2.2.0
  */
 function thaim_hero() {
 	global $post;
 
-	$post = get_post( thaim()->galerie_page_id );
+	$post = get_post( thaim()->entrepot_page_id );
 	setup_postdata( $post );
 
 	$link  = get_the_permalink();
@@ -672,7 +672,7 @@ function thaim_question_sent() {
 		$message_content = $question->comment_content;
 
 		if ( 'flag' === $question->comment_type ) {
-			$plugin_slug     = get_comment_meta( $question->comment_ID, 'galerie_plugin_slug', true );
+			$plugin_slug     = get_comment_meta( $question->comment_ID, 'entrepot_plugin_slug', true );
 			$message         = __( 'Thanks a lot for your report. Your message was sent successfully.', 'thaim' );
 			$message_content = sprintf( __( 'Flagged plugin: <strong>%s</strong>.', 'thaim' ), $plugin_slug );
 		}
@@ -836,7 +836,7 @@ function thaim_embed_enqueue_script() {
 	$post = get_post();
 	$min  = thaim_min_suffix();
 
-	if ( empty( $post->ID ) || thaim()->galerie_page_id !== (int) $post->ID ) {
+	if ( empty( $post->ID ) || thaim()->entrepot_page_id !== (int) $post->ID ) {
 		return;
 	}
 
@@ -909,7 +909,7 @@ function thaim_embed_enqueue_script() {
 	wp_localize_script( 'thaim-embed', 'l10nThaimEmbed', $l10nthaimembed );
 
 	remove_filter( 'excerpt_more', 'wp_embed_excerpt_more', 20 );
-	add_filter( 'the_excerpt_embed', 'thaim_galerie_embed_excerpt', 10, 1 );
+	add_filter( 'the_excerpt_embed', 'thaim_entrepot_embed_excerpt', 10, 1 );
 }
 add_action( 'enqueue_embed_scripts', 'thaim_embed_enqueue_script' );
 
@@ -933,7 +933,7 @@ function thaim_page_meta() {
 		'after'  => '</span>',
 	) );
 
-	if ( (int) $post->ID === thaim()->galerie_page_id ) {
+	if ( (int) $post->ID === thaim()->entrepot_page_id ) {
 		$locale = get_locale();
 		$link = get_permalink( $post );
 

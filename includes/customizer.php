@@ -59,15 +59,15 @@ function thaim_customize_register( $wp_customize ) {
 		'allow_addition'  => true,
 	) );
 
-	// Galerie Page
-	$wp_customize->add_setting( 'galerie_page', array(
+	// Entrepôt Page
+	$wp_customize->add_setting( 'entrepot_page', array(
 		'default'           => 0,
 		'sanitize_callback' => 'absint',
 		'transport'         => 'postMessage',
 	) );
 
-	$wp_customize->add_control( 'galerie_page', array(
-		'label'           => __( 'Galerie page', 'thaim' ),
+	$wp_customize->add_control( 'entrepot_page', array(
+		'label'           => __( 'Entrepôt page', 'thaim' ),
 		'section'         => 'theme_options',
 		'type'            => 'dropdown-pages',
 		'allow_addition'  => true,

@@ -18,7 +18,7 @@
 	endif; // thaim_question_sent() ?>
 
 	<?php comment_form( array(
-		'title_reply'          => __( 'You are about to flag a plugin of the Galerie. Please explain why.', 'thaim' ),
+		'title_reply'          => __( 'You are about to flag a plugin of the Entrepôt. Please explain why.', 'thaim' ),
 		'label_submit'         => __( 'Flag the plugin', 'thaim' ),
 		'comment_notes_before' => sprintf( '<p class="comment-notes">%s</p>', __( 'Please, make sure to avoid adding more than 2 links.', 'thaim' ) ),
 		'comment_field'        => sprintf( '

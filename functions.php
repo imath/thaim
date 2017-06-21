@@ -58,7 +58,7 @@ final class Thaim {
 		$this->requires_wp_upgrade = ! isset( $GLOBALS['wp_version'] ) || (float) $GLOBALS['wp_version'] < self::$required_wp_version;
 		$this->is_maintenance_mode = (bool) get_theme_mod( 'maintenance_mode', 0 );
 		$this->contact_page_id     = (int)  get_theme_mod( 'contact_page', 0 );
-		$this->galerie_page_id     = (int)  get_theme_mod( 'galerie_page', 0 );
+		$this->entrepot_page_id     = (int)  get_theme_mod( 'entrepot_page', 0 );
 
 		$this->inc_dir = trailingslashit( get_template_directory() ) . 'includes';
 	}

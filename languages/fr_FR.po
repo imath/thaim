@@ -90,9 +90,9 @@ msgstr ""
 "Afficher tous les articles de %s <span class=\"meta-nav\">&rarr;</span>"
 
 #: flag.php:21
-msgid "You are about to flag a plugin of the Galerie. Please explain why."
+msgid "You are about to flag a plugin of the Entrepôt. Please explain why."
 msgstr ""
-"Vous êtes sur le point de signaler une extension de la galerie. Merci "
+"Vous êtes sur le point de signaler une extension de la Entrepôt. Merci "
 "d'expliquer pourquoi."
 
 #: flag.php:22
@@ -149,8 +149,8 @@ msgid "Select the page to use as the contact form."
 msgstr "Choisir la page à utiliser pour le formulaire de contact"
 
 #: includes/customizer.php:70
-msgid "Galerie page"
-msgstr "Page de Galerie"
+msgid "Entrepôt page"
+msgstr "Page de Entrepôt"
 
 #: includes/functions.php:164
 msgid "Widget Area 1"
