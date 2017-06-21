@@ -295,23 +295,30 @@ endif;
  * Output the Current Screen title
  *
  * @since 2.0.0
+ * @since 2.2.0 Add the default text parameter
+ *
+ * @param string $default Default text to use.
  */
-function thaim_headline_h2() {
-	echo thaim_headline_get_h2();
+function thaim_headline_h2( $default = '' ) {
+	echo thaim_headline_get_h2( $default );
 }
 
 	/**
 	 * Get the Current Screen title
 	 *
 	 * @since 2.0.0
+	 * @since 2.2.0 Add the default text parameter
+	 *
+	 * @param  string $default Default text to use.
+	 * @return string          The Content title.
 	 */
-	function thaim_headline_get_h2() {
+	function thaim_headline_get_h2( $default = '' ) {
 		add_filter( 'document_title_parts', 'thaim_title_parts', 10, 1 );
 
 		$headline = wp_get_document_title();
 
 		if ( $headline === get_bloginfo( 'sitename' ) ) {
-			$headline = '';
+			$headline = $default;
 		}
 
 		remove_filter( 'document_title_parts', 'thaim_title_parts', 10, 1 );
@@ -401,7 +408,7 @@ function thaim_headline() {
 
 		else : ?>
 
-			<h2><?php thaim_headline_h2(); ?></h2>
+			<h2><?php thaim_headline_h2( __( 'Home', 'thaim' ) ); ?></h2>
 
 		<?php
 		endif;
@@ -767,8 +774,8 @@ function thaim_question_content() {
  *
  * @since 2.2.0
  */
-function thaim_print_download_button() {
-	$link_data = thaim_github_release( array( 'name' => 'wp-idea-stream', 'link_only' => true ) );
+function thaim_print_download_button( $name = 'entrepot' ) {
+	$link_data = thaim_github_release( array( 'name' => $name, 'link_only' => true ) );
 
 	if ( empty( $link_data['url'] ) ) {
 		return;
