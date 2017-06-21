@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: thaim 1.0-beta1\n"
 "Report-Msgid-Bugs-To: https://github.com/imath/thaim/issues\n"
 "POT-Creation-Date: 2017-06-21 20:02:07+00:00\n"
-"PO-Revision-Date: 2017-06-21 22:03+0100\n"
+"PO-Revision-Date: 2017-06-21 22:28+0100\n"
 "Last-Translator: imath <mathchristo@yahoo.fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -92,7 +92,7 @@ msgstr ""
 #: flag.php:21
 msgid "You are about to flag a plugin of the Entrepôt. Please explain why."
 msgstr ""
-"Vous êtes sur le point de signaler une extension de la Entrepôt. Merci "
+"Vous êtes sur le point de signaler une extension de l'Entrepôt. Merci "
 "d'expliquer pourquoi."
 
 #: flag.php:22
