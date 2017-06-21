@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: thaim 1.0-beta1\n"
 "Report-Msgid-Bugs-To: https://github.com/imath/thaim/issues\n"
-"POT-Creation-Date: 2017-06-12 19:15:20+00:00\n"
-"PO-Revision-Date: 2017-06-12 21:16+0100\n"
+"POT-Creation-Date: 2017-06-21 20:02:07+00:00\n"
+"PO-Revision-Date: 2017-06-21 22:03+0100\n"
 "Last-Translator: imath <mathchristo@yahoo.fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -80,7 +80,7 @@ msgid "% Replies"
 msgstr "% commentaires"
 
 #: entry-single.php:38 entry.php:45 includes/tags.php:234
-#: includes/tags.php:932
+#: includes/tags.php:939
 msgid "Edit"
 msgstr "Modifier"
 
@@ -221,23 +221,23 @@ msgstr "Réponse à votre message"
 msgid "The reply couldnot be sent"
 msgstr "Votre réponse n&#39;a pu être envoyée."
 
-#: includes/functions.php:936
+#: includes/functions.php:937
 msgid "<p class=\"description\">Number of downloads: %d</p>"
 msgstr "<p class=\"description\">Nombre de téléchargements: %d</p>"
 
-#: includes/functions.php:939
+#: includes/functions.php:940
 msgid "View on Github"
 msgstr "Voir sur Github"
 
-#: includes/functions.php:941
+#: includes/functions.php:942
 msgid "Download"
 msgstr "Télécharger"
 
-#: includes/functions.php:943
+#: includes/functions.php:944
 msgid "Download tag %s"
 msgstr "Télécharger la version %s"
 
-#: includes/functions.php:1079
+#: includes/functions.php:1080
 msgid "American Translation"
 msgstr "Traduction américaine"
 
@@ -318,52 +318,56 @@ msgid "This entry was posted on %3$s<span class=\"by-author\"> by %4$s</span>."
 msgstr ""
 "Cet article a été posté le %3$s<span class=\"by-author\"> par %4$s</span>."
 
-#: includes/tags.php:392
+#: includes/tags.php:399
 msgid "%s Search Results for "
 msgstr "%s résultats pour la recherche"
 
-#: includes/tags.php:450
+#: includes/tags.php:411
+msgid "Home"
+msgstr "Accueil"
+
+#: includes/tags.php:457
 msgid "Read more about %s"
 msgstr "En savoir plus sur %s"
 
 #. translators: %s: Name of current post
-#: includes/tags.php:497
+#: includes/tags.php:504
 msgid "Continue reading %s"
 msgstr "Poursuivre la lecture %s"
 
-#: includes/tags.php:500
+#: includes/tags.php:507
 msgid "Discover %s &rarr;"
 msgstr "Découvrir %s &rarr;"
 
-#: includes/tags.php:517
+#: includes/tags.php:524
 msgid "Discover %s"
 msgstr "Découvrir %s"
 
-#: includes/tags.php:562
+#: includes/tags.php:569
 msgid "Share"
 msgstr "Partager"
 
-#: includes/tags.php:567
+#: includes/tags.php:574
 msgid "buy me a coffee ;)"
 msgstr "Acheter moi un café ;)"
 
-#: includes/tags.php:567
+#: includes/tags.php:574
 msgid "Support"
 msgstr "Supporter"
 
-#: includes/tags.php:581
+#: includes/tags.php:588
 msgid "blog"
 msgstr "blog"
 
-#: includes/tags.php:590
+#: includes/tags.php:597
 msgid "comment"
 msgstr "commentaire"
 
-#: includes/tags.php:593
+#: includes/tags.php:600
 msgid "Subscribe to %s feed"
 msgstr "S&rsquo;abonner au flux %s"
 
-#: includes/tags.php:671
+#: includes/tags.php:678
 msgid ""
 "Thanks a lot for your feedback. Your message was sent successfully. We will "
 "reply to it asap."
@@ -371,68 +375,68 @@ msgstr ""
 "Merci beaucoup pour votre message. Il a bien été envoyé. J&#39;y répondrai "
 "aussi vite que je peux."
 
-#: includes/tags.php:676
+#: includes/tags.php:683
 msgid "Thanks a lot for your report. Your message was sent successfully."
 msgstr "Merci beaucoup pour votre signalement. Il a bien été transmis."
 
-#: includes/tags.php:677
+#: includes/tags.php:684
 msgid "Flagged plugin: <strong>%s</strong>."
 msgstr "Extension signalée <strong>%s</strong>."
 
-#: includes/tags.php:688
+#: includes/tags.php:695
 msgid "Ouch. There was a problem sending the message. Please try again."
 msgstr ""
 "Ouch. Une erreur s&#39;est produite pendant l'envoi de votre message. "
 "Veuillez recommencer."
 
-#: includes/tags.php:690
+#: includes/tags.php:697
 msgid "Ouch. There was a problem reporting the plugin. Please try again."
 msgstr ""
 "Ouch. Une erreur s'est produite pendant le signalement de l'extension. "
 "Veuillez recommencer."
 
-#: includes/tags.php:740
+#: includes/tags.php:747
 msgid "Email used:"
 msgstr "Email utilisé :"
 
-#: includes/tags.php:785
+#: includes/tags.php:792
 msgid "%s <span class=\"screen-reader-text\">Download</span>"
 msgid_plural "%s <span class=\"screen-reader-text\">Downloads</span>"
 msgstr[0] "%s <span class=\"screen-reader-text\"> Téléchargement</span>"
 msgstr[1] "%s <span class=\"screen-reader-text\"> Téléchargements</span>"
 
 #. translators: do not translate, it's already done in WordPress
-#: includes/tags.php:877
+#: includes/tags.php:884
 msgid "Open sharing dialog"
 msgstr ""
 
 #. translators: do not translate, it's already done in WordPress
-#: includes/tags.php:879
+#: includes/tags.php:886
 msgid "Sharing options"
 msgstr ""
 
 #. translators: do not translate, it's already done in WordPress
-#: includes/tags.php:881
+#: includes/tags.php:888
 msgid "WordPress Embed"
 msgstr ""
 
 #. translators: do not translate, it's already done in WordPress
-#: includes/tags.php:883
+#: includes/tags.php:890
 msgid "HTML Embed"
 msgstr ""
 
 #. translators: do not translate, it's already done in WordPress
-#: includes/tags.php:885
+#: includes/tags.php:892
 msgid "Copy and paste this URL into your WordPress site to embed"
 msgstr ""
 
 #. translators: do not translate, it's already done in WordPress
-#: includes/tags.php:887
+#: includes/tags.php:894
 msgid "Copy and paste this code into your site to embed"
 msgstr ""
 
 #. translators: do not translate, it's already done in WordPress
-#: includes/tags.php:889
+#: includes/tags.php:896
 msgid "Close sharing dialog"
 msgstr ""
 
