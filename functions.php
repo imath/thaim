@@ -49,7 +49,7 @@ final class Thaim {
 	 * Sets some globals for the theme
 	 */
 	private function setup_globals() {
-		$this->version = '2.2.0';
+		$this->version = '2.2.1';
 
 		if ( empty( $GLOBALS['content_width'] ) ) {
 		    $GLOBALS['content_width'] = 600;

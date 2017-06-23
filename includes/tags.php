@@ -849,7 +849,7 @@ function thaim_embed_enqueue_script() {
 
 	remove_action( 'embed_content_meta', 'print_embed_comments_button' );
 	add_action( 'embed_content_meta', 'thaim_print_translate_button', 1 );
-	add_action( 'embed_content_meta', 'thaim_print_download_button',  3 );
+	add_action( 'embed_content_meta', 'thaim_print_download_button',  3, 0 );
 
 	wp_enqueue_style ( 'thaim-embed', get_template_directory_uri() . "/css/embed{$min}.css", thaim()->version, 'all' );
 	wp_enqueue_script( 'thaim-embed', get_template_directory_uri() . "/js/embed{$min}.js", array(), thaim()->version, true );
