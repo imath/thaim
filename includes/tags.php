@@ -932,13 +932,17 @@ function thaim_page_meta() {
 		return;
 	}
 
-	$metas = array( array(
-		'before' => '<span class="edit-link">',
-		'class'  => 'post-edit-link',
-		'url'    => get_edit_post_link( $post->ID ),
-		'text'   => esc_html__( 'Edit', 'thaim' ),
-		'after'  => '</span>',
-	) );
+	$metas = array();
+
+	if ( current_user_can( 'edit_post', $post->ID ) ) {
+		$metas[] = array(
+			'before' => '<span class="edit-link">',
+			'class'  => 'post-edit-link',
+			'url'    => get_edit_post_link( $post->ID ),
+			'text'   => esc_html__( 'Edit', 'thaim' ),
+			'after'  => '</span>',
+		);
+	}
 
 	if ( (int) $post->ID === thaim()->entrepot_page_id ) {
 		$locale = get_locale();
