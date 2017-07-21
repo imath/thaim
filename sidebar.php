@@ -5,6 +5,9 @@
  * @package thaim
  * @since 1.0.0
  */
+if ( ! is_active_sidebar( 'widget-area-1' ) ) {
+	return;
+}
 ?>
 
 <!-- Sidebar -->
@@ -14,10 +17,6 @@
 
 	<div class="sidebar-widget">
 		<?php if ( ! function_exists( 'dynamic_sidebar' ) || ! dynamic_sidebar( 'widget-area-1' ) ) ;?>
-	</div>
-
-	<div class="sidebar-widget">
-		<?php if ( ! function_exists( 'dynamic_sidebar' ) || ! dynamic_sidebar( 'widget-area-2' ) ) ;?>
 	</div>
 
 	<?php do_action( 'thaim_after_sidebar_widgets' ) ;?>

@@ -20,14 +20,20 @@
 			<div class="row">
 
 				<div class="fourcol">
+					<?php do_action( 'thaim_before_footer_widgets_1' ) ;?>
+
 					<?php if ( ! function_exists( 'dynamic_sidebar' ) || ! dynamic_sidebar( 'footer-area-1' ) ) ?>
 				</div>
 
 				<div class="fourcol">
+					<?php do_action( 'thaim_before_footer_widgets_2' ) ;?>
+
 					<?php if ( ! function_exists( 'dynamic_sidebar' ) || ! dynamic_sidebar( 'footer-area-2' ) ) ?>
 				</div>
 
 				<div class="fourcol last">
+					<?php do_action( 'thaim_before_footer_widgets_3' ) ;?>
+
 					<?php if ( ! function_exists( 'dynamic_sidebar' ) || ! dynamic_sidebar( 'footer-area-3' ) ) ?>
 				</div>
 

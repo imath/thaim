@@ -606,7 +606,7 @@ function thaim_add_feed_link() {
 	</div>
 	<?php
 }
-add_action( 'thaim_before_sidebar_widgets', 'thaim_add_feed_link' );
+add_action( 'thaim_before_footer_widgets_1', 'thaim_add_feed_link' );
 
 /**
  * Add Twitter cards to single posts/pages

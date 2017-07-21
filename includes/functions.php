@@ -170,17 +170,6 @@ function thaim_widgets_init() {
 		'after_title'   => '</h3>'
 	) );
 
-	// Define Sidebar Widget Area 2
-	register_sidebar( array(
-		'name'          => __( 'Widget Area 2', 'thaim' ),
-		'description'   => __( 'Bottom sidebar area', 'thaim' ),
-		'id'            => 'widget-area-2',
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</div>',
-		'before_title'  => '<h3 class="widget-title">',
-		'after_title'   => '</h3>'
-	) );
-
 	// Define Custom Home page widget
 	register_sidebar( array(
 		'name'          => __( 'Home Page Widget', 'thaim' ),
@@ -398,23 +387,26 @@ remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );
 
 // Add page slug to body class, love this - Credit: Starkers Wordpress Theme
 function thaim_body_class( $classes ) {
-    global $post;
-    if ( is_home() ) {
-        $key = array_search( 'blog', $classes );
-        if ( $key > -1) {
-            unset($classes[$key]);
-        }
-    } elseif ( is_page() ) {
-        $classes[] = sanitize_html_class( $post->post_name );
-    } elseif ( is_singular() ) {
-        $classes[] = sanitize_html_class( $post->post_name );
-    }
+	global $post;
 
-    if ( has_custom_logo() ) {
-    	$classes[] = 'custom-logo';
-    }
+	if ( is_home() ) {
+		$key = array_search( 'blog', $classes );
+		if ( $key > -1) {
+			unset( $classes[$key] );
+		}
+	} elseif ( is_page() || is_singular() ) {
+		$classes[] = sanitize_html_class( $post->post_name );
+	}
 
-    return $classes;
+	if ( ! is_active_sidebar( 'widget-area-1' ) ) {
+		$classes[] = 'no-sidebar';
+	}
+
+	if ( has_custom_logo() ) {
+		$classes[] = 'custom-logo';
+	}
+
+	return $classes;
 }
 add_filter( 'body_class', 'thaim_body_class' );
 
