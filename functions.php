@@ -49,7 +49,7 @@ final class Thaim {
 	 * Sets some globals for the theme
 	 */
 	private function setup_globals() {
-		$this->version = '2.2.1';
+		$this->version = '2.2.2';
 
 		if ( empty( $GLOBALS['content_width'] ) ) {
 		    $GLOBALS['content_width'] = 600;
@@ -120,8 +120,11 @@ final class Thaim {
 		// Add Menu Support
 		add_theme_support( 'menus' );
 
-		// Header menu
-		register_nav_menu( 'header-menu', __( 'Header Menu', 'thaim' ) );
+		// Menus
+		register_nav_menus( array(
+			'header-menu' => __( 'Header Menu', 'thaim' ),
+			'home-menu'   => __( 'Home Menu', 'thaim' ),
+		) );
 
 		// Load Custom styles inside the wp editor
 		add_editor_style( array( sprintf( 'css/editor-style%s.css', thaim_min_suffix() ), thaim_get_font_url() ) );

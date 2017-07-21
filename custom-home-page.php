@@ -22,7 +22,15 @@ get_header(); ?>
 
 				<?php the_content(); ?>
 
-				<?php if ( ! function_exists( 'dynamic_sidebar' ) || ! dynamic_sidebar( 'home-widgets' ) ); ?>
+				<?php if ( is_active_sidebar( 'home-widgets' ) ) :
+
+					dynamic_sidebar( 'home-widgets' );
+
+					else :
+
+					thaim_home_nav();
+
+				endif; ?>
 
 			</div>
 

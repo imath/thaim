@@ -69,6 +69,26 @@ function thaim_nav() {
 	) );
 }
 
+function thaim_home_nav() {
+	$menu = wp_nav_menu( array(
+		'theme_location'  => 'home-menu',
+		'menu'            => '',
+		'echo'            => false,
+		'fallback_cb'     => '',
+		'before'          => '<div class="logo">{home-dashicon}</div><h3>',
+		'after'           => '</h3><p>{home-description}</p>',
+		'link_before'     => '',
+		'link_after'      => '',
+		'items_wrap'      => '<ul>%3$s</ul>',
+		'depth'           => 0,
+		'walker'          => '',
+	) );
+
+	if ( $menu ) {
+		printf( '<div class="home-contribs eightcol">%s</div>', $menu );
+	}
+}
+
 if ( ! function_exists( 'thaim_post_thumbnail' ) ) :
 /**
  * Displays an optional post thumbnail.

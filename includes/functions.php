@@ -1224,3 +1224,22 @@ function thaim_get_static_country_flag( $locale = '' ) {
 
 	return $return;
 }
+
+function thaim_nav_menu_walker_el( $output = '', $item = null, $depth = 0, $args = null ) {
+	if ( ! isset( $args->theme_location ) || 'home-menu' !== $args->theme_location ) {
+		return $output;
+	}
+
+	$output = str_replace( '{home-description}', wp_kses_post( $item->description ), $output );
+
+	if ( isset( $item->attr_title ) ) {
+		if ( false !== strpos( $item->attr_title, 'dashicons') ) {
+			$output = str_replace( $item->attr_title, esc_attr( $item->title ), $output );
+		}
+
+		$output = str_replace( '{home-dashicon}', sprintf( '<div class="dashicons %s"></div>', $item->attr_title ), $output );
+	}
+
+	return $output;
+}
+add_filter( 'walker_nav_menu_start_el', 'thaim_nav_menu_walker_el', 10, 4 );

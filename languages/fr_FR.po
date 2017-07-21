@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: thaim 1.0-beta1\n"
 "Report-Msgid-Bugs-To: https://github.com/imath/thaim/issues\n"
-"POT-Creation-Date: 2017-06-21 20:02:07+00:00\n"
-"PO-Revision-Date: 2017-06-21 22:28+0100\n"
+"POT-Creation-Date: 2017-07-21 21:40:27+00:00\n"
+"PO-Revision-Date: 2017-07-21 23:42+0100\n"
 "Last-Translator: imath <mathchristo@yahoo.fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -47,11 +47,11 @@ msgstr ""
 msgid "Comments are closed."
 msgstr "Les commentaires sont fermés."
 
-#: email.php:120 includes/functions.php:609
+#: email.php:120 includes/functions.php:601
 msgid "Your message:"
 msgstr "Votre message :"
 
-#: email.php:131 includes/functions.php:609
+#: email.php:131 includes/functions.php:601
 msgid "My reply:"
 msgstr "Ma réponse :"
 
@@ -79,8 +79,8 @@ msgstr "1 commentaire"
 msgid "% Replies"
 msgstr "% commentaires"
 
-#: entry-single.php:38 entry.php:45 includes/tags.php:234
-#: includes/tags.php:939
+#: entry-single.php:38 entry.php:45 includes/tags.php:254
+#: includes/tags.php:962
 msgid "Edit"
 msgstr "Modifier"
 
@@ -108,15 +108,19 @@ msgstr ""
 msgid "Description of the issue"
 msgstr "Description de l'anomalie"
 
-#: footer.php:39
+#: footer.php:45
 msgid "Proudly Powered by"
 msgstr "Fièrement propulsé par"
 
-#: functions.php:124
+#: functions.php:125
 msgid "Header Menu"
 msgstr "Menu d&rsquo;entête"
 
-#: functions.php:143 includes/maintenance.php:83
+#: functions.php:126
+msgid "Home Menu"
+msgstr "Menu Accueil"
+
+#: functions.php:146 includes/maintenance.php:85
 msgid "Thaim requires WordPress %s, please upgrade."
 msgstr "Thaim nécessite la version %s de WordPress, merci de mettre à jour."
 
@@ -161,83 +165,75 @@ msgid "Top sidebar area"
 msgstr "Zone haute de la barre latérale"
 
 #: includes/functions.php:175
-msgid "Widget Area 2"
-msgstr "Zone de widgets 2"
-
-#: includes/functions.php:176
-msgid "Bottom sidebar area"
-msgstr "Zone basse de la barre latérale"
-
-#: includes/functions.php:186
 msgid "Home Page Widget"
 msgstr "Widgets de Page d&#39;accueil"
 
-#: includes/functions.php:187
+#: includes/functions.php:176
 msgid "Widgetable area of the custom-home-page template."
 msgstr "Zone widgetisable du modèle custom-home-page"
 
-#: includes/functions.php:197
+#: includes/functions.php:186
 msgid "Footer Area 1"
 msgstr "Zone 1 du pied de page"
 
-#: includes/functions.php:198
+#: includes/functions.php:187
 msgid "Left footer area"
 msgstr "Zone de gauche du pied de page"
 
-#: includes/functions.php:207
+#: includes/functions.php:196
 msgid "Footer Area 2"
 msgstr "Zone 2 du pied de page"
 
-#: includes/functions.php:208
+#: includes/functions.php:197
 msgid "Middle footer area"
 msgstr "Zone centrale du pied de page"
 
-#: includes/functions.php:217
+#: includes/functions.php:206
 msgid "Footer Area 3"
 msgstr "Zone 3 du pied de page"
 
-#: includes/functions.php:218
+#: includes/functions.php:207
 msgid "Right footer area"
 msgstr "Zone de droite du pied de page"
 
 #. translators: %s: Name of current post
-#: includes/functions.php:272
+#: includes/functions.php:261
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "Poursuivre la lecture<span class=\"screen-reader-text\"> \"%s\"</span>"
 
-#: includes/functions.php:549
+#: includes/functions.php:541
 msgid "Questions"
 msgstr "Questions"
 
-#: includes/functions.php:550
+#: includes/functions.php:542
 msgid "Alert report"
 msgstr "rapport d'alerte"
 
-#: includes/functions.php:583
+#: includes/functions.php:575
 msgid "Reply to your message"
 msgstr "Réponse à votre message"
 
-#: includes/functions.php:678
+#: includes/functions.php:670
 msgid "The reply couldnot be sent"
 msgstr "Votre réponse n&#39;a pu être envoyée."
 
-#: includes/functions.php:937
+#: includes/functions.php:929
 msgid "<p class=\"description\">Number of downloads: %d</p>"
 msgstr "<p class=\"description\">Nombre de téléchargements: %d</p>"
 
-#: includes/functions.php:940
+#: includes/functions.php:932
 msgid "View on Github"
 msgstr "Voir sur Github"
 
-#: includes/functions.php:942
+#: includes/functions.php:934
 msgid "Download"
 msgstr "Télécharger"
 
-#: includes/functions.php:944
+#: includes/functions.php:936
 msgid "Download tag %s"
 msgstr "Télécharger la version %s"
 
-#: includes/functions.php:1080
+#: includes/functions.php:1072
 msgid "American Translation"
 msgstr "Traduction américaine"
 
@@ -245,59 +241,59 @@ msgstr "Traduction américaine"
 msgid "will be up and running soon !"
 msgstr "sera prochainement disponible !"
 
-#: includes/maintenance.php:70
+#: includes/maintenance.php:72
 msgid "Under maintenance"
 msgstr "En cours de maintenance"
 
-#: includes/tags.php:154
+#: includes/tags.php:174
 msgid "View Article"
 msgstr "Lire l&rsquo;article"
 
-#: includes/tags.php:175
+#: includes/tags.php:195
 msgid "Jump to the top of the page"
 msgstr "Revenir en haut de la page"
 
-#: includes/tags.php:175
+#: includes/tags.php:195
 msgid "Back to top"
 msgstr "Haut de page"
 
-#: includes/tags.php:202
+#: includes/tags.php:222
 msgid "Pingback:"
 msgstr "Pingback:"
 
-#: includes/tags.php:202
+#: includes/tags.php:222
 msgid "(Edit)"
 msgstr "(Modifier)"
 
-#: includes/tags.php:217
+#: includes/tags.php:237
 msgid "Post author"
 msgstr "Auteur"
 
 #. translators: 1: date, 2: time
-#: includes/tags.php:223
+#: includes/tags.php:243
 msgid "%1$s at %2$s"
 msgstr "%1$s à %2$s"
 
-#: includes/tags.php:229
+#: includes/tags.php:249
 msgid "Your comment is awaiting moderation."
 msgstr "Votre commentaire est en attente de modération"
 
-#: includes/tags.php:238
+#: includes/tags.php:258
 msgid "Reply"
 msgstr "Répondre"
 
 #. Translators: used between list items, there is a space after the comma.
-#: includes/tags.php:257 includes/tags.php:260
+#: includes/tags.php:277 includes/tags.php:280
 msgid ", "
 msgstr ", "
 
-#: includes/tags.php:271
+#: includes/tags.php:291
 msgid "View all posts by %s"
 msgstr "Voir tous les articles de %s"
 
 #. Translators: 1 is category, 2 is tag, 3 is the date and 4 is the author's
 #. name.
-#: includes/tags.php:277
+#: includes/tags.php:297
 msgid ""
 "This entry was posted in %1$s and tagged %2$s on %3$s<span class=\"by-author"
 "\"> by %4$s</span>."
@@ -305,7 +301,7 @@ msgstr ""
 "Cet article a été posté dans %1$s et marqué %2$s le %3$s<span class=\"by-"
 "author\"> par %4$s</span>."
 
-#: includes/tags.php:279
+#: includes/tags.php:299
 msgid ""
 "This entry was posted in %1$s on %3$s<span class=\"by-author\"> by %4$s</"
 "span>."
@@ -313,61 +309,61 @@ msgstr ""
 "Cet article a été posté dans %1$s le %3$s<span class=\"by-author\"> par "
 "%4$s</span>."
 
-#: includes/tags.php:281
+#: includes/tags.php:301
 msgid "This entry was posted on %3$s<span class=\"by-author\"> by %4$s</span>."
 msgstr ""
 "Cet article a été posté le %3$s<span class=\"by-author\"> par %4$s</span>."
 
-#: includes/tags.php:399
+#: includes/tags.php:419
 msgid "%s Search Results for "
 msgstr "%s résultats pour la recherche"
 
-#: includes/tags.php:411
+#: includes/tags.php:431
 msgid "Home"
 msgstr "Accueil"
 
-#: includes/tags.php:457
+#: includes/tags.php:477
 msgid "Read more about %s"
 msgstr "En savoir plus sur %s"
 
 #. translators: %s: Name of current post
-#: includes/tags.php:504
+#: includes/tags.php:524
 msgid "Continue reading %s"
 msgstr "Poursuivre la lecture %s"
 
-#: includes/tags.php:507
+#: includes/tags.php:527
 msgid "Discover %s &rarr;"
 msgstr "Découvrir %s &rarr;"
 
-#: includes/tags.php:524
+#: includes/tags.php:544
 msgid "Discover %s"
 msgstr "Découvrir %s"
 
-#: includes/tags.php:569
+#: includes/tags.php:589
 msgid "Share"
 msgstr "Partager"
 
-#: includes/tags.php:574
+#: includes/tags.php:594
 msgid "buy me a coffee ;)"
 msgstr "Acheter moi un café ;)"
 
-#: includes/tags.php:574
+#: includes/tags.php:594
 msgid "Support"
 msgstr "Supporter"
 
-#: includes/tags.php:588
+#: includes/tags.php:608
 msgid "blog"
 msgstr "blog"
 
-#: includes/tags.php:597
+#: includes/tags.php:617
 msgid "comment"
 msgstr "commentaire"
 
-#: includes/tags.php:600
+#: includes/tags.php:620
 msgid "Subscribe to %s feed"
 msgstr "S&rsquo;abonner au flux %s"
 
-#: includes/tags.php:678
+#: includes/tags.php:698
 msgid ""
 "Thanks a lot for your feedback. Your message was sent successfully. We will "
 "reply to it asap."
@@ -375,68 +371,68 @@ msgstr ""
 "Merci beaucoup pour votre message. Il a bien été envoyé. J&#39;y répondrai "
 "aussi vite que je peux."
 
-#: includes/tags.php:683
+#: includes/tags.php:703
 msgid "Thanks a lot for your report. Your message was sent successfully."
 msgstr "Merci beaucoup pour votre signalement. Il a bien été transmis."
 
-#: includes/tags.php:684
+#: includes/tags.php:704
 msgid "Flagged plugin: <strong>%s</strong>."
 msgstr "Extension signalée <strong>%s</strong>."
 
-#: includes/tags.php:695
+#: includes/tags.php:715
 msgid "Ouch. There was a problem sending the message. Please try again."
 msgstr ""
 "Ouch. Une erreur s&#39;est produite pendant l'envoi de votre message. "
 "Veuillez recommencer."
 
-#: includes/tags.php:697
+#: includes/tags.php:717
 msgid "Ouch. There was a problem reporting the plugin. Please try again."
 msgstr ""
 "Ouch. Une erreur s'est produite pendant le signalement de l'extension. "
 "Veuillez recommencer."
 
-#: includes/tags.php:747
+#: includes/tags.php:767
 msgid "Email used:"
 msgstr "Email utilisé :"
 
-#: includes/tags.php:792
+#: includes/tags.php:812
 msgid "%s <span class=\"screen-reader-text\">Download</span>"
 msgid_plural "%s <span class=\"screen-reader-text\">Downloads</span>"
 msgstr[0] "%s <span class=\"screen-reader-text\"> Téléchargement</span>"
 msgstr[1] "%s <span class=\"screen-reader-text\"> Téléchargements</span>"
 
 #. translators: do not translate, it's already done in WordPress
-#: includes/tags.php:884
+#: includes/tags.php:904
 msgid "Open sharing dialog"
 msgstr ""
 
 #. translators: do not translate, it's already done in WordPress
-#: includes/tags.php:886
+#: includes/tags.php:906
 msgid "Sharing options"
 msgstr ""
 
 #. translators: do not translate, it's already done in WordPress
-#: includes/tags.php:888
+#: includes/tags.php:908
 msgid "WordPress Embed"
 msgstr ""
 
 #. translators: do not translate, it's already done in WordPress
-#: includes/tags.php:890
+#: includes/tags.php:910
 msgid "HTML Embed"
 msgstr ""
 
 #. translators: do not translate, it's already done in WordPress
-#: includes/tags.php:892
+#: includes/tags.php:912
 msgid "Copy and paste this URL into your WordPress site to embed"
 msgstr ""
 
 #. translators: do not translate, it's already done in WordPress
-#: includes/tags.php:894
+#: includes/tags.php:914
 msgid "Copy and paste this code into your site to embed"
 msgstr ""
 
 #. translators: do not translate, it's already done in WordPress
-#: includes/tags.php:896
+#: includes/tags.php:916
 msgid "Close sharing dialog"
 msgstr ""
 
@@ -593,3 +589,9 @@ msgid "Migrate imagesliders meta to post thumbnails - %d item(s) to upgrade"
 msgstr ""
 "Migration des métas imagesliders pour des vignettes d'articles - %d item(s) "
 "à mettre à jour"
+
+#~ msgid "Widget Area 2"
+#~ msgstr "Zone de widgets 2"
+
+#~ msgid "Bottom sidebar area"
+#~ msgstr "Zone basse de la barre latérale"

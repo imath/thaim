@@ -648,6 +648,36 @@ h3.rss-feed:before {
 	text-decoration: none;
 }
 
+body.home .home-contribs {
+	overflow: hidden;
+	margin-left: auto;
+	margin-right: auto;
+	float: inherit;
+}
+
+body.home .home-contribs li {
+	text-align: center;
+	list-style: none;
+	padding-bottom: 1em;
+	margin-bottom: 1em;
+}
+
+body.home .home-contribs li a {
+	text-decoration: none;
+	border-bottom: solid 1px #d54e21;
+}
+
+body.home .home-contribs .logo {
+	line-height: 3em;
+}
+
+body.home .home-contribs .logo .dashicons {
+	font-size: 6em;
+	width: auto;
+	height: auto;
+	color: #23282d;
+}
+
 /* Shared Post Format styling */
 article.format-quote footer.entry-meta,
 article.format-link footer.entry-meta,
@@ -1986,6 +2016,11 @@ div.action-links,
 	body.no-sidebar:not(.home) #thaim-headline .wrapper h2 {
 		margin: 1em auto;
 		width: 65.4%;
+	}
+
+	body.home .home-contribs li:nth-child(n+3) {
+		border-top: dotted 1px #ddd;
+		padding-top: 2em;
 	}
 }
 
