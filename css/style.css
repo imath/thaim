@@ -1886,6 +1886,15 @@ div.action-links,
 	margin: 0 20px 20px 0;
 }
 
+body:not(.wp-admin) .wp-block-gutenblocks-photo img {
+	box-shadow: none;
+	border: none;
+}
+
+body:not(.wp-admin) .wp-block-gutenblocks-photo {
+	margin: 1.8em 0;
+}
+
 /* =============================================================================
    Media Queries
    ========================================================================== */
