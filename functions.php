@@ -49,7 +49,7 @@ final class Thaim {
 	 * Sets some globals for the theme
 	 */
 	private function setup_globals() {
-		$this->version = '2.2.3';
+		$this->version = '2.2.4';
 
 		if ( empty( $GLOBALS['content_width'] ) ) {
 		    $GLOBALS['content_width'] = 600;
@@ -131,9 +131,6 @@ final class Thaim {
 
 		// Specific shortcode for Action buttons
 		add_shortcode( 'thaim_button', 'thaim_button_shortcode_handler' );
-
-		// Gist Support
-		wp_embed_register_handler( 'thaim_gist', '#(https://gist.github.com/imath/([a-zA-Z0-9]+)?)(\#file(\-|_)(.+))?$#i', 'thaim_gist_handler' );
 	}
 
 	public function warning() {

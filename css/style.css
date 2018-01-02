@@ -1819,71 +1819,9 @@ a.backtotop:hover {
 	line-height: 1.714285714;
 }
 
-.plugin-card {
-	margin: 0 auto;
-	width: 100%;
-	background-color: #fff;
-	border: 1px solid #ddd;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-.plugin-card-top {
-	position: relative;
-	padding: 20px 20px 10px;
-	min-height: 135px;
-}
-
 div.action-links,
 .plugin-action-buttons {
 	margin: 0; /* Override existing margins */
-}
-
-.plugin-card h3 {
-	margin: 0 0 12px;
-	font-size: 18px;
-	line-height: 1.3;
-}
-
-.plugin-card h3 a {
-	text-decoration: none;
-	border:none;
-}
-
-.plugin-card button.submit:hover {
-	background: #23282d;
-	color: #d54e21;
-}
-
-.plugin-card button.submit a {
-	color: #fff;
-	text-decoration: none;
-}
-
-.plugin-card button.submit a:hover {
-	color: #d54e21;
-	text-decoration: none;
-}
-
-.plugin-card p.description {
-	font-size: 13px;
-	line-height: 1.5;
-	margin: 1em 0;
-}
-
-.plugin-card .download {
-	clear: both;
-	text-align: center;
-}
-
-.plugin-icon {
-	float:left;
-	top: 20px;
-	left: 20px;
-	width: 128px;
-	height: 128px;
-	margin: 0 20px 20px 0;
 }
 
 body:not(.wp-admin) .wp-block-gutenblocks-photo img {
@@ -1893,6 +1831,18 @@ body:not(.wp-admin) .wp-block-gutenblocks-photo img {
 
 body:not(.wp-admin) .wp-block-gutenblocks-photo {
 	margin: 1.8em 0;
+}
+
+.plugin-card .download button.button.gh-download-button {
+	background-color: #23282d;
+	border-color: #23282d;
+	color: #fff;
+}
+
+.plugin-card .download button.button.gh-download-button:hover {
+	background-color: #d54e21;
+	border-color: #23282d;
+	color: #fff;
 }
 
 /* =============================================================================

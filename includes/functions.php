@@ -938,7 +938,7 @@ function thaim_github_release( $atts = array(), $content = '' ) {
 
 	$thumbnail = '<span class="custom-dashicons custom-dashicons-github"></span>';
 	if ( ! empty( $a['logo'] ) ) {
-		$thumbnail = sprintf( '<img class="plugin-icon" src="%s">', esc_url( $a['logo'] ) );
+		$thumbnail = sprintf( '<img class="release-icon" src="%s">', esc_url( $a['logo'] ) );
 	}
 
 	if ( ! empty( $content ) ) {
@@ -977,7 +977,7 @@ function thaim_github_release( $atts = array(), $content = '' ) {
 					<p class="description"><a href="%5$s" target="_blank">%6$s</a></p>
 				</div>
 				<div class="download">
-					<button class="button submit">
+					<button class="button submit gh-download-button">
 						<span class="dashicons dashicons-download"></span>
 						<a href="%1$s">%7$s</a>
 					</button>
